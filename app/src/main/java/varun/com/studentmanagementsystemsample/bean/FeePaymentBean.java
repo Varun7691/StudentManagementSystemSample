@@ -4,16 +4,25 @@ package varun.com.studentmanagementsystemsample.bean;
  * Created by Varun on 4/2/2016.
  */
 public class FeePaymentBean {
-    private String component, amount, date;
+    private String component, amount, date, feesDue;
 
-    public FeePaymentBean(String component, String amount, String date) {
+    public FeePaymentBean(String component, String amount, String date, String feesDue) {
         this.component = component;
         this.amount = amount;
         this.date = date;
+        this.feesDue = feesDue;
     }
 
     public String getComponent() {
         return component;
+    }
+
+    public String getFeesDue() {
+        return feesDue;
+    }
+
+    public void setFeesDue(String feesDue) {
+        this.feesDue = feesDue;
     }
 
     public void setComponent(String component) {

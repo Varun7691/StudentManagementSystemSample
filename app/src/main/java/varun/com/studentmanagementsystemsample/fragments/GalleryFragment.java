@@ -31,24 +31,24 @@ public class GalleryFragment extends Fragment {
         galleryRecyclerView = (RecyclerView) rootView.findViewById(R.id.rvGallery);
 
         list = new ArrayList<>();
-        list.add(new GalleryBean(R.drawable.student_1));
-        list.add(new GalleryBean(R.drawable.student_2));
-        list.add(new GalleryBean(R.drawable.student_3));
-        list.add(new GalleryBean(R.drawable.student_4));
-        list.add(new GalleryBean(R.drawable.student_5));
-        list.add(new GalleryBean(R.drawable.student_6));
-        list.add(new GalleryBean(R.drawable.student_1));
-        list.add(new GalleryBean(R.drawable.student_2));
-        list.add(new GalleryBean(R.drawable.student_3));
-        list.add(new GalleryBean(R.drawable.student_4));
-        list.add(new GalleryBean(R.drawable.student_5));
-        list.add(new GalleryBean(R.drawable.student_6));
-        list.add(new GalleryBean(R.drawable.student_1));
-        list.add(new GalleryBean(R.drawable.student_2));
-        list.add(new GalleryBean(R.drawable.student_3));
-        list.add(new GalleryBean(R.drawable.student_4));
-        list.add(new GalleryBean(R.drawable.student_5));
-        list.add(new GalleryBean(R.drawable.student_6));
+        list.add(new GalleryBean(R.drawable.student_1, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_2, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_3, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_4, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_5, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_6, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_1, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_2, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_3, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_4, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_5, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_6, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_1, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_2, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_3, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_4, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_5, "", "Caption", "1", "Description"));
+        list.add(new GalleryBean(R.drawable.student_6, "", "Caption", "1", "Description"));
 
         adapter = new GalleryAdapter(GalleryFragment.this.getActivity(), list);
 

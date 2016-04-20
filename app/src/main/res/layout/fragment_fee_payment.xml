@@ -1,12 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <FrameLayout
+        android:id="@+id/fee_summary_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/fee_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:progress="50"
+            android:progressDrawable="@drawable/custom_progressbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Fees: 45000"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fees Paid: 15000"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+    </FrameLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvFeePayment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fee_summary_container" />
 
-</LinearLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fee_summary_container"
+        android:visibility="gone">
+
+        <TableRow
+            android:id="@+id/fee_payment_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="1"
+                android:background="#e5e5e5"
+                android:padding="10dp"
+                android:text="Component"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_weight="1"
+                android:background="#e5e5e5"
+                android:padding="10dp"
+                android:text="Amount Paid"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_weight="1"
+                android:background="#e5e5e5"
+                android:padding="10dp"
+                android:text="Fees Paid on"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_weight="1"
+                android:background="#e5e5e5"
+                android:padding="10dp"
+                android:text="Fees due"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/fee_payment_rows"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TableRow>
+
+    </TableLayout>
+
+</RelativeLayout>

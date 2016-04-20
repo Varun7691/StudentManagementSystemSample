@@ -7,12 +7,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusableInTouchMode="false"
         android:orientation="vertical"
         android:padding="10dp"
         tools:context="varun.com.studentmanagementsystemsample.RaisingIncidentsActivity">
 
-        <!-- INCIDENT REPORTING FOR -->
+        <!-- SECTION 1: INCIDENT REPORTING AGAINST -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,31 +20,74 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Incident reporting for:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:text="Reporting Against"
+                android:textColor="#424242"
+                android:textSize="20dp" />
 
-            <EditText
-                android:id="@+id/incident_reporting_for"
+            <!-- INCIDENT REPORTING AGAINST -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Select a category"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Incident reporting Against:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Select a category"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
+
+            <!-- DESIGNATION -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Designation:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Select a designation"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#e5e5e5" />
-
-        <!-- DESIGNATION -->
+        <!-- SECTION 2: INCIDENT REPORTING BY -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,30 +96,286 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Designation:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:text="Reporting For"
+                android:textColor="#424242"
+                android:textSize="20dp" />
 
-            <EditText
-                android:id="@+id/incident_designation"
+            <!-- INCIDENT REPORTING FOR -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Select a designation"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Incident reporting for:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Select a category"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
+
+            <!-- DESIGNATION -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Designation:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Select a designation"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
+
+            <!-- INCIDENT NATURE-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Incident nature:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Select a category"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
+
+            <!-- INCIDENT DATE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Incident date:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Select a date"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
+
+            <!-- INCIDENT TIME -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Incident time:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Select a time"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
+
+            <!-- REPORTING DATE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Incident reporting date:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Select a date"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
+
+            <!-- INCIDENT DESCRIPTION -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Incident description:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="start"
+                    android:hint="Enter description"
+                    android:lines="5"
+                    android:padding="5dp"
+                    android:singleLine="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
+
+            <!-- INCIDENT REPORTED BY -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Incident reported by:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Select a category"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
+
+            <!-- INCIDENT REPORTED BY (NAME)-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Incident reported by:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Enter a name"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#e5e5e5" />
-
-        <!-- REPORTING AGAINST -->
+        <!-- SECTION 3: status, feedback, remarks -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,380 +384,107 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reporting against:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:text="Status"
+                android:textColor="#424242"
+                android:textSize="20dp" />
 
-            <EditText
-                android:id="@+id/incident_reporting_against"
+            <!-- INCIDENT STATUS -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Enter who you are reporting against"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
-        </LinearLayout>
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#e5e5e5" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Incident Status:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
 
-        <!-- INCIDENT NATURE-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Select a status"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Incident nature:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
 
-            <EditText
-                android:id="@+id/incident_nature"
+            <!-- FEEDBACK -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Select a category"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
-        </LinearLayout>
+                android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#e5e5e5" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Feedback:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
 
-        <!-- INCIDENT DATE -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="start"
+                    android:hint="Enter feedback"
+                    android:lines="5"
+                    android:padding="5dp"
+                    android:singleLine="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Incident date:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
 
-            <EditText
-                android:id="@+id/incident_date"
+            <!-- REMARKS -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Select a date"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
-        </LinearLayout>
+                android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#e5e5e5" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Remarks:"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
 
-        <!-- INCIDENT TIME -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="start"
+                    android:hint="Enter Remarks"
+                    android:lines="5"
+                    android:padding="5dp"
+                    android:singleLine="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorGrey" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Incident time:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/incident_time"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Select a time"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#e5e5e5" />
+
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#e5e5e5" />
-
-        <!-- REPORTING DATE -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Incident reporting date:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/incident_reporting_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Select a date"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#e5e5e5" />
-
-        <!-- INCIDENT DESCRIPTION -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Incident description:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/incident_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:gravity="start"
-                android:hint="Enter description"
-                android:lines="3"
-                android:padding="5dp"
-                android:singleLine="false"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#e5e5e5" />
-
-        <!-- FEEDBACK -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Feedback:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/incident_feedback"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:gravity="start"
-                android:hint="Enter feedback"
-                android:lines="3"
-                android:padding="5dp"
-                android:singleLine="false"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#e5e5e5" />
-
-        <!-- REMARKS -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Remarks:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/incident_remarks"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:gravity="start"
-                android:hint="Enter Remarks"
-                android:lines="3"
-                android:padding="5dp"
-                android:singleLine="false"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#e5e5e5" />
-
-        <!-- INCIDENT STATUS -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Incident Status:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/incident_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Select a status"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#e5e5e5" />
-
-        <!-- INCIDENT REPORTED BY -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Incident reported by:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/incident_reported_by"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Select a category"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#e5e5e5" />
-
-        <!-- DESIGNATION -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Designation:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Select a designation"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#e5e5e5"
-            android:visibility="gone" />
-
-        <!-- INCIDENT REPORTED BY (NAME)-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Incident reported by:"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/incident_reported_by_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Enter a name"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorGrey" />
-        </LinearLayout>
-
     </LinearLayout>
 </ScrollView>

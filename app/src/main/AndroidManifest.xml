@@ -21,7 +21,10 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".GalleryDetailActivity" />
-        <activity android:name=".RaisingIncidentsActivity"></activity>
+        <activity android:name=".RaisingIncidentsActivity" />
+        <activity android:name=".IncidentDetailsActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".EventDetailActivity"></activity>
     </application>
 
 </manifest>

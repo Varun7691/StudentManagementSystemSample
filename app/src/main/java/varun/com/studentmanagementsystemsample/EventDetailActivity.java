@@ -3,32 +3,18 @@ package varun.com.studentmanagementsystemsample;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
-
-public class GalleryDetailActivity extends AppCompatActivity {
-
-    SubsamplingScaleImageView galleryImageView;
+public class EventDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gallery_detail);
+        setContentView(R.layout.activity_event_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        int image = getIntent().getIntExtra("IMAGE", 0);
-
-        galleryImageView = (SubsamplingScaleImageView) findViewById(R.id.galleryImageView);
-
-        galleryImageView.setImage(ImageSource.resource(image));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();

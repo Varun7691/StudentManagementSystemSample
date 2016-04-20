@@ -4,11 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Events"
-        android:textSize="35sp" />
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
 
 </LinearLayout>

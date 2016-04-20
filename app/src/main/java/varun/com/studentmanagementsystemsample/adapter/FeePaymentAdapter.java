@@ -42,8 +42,9 @@ public class FeePaymentAdapter extends
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.component.setText(list.get(position).getComponent());
-        holder.amount.setText(list.get(position).getAmount());
+        holder.amount.setText("Fees Paid: " + list.get(position).getAmount());
         holder.date.setText(list.get(position).getDate());
+        holder.due.setText("Amount Due: " + list.get(position).getFeesDue());
     }
 
     @Override
@@ -52,7 +53,7 @@ public class FeePaymentAdapter extends
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView component, amount, date;
+        public TextView component, amount, date, due;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -60,6 +61,7 @@ public class FeePaymentAdapter extends
             component = (TextView) itemView.findViewById(R.id.component);
             amount = (TextView) itemView.findViewById(R.id.amount);
             date = (TextView) itemView.findViewById(R.id.date);
+            due = (TextView) itemView.findViewById(R.id.due);
         }
     }
 }
