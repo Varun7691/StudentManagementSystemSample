@@ -2,13 +2,175 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
-    <TextView
+    <!-- SCHOLASTIC -->
+    <RelativeLayout
+        android:id="@+id/scholastic_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Student Report"
-        android:textSize="35sp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/scholastic_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scholastic"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/scholastic_sub_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/scholastic_label"
+            android:text="Academic Performance"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_assignment_black_24dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#e5e5e5" />
+
+    <!-- CO-SCHOLASTIC -->
+    <RelativeLayout
+        android:id="@+id/co_scholastic_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/co_scholastic_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Co-Scholastic"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/co_scholastic_sub_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/co_scholastic_label"
+            android:layout_toLeftOf="@+id/co_scholastic_sub_icon"
+            android:singleLine="true"
+            android:text="Life Skills, Work Education, Visual and Performing Arts"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/co_scholastic_sub_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_assignment_black_24dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#e5e5e5" />
+
+    <!-- HEALTH STATUS -->
+    <RelativeLayout
+        android:id="@+id/health_status_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/health_status_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Health Status"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/health_status_sub_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/health_status_label"
+            android:layout_toLeftOf="@+id/health_status_sub_icon"
+            android:singleLine="true"
+            android:text="Height, Weight, Blood, Dental, Vision Left, Vision Right"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/health_status_sub_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_assignment_black_24dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#e5e5e5" />
+
+    <!-- STUDENT SELF AWARENESS -->
+    <RelativeLayout
+        android:id="@+id/self_awareness_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/self_awareness_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Health Status"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/self_awareness_sub_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/self_awareness_label"
+            android:layout_toLeftOf="@+id/self_awareness_sub_icon"
+            android:singleLine="true"
+            android:text="Goals, Strength, Interests, Hobbies, Responsibility"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/self_awareness_sub_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_assignment_black_24dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#e5e5e5" />
 </LinearLayout>
