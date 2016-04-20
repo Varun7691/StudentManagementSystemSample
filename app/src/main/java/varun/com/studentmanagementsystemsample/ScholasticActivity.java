@@ -2,6 +2,7 @@ package varun.com.studentmanagementsystemsample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.inqbarna.tablefixheaders.TableFixHeaders;
 
@@ -13,7 +14,6 @@ public class ScholasticActivity extends AppCompatActivity {
             {
                     "Subject",
                     "Term 1",
-                    "",
                     "",
                     "",
                     "",
@@ -31,11 +31,9 @@ public class ScholasticActivity extends AppCompatActivity {
                     "C2",
                     "C2",
                     "C2",
-                    "C2",
                     "C2"},
             {
                     "English",
-                    "C2",
                     "C2",
                     "C2",
                     "C2",
@@ -47,11 +45,9 @@ public class ScholasticActivity extends AppCompatActivity {
                     "C1",
                     "C1",
                     "C1",
-                    "C1",
                     "C1"},
             {
                     "Maths",
-                    "C1",
                     "C1",
                     "C1",
                     "C1",
@@ -63,11 +59,9 @@ public class ScholasticActivity extends AppCompatActivity {
                     "C1",
                     "C1",
                     "C1",
-                    "C1",
                     "C1"},
             {
                     "Social Science",
-                    "C1",
                     "C1",
                     "C1",
                     "C1",
@@ -79,7 +73,6 @@ public class ScholasticActivity extends AppCompatActivity {
                     "C1",
                     "C1",
                     "C1",
-                    "C1",
                     "C1"},
     };
 
@@ -87,9 +80,19 @@ public class ScholasticActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scholastic);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         TableFixHeaders tableFixHeaders = (TableFixHeaders) findViewById(R.id.scholastic_table);
         MatrixTableAdapter<String> matrixTableAdapter = new MatrixTableAdapter<String>(ScholasticActivity.this, table);
         tableFixHeaders.setAdapter(matrixTableAdapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

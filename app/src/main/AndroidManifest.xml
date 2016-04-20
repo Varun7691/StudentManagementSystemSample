@@ -25,7 +25,8 @@
         <activity android:name=".IncidentDetailsActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".EventDetailActivity" />
-        <activity android:name=".ScholasticActivity"></activity>
+        <activity android:name=".ScholasticActivity" />
+        <activity android:name=".HealthStatusActivity"></activity>
     </application>
 
 </manifest>

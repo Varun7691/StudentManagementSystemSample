@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/incident_list_item_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/incident_against"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Incident Against: Varun Barve"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/incident_for"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Incident By: Varun Barve"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/incident_nature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nature: Fighting on playground"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/incident_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: 07/06/1991"
+        android:textColor="@color/colorGrey"
+        android:textSize="18sp" />
+
+</LinearLayout>
