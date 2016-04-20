@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="varun.com.studentmanagementsystemsample.HealthStatusActivity">
-
+    tools:context="varun.com.studentmanagementsystemsample.SelfAwarenessActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,14 +15,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Height(cm)"
+            android:text="My Goals"
             android:textColor="@color/colorPrimary"
             android:textSize="22sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="165"
+            android:text="To become a police officer"
             android:textColor="@color/colorAccent"
             android:textSize="20sp" />
     </LinearLayout>
@@ -43,14 +42,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Weight(kg)"
+            android:text="Strength"
             android:textColor="@color/colorPrimary"
             android:textSize="22sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="54"
+            android:text="Good Knowledge"
             android:textColor="@color/colorAccent"
             android:textSize="20sp" />
     </LinearLayout>
@@ -70,14 +69,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Blood Group"
+            android:text="Interests and Hobbies"
             android:textColor="@color/colorPrimary"
             android:textSize="22sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="A+"
+            android:text="Music"
             android:textColor="@color/colorAccent"
             android:textSize="20sp" />
     </LinearLayout>
@@ -97,68 +96,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dental"
+            android:text="Responsibilities Discharged/Exceptional Achievements"
             android:textColor="@color/colorPrimary"
             android:textSize="22sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="55"
-            android:textColor="@color/colorAccent"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:background="#e5e5e5" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vision(Left)"
-            android:textColor="@color/colorPrimary"
-            android:textSize="22sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="34"
-            android:textColor="@color/colorAccent"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:background="#e5e5e5" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vision(Right)"
-            android:textColor="@color/colorPrimary"
-            android:textSize="22sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="34"
+            android:text="Good"
             android:textColor="@color/colorAccent"
             android:textSize="20sp" />
     </LinearLayout>

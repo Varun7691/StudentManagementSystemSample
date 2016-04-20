@@ -8,8 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import varun.com.studentmanagementsystemsample.CoScholasticActivity;
+import varun.com.studentmanagementsystemsample.HealthStatusActivity;
 import varun.com.studentmanagementsystemsample.R;
 import varun.com.studentmanagementsystemsample.ScholasticActivity;
+import varun.com.studentmanagementsystemsample.SelfAwarenessActivity;
 
 /**
  * Created by Varun on 4/2/2016.
@@ -39,21 +42,24 @@ public class StudentReportFragment extends Fragment {
         coscholastic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(StudentReportFragment.this.getActivity(), CoScholasticActivity.class);
+                startActivity(intent);
             }
         });
 
         healthStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(StudentReportFragment.this.getActivity(), HealthStatusActivity.class);
+                startActivity(intent);
             }
         });
 
         selfAwareness.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(StudentReportFragment.this.getActivity(), SelfAwarenessActivity.class);
+                startActivity(intent);
             }
         });
 

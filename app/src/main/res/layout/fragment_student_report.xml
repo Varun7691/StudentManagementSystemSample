@@ -35,7 +35,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:src="@drawable/ic_assignment_black_24dp" />
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <View
@@ -78,7 +78,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:src="@drawable/ic_assignment_black_24dp" />
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <View
@@ -121,7 +121,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:src="@drawable/ic_assignment_black_24dp" />
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <View
@@ -142,7 +142,7 @@
             android:id="@+id/self_awareness_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Health Status"
+            android:text="Student Self Awareness"
             android:textColor="@color/colorPrimary"
             android:textSize="22sp" />
 
@@ -164,7 +164,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:src="@drawable/ic_assignment_black_24dp" />
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
     <View
