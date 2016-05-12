@@ -142,7 +142,7 @@
             android:id="@+id/self_awareness_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Health Status"
+            android:text="Student Self Awareness"
             android:textColor="@color/colorPrimary"
             android:textSize="22sp" />
 
