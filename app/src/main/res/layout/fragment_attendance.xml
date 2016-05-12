@@ -4,11 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <FrameLayout
+        android:id="@+id/calendar_frame_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Attendance"
-        android:textSize="35sp" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

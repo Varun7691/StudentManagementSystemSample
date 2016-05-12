@@ -1,15 +1,15 @@
 package varun.com.studentmanagementsystemsample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 
 import varun.com.studentmanagementsystemsample.adapter.HomeAdapter;
 import varun.com.studentmanagementsystemsample.bean.HomeBean;
-import varun.com.studentmanagementsystemsample.utils.DividerItemDecoration;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         rvHome = (RecyclerView) findViewById(R.id.rvHome);
 
@@ -39,5 +39,14 @@ public class HomeActivity extends AppCompatActivity {
 //                DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
 //        rvHome.addItemDecoration(itemDecoration);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -40,9 +40,9 @@ public class LibraryAdapter extends
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.name.setText("Fees Paid: " + list.get(position).getBookName());
+        holder.name.setText(list.get(position).getBookName());
         holder.allocatedDate.setText(list.get(position).getAllocatedDate());
-        holder.dueDate.setText("Amount Due: " + list.get(position).getDueDate());
+        holder.dueDate.setText(list.get(position).getDueDate());
     }
 
     @Override
