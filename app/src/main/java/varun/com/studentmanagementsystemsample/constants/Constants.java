@@ -11,6 +11,7 @@ public class Constants {
     public static final String KEY_MESSAGE = "Message";
     public static final String KEY_OBJ_LOGIN_RESULT = "objLoginResult";
     public static final String KEY_OBJ_CHILD_RESULT = "objChildResult";
+    public static final String KEY_ATTENDANCE_DETAIL = "attendanceDetail";
     public static final String KEY_USER_ID = "userId";
     public static final String KEY_USER_NAME = "userName";
     public static final String KEY_PASSWORD = "password";
@@ -21,6 +22,9 @@ public class Constants {
     public static final String KEY_SCHOOL_ID = "schoolID";
     public static final String KEY_AVG_ATTENDANCE = "avrageAttendance";
     public static final String KEY_AVG_PERFORMANCE = "avragePerformance";
+    public static final String KEY_ATTENDANCE_RESULT = "AttendanceResult";
+    public static final String KEY_ATTENDANCE_DATE = "attendanceDate";
+    public static final String KEY_ATTENDANCE_STATUS = "attendanceStatus";
 
     //STATUS CODE DESC
     public static final int STATUS_CODE_SUCCESS = 1;
