@@ -7,49 +7,72 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/child_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/student_1" />
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-            <TextView
-                android:id="@+id/child_name"
-                android:layout_width="wrap_content"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/child_image"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_sentiment_satisfied_grey_24dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Varun Barve"
-                android:textColor="@color/colorAccent"
-                android:textSize="25sp" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/child_avg_attendance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Avg Attendance: 75%"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/child_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Varun Barve"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/child_avg_performance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Avg Performance: 55%"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/child_avg_attendance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Avg Attendance: 75%"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
 
+                <TextView
+                    android:id="@+id/child_avg_performance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Avg Performance: 55%"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="#e5e5e5" />
+
+        <Button
+            android:id="@+id/student_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorAccent"
+            android:text="Details"
+            android:textColor="@color/caldroid_white" />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

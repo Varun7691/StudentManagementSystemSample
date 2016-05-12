@@ -1,12 +1,16 @@
 package varun.com.studentmanagementsystemsample;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import org.json.JSONObject;
 import org.json.JSONStringer;
 
 import java.io.BufferedReader;
@@ -15,9 +19,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
+import varun.com.studentmanagementsystemsample.constants.Api;
+import varun.com.studentmanagementsystemsample.constants.Constants;
+import varun.com.studentmanagementsystemsample.utils.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -26,17 +33,40 @@ public class LoginActivity extends AppCompatActivity {
     StringBuilder stringBuilder;
     String loginResponse;
 
+    SessionManager sessionManager;
+
+    String userNameStr, passwordStr;
+
+    EditText userNameEdit, passwordEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
 
+        sessionManager = new SessionManager(LoginActivity.this);
+
         mLogin = (Button) findViewById(R.id.login);
+        userNameEdit = (EditText) findViewById(R.id.et_Username);
+        passwordEdit = (EditText) findViewById(R.id.et_Password);
 
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                userNameStr = userNameEdit.getText().toString();
+                passwordStr = passwordEdit.getText().toString();
+
+                if (userNameStr.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Please enter user name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (passwordStr.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 new ForLogin().execute();
 
@@ -56,9 +86,11 @@ public class LoginActivity extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://103.7.130.46:8092/api/Login/getLogin");
+                loginJsonStringer.object().key(Constants.KEY_USER_NAME).value(userNameStr).key(Constants.KEY_PASSWORD).value(passwordStr).endObject();
 
-                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+                URL url = new URL(Api.LOGIN_URL);
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
                 conn.setRequestMethod("POST");
@@ -67,7 +99,6 @@ public class LoginActivity extends AppCompatActivity {
                         "application/json");
                 conn.setRequestProperty("Accept",
                         "application/json");
-
 
                 OutputStream os = conn.getOutputStream();
 
@@ -103,6 +134,42 @@ public class LoginActivity extends AppCompatActivity {
 
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            String userName = null;
+            int userId = -1, roleId = -1, userType = -1;
+
+            try {
+                JSONObject rootObject = new JSONObject(loginResponse);
+
+                int statusCode = rootObject.getInt(Constants.KEY_STATUS_CODE);
+
+                if (statusCode == Constants.STATUS_CODE_SUCCESS) {
+                    JSONObject loginResponseObject = rootObject.getJSONObject(Constants.KEY_OBJ_LOGIN_RESULT);
+
+                    userId = loginResponseObject.getInt(Constants.KEY_USER_ID);
+                    userName = loginResponseObject.getString(Constants.KEY_USER_NAME);
+                    roleId = loginResponseObject.getInt(Constants.KEY_ROLE_ID);
+                    userType = loginResponseObject.getInt(Constants.KEY_USER_TYPE);
+                }
+
+                sessionManager.createLoginSession(true, userId, userName, roleId, userType);
+
+                if (userType == Constants.USER_TYPE_PARENT) {
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+            } catch (Exception e) {
+
+                Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);
+
+            }
         }
     }
 }
