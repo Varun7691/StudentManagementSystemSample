@@ -1,5 +1,6 @@
 package varun.com.studentmanagementsystemsample.fragments;
 
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.roomorama.caldroid.CaldroidFragment;
@@ -25,11 +27,15 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import varun.com.studentmanagementsystemsample.R;
+import varun.com.studentmanagementsystemsample.bean.AttendanceBean;
 import varun.com.studentmanagementsystemsample.constants.Api;
 import varun.com.studentmanagementsystemsample.constants.Constants;
 import varun.com.studentmanagementsystemsample.utils.SessionManager;
@@ -49,6 +55,8 @@ public class AttendanceFragment extends Fragment {
 
     CaldroidFragment caldroidFragment;
 
+    TextView total_present, total_absent;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -56,25 +64,10 @@ public class AttendanceFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_attendance, container, false);
 
+        total_present = (TextView) rootView.findViewById(R.id.total_present);
+        total_absent = (TextView) rootView.findViewById(R.id.total_absent);
+
         caldroidFragment = new CaldroidFragment();
-        Bundle args = new Bundle();
-        Calendar cal = Calendar.getInstance();
-        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
-        args.putInt(CaldroidFragment.START_DAY_OF_WEEK, CaldroidFragment.MONDAY);
-        args.putBoolean(CaldroidFragment.ENABLE_CLICK_ON_DISABLED_DATES, false);
-        args.putBoolean(CaldroidFragment.SQUARE_TEXT_VIEW_CELL, true);
-        caldroidFragment.setArguments(args);
-
-        FragmentTransaction t = getActivity().getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.calendar_frame_container, caldroidFragment);
-        t.commit();
-
-        Date date = new Date();
-
-        caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.date_bg), date);
-        caldroidFragment.setTextColorForDate(R.color.colorRed, date);
-
 
         caldroidFragment.setCaldroidListener(new CaldroidListener() {
             @Override
@@ -157,6 +150,10 @@ public class AttendanceFragment extends Fragment {
             super.onPostExecute(aVoid);
 
             int userId = -1;
+            String attendanceDateStr;
+            boolean attendanceStatus;
+
+            ArrayList<AttendanceBean> attendanceList = new ArrayList<>();
 
             try {
                 JSONObject rootObject = new JSONObject(attendanceResponse);
@@ -173,17 +170,62 @@ public class AttendanceFragment extends Fragment {
 
                         JSONArray attendanceDetailArray = attendanceResponseObject.getJSONArray(Constants.KEY_ATTENDANCE_DETAIL);
 
-                        for (int j = 0; i < attendanceDetailArray.length(); i++) {
+                        for (int j = 0; j < attendanceDetailArray.length(); j++) {
+                            JSONObject attendanceDetailObject = attendanceDetailArray.getJSONObject(j);
 
+                            attendanceDateStr = attendanceDetailObject.getString(Constants.KEY_ATTENDANCE_DATE);
+                            attendanceStatus = attendanceDetailObject.getBoolean(Constants.KEY_ATTENDANCE_STATUS);
+
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            Date attendanceDate = simpleDateFormat.parse(attendanceDateStr);
+
+                            Log.e("DATE: ", "DATE: " + attendanceDate);
+
+                            attendanceList.add(new AttendanceBean(attendanceDate, attendanceStatus));
                         }
-
-                        studentID = childResponseObject.getInt(Constants.KEY_STUDENT_ID);
-                        schoolID = childResponseObject.getInt(Constants.KEY_SCHOOL_ID);
-                        avrageAttendance = childResponseObject.getInt(Constants.KEY_AVG_ATTENDANCE);
-                        avragePerformance = childResponseObject.getInt(Constants.KEY_AVG_PERFORMANCE);
-                        studentFirstName = childResponseObject.getString(Constants.KEY_STUDENT_FIRST_NAME);
-
                     }
+
+                    Map<Date, Drawable> attendanceBackgroundColorMap = new HashMap<>();
+                    Map<Date, Integer> attendanceTextColorMap = new HashMap<>();
+
+                    int totalPresentCount = 0;
+                    int totalAbsentCount = 0;
+
+                    for (int i = 0; i < attendanceList.size(); i++) {
+
+                        if (attendanceList.get(i).isAttendanceStatus()) {
+                            totalPresentCount++;
+                            attendanceBackgroundColorMap.put(attendanceList.get(i).getAttendanceDate(), getResources().getDrawable(R.drawable.green));
+                            attendanceTextColorMap.put(attendanceList.get(i).getAttendanceDate(), R.color.caldroid_white);
+                        } else {
+                            totalAbsentCount++;
+                            attendanceBackgroundColorMap.put(attendanceList.get(i).getAttendanceDate(), getResources().getDrawable(R.drawable.red));
+                            attendanceTextColorMap.put(attendanceList.get(i).getAttendanceDate(), R.color.caldroid_white);
+                        }
+                    }
+
+                    Bundle args = new Bundle();
+                    Calendar cal = Calendar.getInstance();
+                    args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+                    args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+                    args.putInt(CaldroidFragment.START_DAY_OF_WEEK, CaldroidFragment.MONDAY);
+                    args.putBoolean(CaldroidFragment.ENABLE_CLICK_ON_DISABLED_DATES, false);
+                    args.putBoolean(CaldroidFragment.SQUARE_TEXT_VIEW_CELL, true);
+                    caldroidFragment.setArguments(args);
+
+                    FragmentTransaction t = getActivity().getSupportFragmentManager().beginTransaction();
+                    t.replace(R.id.calendar_frame_container, caldroidFragment);
+                    t.commit();
+
+                    Date date = new Date();
+
+                    caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.date_bg), date);
+                    caldroidFragment.setTextColorForDate(R.color.colorRed, date);
+                    caldroidFragment.setBackgroundDrawableForDates(attendanceBackgroundColorMap);
+                    caldroidFragment.setTextColorForDates(attendanceTextColorMap);
+
+                    total_present.setText("" + totalPresentCount);
+                    total_absent.setText("" + totalAbsentCount);
                 }
             } catch (Exception e) {
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);
