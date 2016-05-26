@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import varun.com.studentmanagementsystemsample.R;
-import varun.com.studentmanagementsystemsample.bean.PerformanceBean;
+import varun.com.studentmanagementsystemsample.bean.AcademicBean;
 
 /**
  * Created by Varun on 4/2/2016.
@@ -18,11 +18,11 @@ import varun.com.studentmanagementsystemsample.bean.PerformanceBean;
 public class PerformanceAdapter extends
         RecyclerView.Adapter<PerformanceAdapter.ViewHolder> {
 
-    ArrayList<PerformanceBean> list;
+    ArrayList<AcademicBean> list;
     Context context;
     LayoutInflater inflater;
 
-    public PerformanceAdapter(Context context, ArrayList<PerformanceBean> list) {
+    public PerformanceAdapter(Context context, ArrayList<AcademicBean> list) {
         this.list = list;
         this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -41,10 +41,9 @@ public class PerformanceAdapter extends
     @Override
     public void onBindViewHolder(PerformanceAdapter.ViewHolder holder, int position) {
         holder.subject.setText(list.get(position).getSubject());
-        holder.date.setText(list.get(position).getExamDate());
-        holder.marks.setText(list.get(position).getMarks());
-        holder.subjectExamType.setText(list.get(position).getSubjectExamType());
-        holder.examType.setText(list.get(position).getExamType());
+        holder.marks.setText(list.get(position).getTotalFASA1());
+        holder.subjectExamType.setText(list.get(position).getBoard());
+        holder.examType.setText(list.get(position).getFA1());
     }
 
     @Override

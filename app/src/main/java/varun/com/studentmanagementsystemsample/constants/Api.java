@@ -11,5 +11,6 @@ public class Api {
     public static final String GET_CHILDREN_URL = BASE_URL + "api/Parent/getChild";
     public static final String ATTENDANCE_URL = BASE_URL + "api/Attendance/getAttendance";
     public static final String EVENTS_URL = BASE_URL + "api/Event/getEvents";
+    public static final String PERFORMANCE_URL = BASE_URL + "api/Performance/getPerformance";
 
 }

@@ -27,10 +27,31 @@ public class Constants {
     public static final String KEY_ATTENDANCE_STATUS = "attendanceStatus";
     public static final String KEY_CLASS_ID = "classID";
     public static final String KEY_EVENT_RESULT = "EventResult";
-    public static final String KEY_EVENT_START_DATE= "startDate";
-    public static final String KEY_EVENT_END_DATE= "endDate";
-    public static final String KEY_EVENT_TITLE= "title";
-    public static final String KEY_EVENT_DESCRIPTION= "description";
+    public static final String KEY_EVENT_START_DATE = "startDate";
+    public static final String KEY_EVENT_END_DATE = "endDate";
+    public static final String KEY_EVENT_TITLE = "title";
+    public static final String KEY_EVENT_DESCRIPTION = "description";
+    public static final String KEY_PERFORMANCE_PROFILE = "Profile";
+    public static final String KEY_PERFORMANCE_STUDENT_ID = "studentId";
+    public static final String KEY_PERFORMANCE_STUDENT_CLASS = "studentClass";
+    public static final String KEY_PERFORMANCE_FULL_NAME = "fullName";
+    public static final String KEY_PERFORMANCE_ACADEMIC_YEAR = "academicYear";
+    public static final String KEY_PERFORMANCE_FATHERS_NAME = "fathersName";
+    public static final String KEY_PERFORMANCE_MOTHERS_NAME = "mothersName";
+    public static final String KEY_PERFORMANCE_ADDRESS_RESIDENCE = "addressResidence";
+    public static final String KEY_PERFORMANCE_ACADEMIC = "Academic";
+    public static final String KEY_PERFORMANCE_TERM = "term";
+    public static final String KEY_PERFORMANCE_BOARD = "board";
+    public static final String KEY_PERFORMANCE_FA1 = "FA1";
+    public static final String KEY_PERFORMANCE_FA2 = "FA2";
+    public static final String KEY_PERFORMANCE_TOTAL_FA = "totalFA";
+    public static final String KEY_PERFORMANCE_SA1 = "SA1";
+    public static final String KEY_PERFORMANCE_TOTAL_FA_SA1 = "totalFASA1";
+    public static final String KEY_PERFORMANCE_RANK = "rank";
+    public static final String KEY_PERFORMANCE_ATTENDANCE = "Attendance";
+    public static final String KEY_PERFORMANCE_TOTAL_WORKING_DAYS = "totalWorkingDays";
+    public static final String KEY_PERFORMANCE_TOTAL_ATTENDANCE_OF_STUDENT = "totalAttendanceofStudent";
+    public static final String KEY_PERFORMANCE_SUBJECT = "subject";
 
     //STATUS CODE DESC
     public static final int STATUS_CODE_SUCCESS = 1;
