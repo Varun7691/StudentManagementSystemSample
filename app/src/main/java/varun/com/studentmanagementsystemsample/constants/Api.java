@@ -10,5 +10,6 @@ public class Api {
     public static final String LOGIN_URL = BASE_URL + "api/Login/getLogin";
     public static final String GET_CHILDREN_URL = BASE_URL + "api/Parent/getChild";
     public static final String ATTENDANCE_URL = BASE_URL + "api/Attendance/getAttendance";
+    public static final String EVENTS_URL = BASE_URL + "api/Event/getEvents";
 
 }

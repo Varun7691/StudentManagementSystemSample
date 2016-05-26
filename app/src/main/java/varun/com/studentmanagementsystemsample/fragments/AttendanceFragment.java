@@ -1,5 +1,6 @@
 package varun.com.studentmanagementsystemsample.fragments;
 
+import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import varun.com.studentmanagementsystemsample.MainActivity;
 import varun.com.studentmanagementsystemsample.R;
 import varun.com.studentmanagementsystemsample.bean.AttendanceBean;
 import varun.com.studentmanagementsystemsample.constants.Api;
@@ -55,7 +57,9 @@ public class AttendanceFragment extends Fragment {
 
     CaldroidFragment caldroidFragment;
 
-    TextView total_present, total_absent;
+    TextView total_present, total_absent, total_holidays;
+
+    ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,6 +70,7 @@ public class AttendanceFragment extends Fragment {
 
         total_present = (TextView) rootView.findViewById(R.id.total_present);
         total_absent = (TextView) rootView.findViewById(R.id.total_absent);
+        total_holidays = (TextView) rootView.findViewById(R.id.total_holiday);
 
         caldroidFragment = new CaldroidFragment();
 
@@ -86,6 +91,11 @@ public class AttendanceFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressDialog = new ProgressDialog(AttendanceFragment.this.getActivity());
+            progressDialog.setMessage("Getting Attendance...");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
         }
 
         @Override
@@ -95,7 +105,7 @@ public class AttendanceFragment extends Fragment {
 
             try {
 
-                childJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_ATTENDANCE_DETAIL).value("").endObject();
+                childJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(MainActivity.studentId).endObject();
 
                 URL url = new URL(Api.ATTENDANCE_URL);
 
@@ -150,8 +160,7 @@ public class AttendanceFragment extends Fragment {
             super.onPostExecute(aVoid);
 
             int userId = -1;
-            String attendanceDateStr;
-            boolean attendanceStatus;
+            String attendanceDateStr, attendanceStatus;
 
             ArrayList<AttendanceBean> attendanceList = new ArrayList<>();
 
@@ -166,7 +175,7 @@ public class AttendanceFragment extends Fragment {
                     for (int i = 0; i < attendanceResponseArray.length(); i++) {
                         JSONObject attendanceResponseObject = (JSONObject) attendanceResponseArray.get(i);
 
-                        userId = attendanceResponseObject.getInt(Constants.KEY_USER_ID);
+                        userId = attendanceResponseObject.getInt(Constants.KEY_STUDENT_ID);
 
                         JSONArray attendanceDetailArray = attendanceResponseObject.getJSONArray(Constants.KEY_ATTENDANCE_DETAIL);
 
@@ -174,7 +183,7 @@ public class AttendanceFragment extends Fragment {
                             JSONObject attendanceDetailObject = attendanceDetailArray.getJSONObject(j);
 
                             attendanceDateStr = attendanceDetailObject.getString(Constants.KEY_ATTENDANCE_DATE);
-                            attendanceStatus = attendanceDetailObject.getBoolean(Constants.KEY_ATTENDANCE_STATUS);
+                            attendanceStatus = attendanceDetailObject.getString(Constants.KEY_ATTENDANCE_STATUS);
 
                             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                             Date attendanceDate = simpleDateFormat.parse(attendanceDateStr);
@@ -190,16 +199,21 @@ public class AttendanceFragment extends Fragment {
 
                     int totalPresentCount = 0;
                     int totalAbsentCount = 0;
+                    int totalHolidayCount = 0;
 
                     for (int i = 0; i < attendanceList.size(); i++) {
 
-                        if (attendanceList.get(i).isAttendanceStatus()) {
+                        if (attendanceList.get(i).getAttendanceStatus().equals("P")) {
                             totalPresentCount++;
                             attendanceBackgroundColorMap.put(attendanceList.get(i).getAttendanceDate(), getResources().getDrawable(R.drawable.green));
                             attendanceTextColorMap.put(attendanceList.get(i).getAttendanceDate(), R.color.caldroid_white);
-                        } else {
+                        } else if (attendanceList.get(i).getAttendanceStatus().equals("A")) {
                             totalAbsentCount++;
                             attendanceBackgroundColorMap.put(attendanceList.get(i).getAttendanceDate(), getResources().getDrawable(R.drawable.red));
+                            attendanceTextColorMap.put(attendanceList.get(i).getAttendanceDate(), R.color.caldroid_white);
+                        } else if (attendanceList.get(i).getAttendanceStatus().equals("H")) {
+                            totalHolidayCount++;
+                            attendanceBackgroundColorMap.put(attendanceList.get(i).getAttendanceDate(), getResources().getDrawable(R.drawable.amber));
                             attendanceTextColorMap.put(attendanceList.get(i).getAttendanceDate(), R.color.caldroid_white);
                         }
                     }
@@ -219,14 +233,17 @@ public class AttendanceFragment extends Fragment {
 
                     Date date = new Date();
 
-                    caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.date_bg), date);
-                    caldroidFragment.setTextColorForDate(R.color.colorRed, date);
+//                    caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.date_bg), date);
+//                    caldroidFragment.setTextColorForDate(R.color.colorRed, date);
                     caldroidFragment.setBackgroundDrawableForDates(attendanceBackgroundColorMap);
                     caldroidFragment.setTextColorForDates(attendanceTextColorMap);
 
                     total_present.setText("" + totalPresentCount);
                     total_absent.setText("" + totalAbsentCount);
+                    total_holidays.setText("" + totalHolidayCount);
                 }
+
+                progressDialog.dismiss();
             } catch (Exception e) {
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);
             }

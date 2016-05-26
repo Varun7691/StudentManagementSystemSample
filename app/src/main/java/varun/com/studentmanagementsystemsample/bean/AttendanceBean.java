@@ -8,9 +8,9 @@ import java.util.Date;
 public class AttendanceBean {
 
     private Date attendanceDate;
-    private boolean attendanceStatus;
+    private String attendanceStatus;
 
-    public AttendanceBean(Date attendanceDate, boolean attendanceStatus) {
+    public AttendanceBean(Date attendanceDate, String attendanceStatus) {
         this.attendanceDate = attendanceDate;
         this.attendanceStatus = attendanceStatus;
     }
@@ -23,11 +23,11 @@ public class AttendanceBean {
         this.attendanceDate = attendanceDate;
     }
 
-    public boolean isAttendanceStatus() {
+    public String getAttendanceStatus() {
         return attendanceStatus;
     }
 
-    public void setAttendanceStatus(boolean attendanceStatus) {
+    public void setAttendanceStatus(String attendanceStatus) {
         this.attendanceStatus = attendanceStatus;
     }
 }

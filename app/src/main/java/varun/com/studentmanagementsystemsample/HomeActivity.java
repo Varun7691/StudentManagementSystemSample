@@ -66,11 +66,6 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     class ForChild extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -130,7 +125,7 @@ public class HomeActivity extends AppCompatActivity {
 
             } catch (Exception e) {
 
-                Log.e("LOGIN ERROR: ", "LOGIN ERROR: " + e);
+                Log.e("CHILD ERROR: ", "CHILD ERROR: " + e);
 
             }
             return null;
@@ -167,11 +162,8 @@ public class HomeActivity extends AppCompatActivity {
                     rvHome.setAdapter(adapter);
                     rvHome.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
                 }
-
             } catch (Exception e) {
-
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);
-
             }
         }
     }

@@ -25,10 +25,12 @@ import varun.com.studentmanagementsystemsample.fragments.PerformanceFragment;
 import varun.com.studentmanagementsystemsample.fragments.StudentReportFragment;
 import varun.com.studentmanagementsystemsample.fragments.TimeTableFragment;
 import varun.com.studentmanagementsystemsample.fragments.ToDoListFragment;
+import varun.com.studentmanagementsystemsample.utils.SessionManager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static String studentId;
     Fragment fragment;
 
     @Override
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        studentId = getIntent().getStringExtra("StudentId");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +123,8 @@ public class MainActivity extends AppCompatActivity
             SelectItem(9);
         } else if (id == R.id.nav_gallery) {
             SelectItem(10);
+        } else if (id == R.id.nav_logout) {
+            SelectItem(11);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -220,6 +226,14 @@ public class MainActivity extends AppCompatActivity
                         .beginTransaction();
                 ftGallery.replace(R.id.frame_container, fragment);
                 ftGallery.commit();
+                break;
+            case 11:
+                SessionManager sessionManager = new SessionManager(MainActivity.this);
+                sessionManager.logoutUser();
+                Intent logOutIntent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(logOutIntent);
+                finish();
+
                 break;
             default:
                 break;

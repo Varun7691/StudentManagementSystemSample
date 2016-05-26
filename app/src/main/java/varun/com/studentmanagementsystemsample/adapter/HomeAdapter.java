@@ -46,7 +46,7 @@ public class HomeAdapter extends
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.name.setText(list.get(position).getStudentFirstName());
         holder.avgAttendance.setText("Average Attendance: " + list.get(position).getAvrageAttendance() + "%");
         holder.avgperformance.setText("Average Performance: " + list.get(position).getAvragePerformance() + "%");
@@ -54,6 +54,7 @@ public class HomeAdapter extends
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MainActivity.class);
+                intent.putExtra("StudentId", ""+list.get(position).getStudentID());
                 context.startActivity(intent);
                 activity.finish();
             }

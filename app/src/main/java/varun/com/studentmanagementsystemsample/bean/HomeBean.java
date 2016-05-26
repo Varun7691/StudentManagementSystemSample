@@ -1,9 +1,11 @@
 package varun.com.studentmanagementsystemsample.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Varun on 4/17/2016.
  */
-public class HomeBean {
+public class HomeBean implements Serializable {
 
     private int studentID;
     private int schoolID;

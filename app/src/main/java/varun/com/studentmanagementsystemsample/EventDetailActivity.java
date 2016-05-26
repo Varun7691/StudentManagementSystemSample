@@ -6,6 +6,8 @@ import android.view.MenuItem;
 
 public class EventDetailActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

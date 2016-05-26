@@ -1,5 +1,6 @@
 package varun.com.studentmanagementsystemsample;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText userNameEdit, passwordEdit;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,15 +63,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (userNameStr.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please enter user name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (passwordStr.isEmpty()) {
+                } else if (passwordStr.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
-                    return;
+                } else {
+                    new ForLogin().execute();
                 }
-
-                new ForLogin().execute();
 
 //                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                startActivity(intent);
@@ -78,6 +77,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     class ForLogin extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(LoginActivity.this);
+            progressDialog.setMessage("Logging in...");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -147,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject rootObject = new JSONObject(loginResponse);
 
                 int statusCode = rootObject.getInt(Constants.KEY_STATUS_CODE);
+                String messageStr = rootObject.getString(Constants.KEY_MESSAGE);
 
                 if (statusCode == Constants.STATUS_CODE_SUCCESS) {
                     JSONObject loginResponseObject = rootObject.getJSONObject(Constants.KEY_OBJ_LOGIN_RESULT);
@@ -155,20 +165,20 @@ public class LoginActivity extends AppCompatActivity {
                     userName = loginResponseObject.getString(Constants.KEY_USER_NAME);
                     roleId = loginResponseObject.getInt(Constants.KEY_ROLE_ID);
                     userType = loginResponseObject.getInt(Constants.KEY_USER_TYPE);
+
+                    sessionManager.createLoginSession(true, userId, userName, roleId, userType);
+
+                    if (userType == Constants.USER_TYPE_PARENT) {
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } else {
+                    Toast.makeText(LoginActivity.this, "" + messageStr, Toast.LENGTH_SHORT).show();
                 }
-
-                sessionManager.createLoginSession(true, userId, userName, roleId, userType);
-
-                if (userType == Constants.USER_TYPE_PARENT) {
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-
+                progressDialog.dismiss();
             } catch (Exception e) {
-
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);
-
             }
         }
     }

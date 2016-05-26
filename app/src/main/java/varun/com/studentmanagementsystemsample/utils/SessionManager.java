@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import varun.com.studentmanagementsystemsample.bean.HomeBean;
 import varun.com.studentmanagementsystemsample.constants.Constants;
 
 /**
@@ -17,6 +21,7 @@ public class SessionManager {
     public static final String KEY_USER_NAME = Constants.KEY_USER_NAME;
     public static final String KEY_ROLE_ID = Constants.KEY_ROLE_ID;
     public static final String KEY_USER_TYPE = Constants.KEY_USER_TYPE;
+    public static final String KEY_STUDENT_LIST = "StudentList";
 
     // Sharedpref file name
     private static final String PREF_NAME = "LOGGED";
@@ -43,6 +48,27 @@ public class SessionManager {
         editor.putInt(KEY_ROLE_ID, roleId);
         editor.putInt(KEY_USER_TYPE, userType);
         editor.commit();
+    }
+
+    public ArrayList<HomeBean> getStudentList() {
+
+        try {
+            return (ArrayList<HomeBean>) ObjectSerializer
+                    .deserialize(pref.getString(KEY_STUDENT_LIST, ObjectSerializer
+                            .serialize(new ArrayList<HomeBean>())));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void setStudentList(ArrayList<HomeBean> studentList) {
+        try {
+            editor.putString(KEY_STUDENT_LIST, ObjectSerializer.serialize(studentList));
+            editor.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public User getUserDetails() {
