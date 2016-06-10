@@ -205,16 +205,16 @@ public class AttendanceFragment extends Fragment {
 
                         if (attendanceList.get(i).getAttendanceStatus().equals("P")) {
                             totalPresentCount++;
-                            attendanceBackgroundColorMap.put(attendanceList.get(i).getAttendanceDate(), getResources().getDrawable(R.drawable.green));
-                            attendanceTextColorMap.put(attendanceList.get(i).getAttendanceDate(), R.color.caldroid_white);
+                            attendanceBackgroundColorMap.put(attendanceList.get(i).getAttendanceDate(), getResources().getDrawable(R.drawable.white));
+                            attendanceTextColorMap.put(attendanceList.get(i).getAttendanceDate(), R.color.caldroid_black);
                         } else if (attendanceList.get(i).getAttendanceStatus().equals("A")) {
                             totalAbsentCount++;
                             attendanceBackgroundColorMap.put(attendanceList.get(i).getAttendanceDate(), getResources().getDrawable(R.drawable.red));
                             attendanceTextColorMap.put(attendanceList.get(i).getAttendanceDate(), R.color.caldroid_white);
                         } else if (attendanceList.get(i).getAttendanceStatus().equals("H")) {
                             totalHolidayCount++;
-                            attendanceBackgroundColorMap.put(attendanceList.get(i).getAttendanceDate(), getResources().getDrawable(R.drawable.amber));
-                            attendanceTextColorMap.put(attendanceList.get(i).getAttendanceDate(), R.color.caldroid_white);
+                            attendanceBackgroundColorMap.put(attendanceList.get(i).getAttendanceDate(), getResources().getDrawable(R.drawable.white));
+                            attendanceTextColorMap.put(attendanceList.get(i).getAttendanceDate(), R.color.colorGrey);
                         }
                     }
 
@@ -233,10 +233,11 @@ public class AttendanceFragment extends Fragment {
 
                     Date date = new Date();
 
-//                    caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.date_bg), date);
-//                    caldroidFragment.setTextColorForDate(R.color.colorRed, date);
+                    caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.date_bg), date);
+                    caldroidFragment.setTextColorForDate(R.color.colorRed, date);
                     caldroidFragment.setBackgroundDrawableForDates(attendanceBackgroundColorMap);
                     caldroidFragment.setTextColorForDates(attendanceTextColorMap);
+                    caldroidFragment.setMaxDate(new Date());
 
                     total_present.setText("" + totalPresentCount);
                     total_absent.setText("" + totalAbsentCount);

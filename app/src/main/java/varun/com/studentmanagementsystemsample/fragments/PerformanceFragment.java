@@ -1,5 +1,6 @@
 package varun.com.studentmanagementsystemsample.fragments;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.DefaultYAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -71,11 +80,66 @@ public class PerformanceFragment extends Fragment {
         mPerformanceChart.setDrawBorders(false);
         mPerformanceChart.setDoubleTapToZoomEnabled(false);
 
+        mPerformanceChart.setScaleYEnabled(false);// restrict vertical pinch zoom in/out
+        mPerformanceChart.setScaleXEnabled(false);// restrict horizontal pinch zoom in/out
+
+        Legend l = mPerformanceChart.getLegend();
+        l.setPosition(Legend.LegendPosition.BELOW_CHART_RIGHT);
+        l.setYOffset(0f);
+        l.setYEntrySpace(0f);
+        l.setTextColor(Color.GRAY);
+
+        XAxis xl = mPerformanceChart.getXAxis();
+        xl.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xl.disableGridDashedLine();
+        xl.setDrawGridLines(false);
+        xl.setTextColor(Color.GRAY);
+
+        YAxis leftAxis = mPerformanceChart.getAxisLeft();
+        leftAxis.setValueFormatter(new DefaultYAxisValueFormatter(0));
+        leftAxis.setDrawZeroLine(true);
+        leftAxis.setDrawGridLines(false);
+        leftAxis.setSpaceTop(0f);
+        leftAxis.setTextColor(Color.GRAY);
+
+        mPerformanceChart.getAxisRight().setEnabled(false);
+
         dateSpinner.setAdapter(new ArrayAdapter<String>(PerformanceFragment.this.getActivity(), R.layout.date_spinner_item, R.id.date_spinner_text_view, dateArray));
 
         new ForPerformance().execute();
 
         return rootView;
+    }
+
+    private void setGraph() {
+        ArrayList<String> xVals = new ArrayList<String>();
+        for (int i = 0; i < academicsList.size(); i++) {
+            xVals.add(academicsList.get(i).getSubject());
+        }
+
+        ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
+
+        for (int i = 0; i < academicsList.size(); i++) {
+            float val = Float.valueOf(academicsList.get(i).getRank());
+            yVals1.add(new BarEntry(val, i));
+        }
+
+        BarDataSet set1 = new BarDataSet(yVals1, "Rank ");
+        set1.setColor(Color.parseColor("#06d8fe"));
+
+        ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
+        dataSets.add(set1);
+
+        BarData data = new BarData(xVals, dataSets);
+
+        data.setGroupSpace(80f);
+        data.setHighlightEnabled(true);
+        data.setValueTextColor(Color.GRAY);
+        data.setValueTextSize(15f);
+
+        mPerformanceChart.setData(data);
+        mPerformanceChart.animate();
+        mPerformanceChart.invalidate();
     }
 
     class ForPerformance extends AsyncTask<Void, Void, Void> {
@@ -180,6 +244,9 @@ public class PerformanceFragment extends Fragment {
                     adapter = new PerformanceAdapter(PerformanceFragment.this.getActivity(), academicsList);
                     performanceRV.setAdapter(adapter);
                     performanceRV.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    performanceRV.setFocusable(false);
+
+                    setGraph();
                 }
             } catch (Exception e) {
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);

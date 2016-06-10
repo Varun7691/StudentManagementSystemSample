@@ -42,8 +42,7 @@ public class PerformanceAdapter extends
     public void onBindViewHolder(PerformanceAdapter.ViewHolder holder, int position) {
         holder.subject.setText(list.get(position).getSubject());
         holder.marks.setText(list.get(position).getTotalFASA1());
-        holder.subjectExamType.setText(list.get(position).getBoard());
-        holder.examType.setText(list.get(position).getFA1());
+        holder.examType.setText(list.get(position).getBoard());
     }
 
     @Override

@@ -12,12 +12,12 @@ public class Constants {
     public static final String KEY_OBJ_LOGIN_RESULT = "LoginResult";
     public static final String KEY_OBJ_CHILD_RESULT = "objChildResult";
     public static final String KEY_ATTENDANCE_DETAIL = "attendanceDetail";
-    public static final String KEY_USER_ID = "userId";
+    public static final String KEY_USER_ID = "userID";
     public static final String KEY_USER_NAME = "userName";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_ROLE_ID = "roleId";
-    public static final String KEY_USER_TYPE = "userType";
-    public static final String KEY_STUDENT_ID = "studentID";
+    public static final String KEY_USER_TYPE = "userTypeID";
+    public static final String KEY_STUDENT_ID = "studentRegID";
     public static final String KEY_STUDENT_FIRST_NAME = "studentFirstName";
     public static final String KEY_SCHOOL_ID = "schoolID";
     public static final String KEY_AVG_ATTENDANCE = "avrageAttendance";
@@ -32,7 +32,7 @@ public class Constants {
     public static final String KEY_EVENT_TITLE = "title";
     public static final String KEY_EVENT_DESCRIPTION = "description";
     public static final String KEY_PERFORMANCE_PROFILE = "Profile";
-    public static final String KEY_PERFORMANCE_STUDENT_ID = "studentId";
+    public static final String KEY_PERFORMANCE_STUDENT_ID = "studentRegID";
     public static final String KEY_PERFORMANCE_STUDENT_CLASS = "studentClass";
     public static final String KEY_PERFORMANCE_FULL_NAME = "fullName";
     public static final String KEY_PERFORMANCE_ACADEMIC_YEAR = "academicYear";
