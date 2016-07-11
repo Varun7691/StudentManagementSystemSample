@@ -1,17 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="10dp"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    tools:context="varun.com.studentmanagementsystemsample.fragments.TimeTableFragment">
 
-    <com.inqbarna.tablefixheaders.TableFixHeaders
-        android:id="@+id/table"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="horizontal|vertical" />
+    <TableLayout
+        android:id="@+id/table_layout_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:padding="10dp"
+                android:text="Period"
+                android:textColor="@color/colorDarkGrey"
+                android:textSize="16sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#e5e5e5"
+                android:padding="10dp"
+                android:text="/Dates" />
+        </TableRow>
+    </TableLayout>
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <TableLayout
+            android:id="@+id/table_layout_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:padding="10dp"
+                    android:text="Monday"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:padding="10dp"
+                    android:text="Tuesday"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:padding="10dp"
+                    android:text="Wednesday"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:padding="10dp"
+                    android:text="Thrusday"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:padding="10dp"
+                    android:text="Friday"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:padding="10dp"
+                    android:text="Saturday"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="16sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#e5e5e5"
+                    android:padding="10dp"
+                    android:text="06/27/2016" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#e5e5e5"
+                    android:padding="10dp"
+                    android:text="07/27/2016" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#e5e5e5"
+                    android:padding="10dp"
+                    android:text="08/27/2016" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#e5e5e5"
+                    android:padding="10dp"
+                    android:text="09/27/2016" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#e5e5e5"
+                    android:padding="10dp"
+                    android:text="10/27/2016" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#e5e5e5"
+                    android:padding="10dp"
+                    android:text="11/27/2016" />
+            </TableRow>
+        </TableLayout>
+    </HorizontalScrollView>
 </LinearLayout>
-
-
-

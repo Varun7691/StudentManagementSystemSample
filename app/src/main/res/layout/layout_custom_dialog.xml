@@ -20,7 +20,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/et_Username"
+            android:id="@+id/et_Title"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight=".7"
@@ -44,7 +44,7 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/et_Password"
+            android:id="@+id/et_Description"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight=".7"

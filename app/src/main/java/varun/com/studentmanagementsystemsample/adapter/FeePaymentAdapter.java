@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -41,10 +40,10 @@ public class FeePaymentAdapter extends
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.component.setText(list.get(position).getComponent());
-        holder.amount.setText("Fees Paid: " + list.get(position).getAmount());
-        holder.date.setText(list.get(position).getDate());
-        holder.due.setText("Amount Due: " + list.get(position).getFeesDue());
+        holder.component.setText(list.get(position).getComponentName());
+        holder.amount.setText("Fees Paid: " + list.get(position).getFeesPaid());
+        holder.date.setText(list.get(position).getDueDate());
+        holder.due.setText("Amount Due: " + list.get(position).getAmountDue());
     }
 
     @Override

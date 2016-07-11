@@ -1,5 +1,6 @@
 package varun.com.studentmanagementsystemsample;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ import varun.com.studentmanagementsystemsample.adapter.HomeAdapter;
 import varun.com.studentmanagementsystemsample.bean.HomeBean;
 import varun.com.studentmanagementsystemsample.constants.Api;
 import varun.com.studentmanagementsystemsample.constants.Constants;
+import varun.com.studentmanagementsystemsample.fragments.ToDoListFragment;
 import varun.com.studentmanagementsystemsample.utils.SessionManager;
 
 public class HomeActivity extends AppCompatActivity {
@@ -39,6 +41,8 @@ public class HomeActivity extends AppCompatActivity {
     InputStream inputStream;
     StringBuilder stringBuilder;
     String childResponse;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,11 @@ public class HomeActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             list = new ArrayList<>();
+            progressDialog = new ProgressDialog(HomeActivity.this);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
         }
 
         @Override
@@ -165,6 +174,8 @@ public class HomeActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);
             }
+
+            progressDialog.dismiss();
         }
     }
 }

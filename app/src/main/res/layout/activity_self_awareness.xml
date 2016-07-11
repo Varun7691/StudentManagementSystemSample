@@ -20,6 +20,7 @@
             android:textSize="22sp" />
 
         <TextView
+            android:id="@+id/goals_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="To become a police officer"
@@ -47,6 +48,7 @@
             android:textSize="22sp" />
 
         <TextView
+            android:id="@+id/strength_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Good Knowledge"
@@ -74,6 +76,7 @@
             android:textSize="22sp" />
 
         <TextView
+            android:id="@+id/interests_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Music"
@@ -101,6 +104,7 @@
             android:textSize="22sp" />
 
         <TextView
+            android:id="@+id/resp_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Good"

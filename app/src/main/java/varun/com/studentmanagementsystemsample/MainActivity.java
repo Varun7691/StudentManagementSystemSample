@@ -30,7 +30,7 @@ import varun.com.studentmanagementsystemsample.utils.SessionManager;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static String studentId;
+    public static String studentId, schoolId;
     Fragment fragment;
 
     @Override
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         studentId = getIntent().getStringExtra("StudentId");
+        schoolId = getIntent().getStringExtra("SchoolId");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -54,7 +54,8 @@ public class HomeAdapter extends
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra("StudentId", ""+list.get(position).getStudentID());
+                intent.putExtra("StudentId", "" + list.get(position).getStudentID());
+                intent.putExtra("SchoolId", "" + list.get(position).getSchoolID());
                 context.startActivity(intent);
                 activity.finish();
             }

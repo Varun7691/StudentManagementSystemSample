@@ -1,27 +1,49 @@
 package varun.com.studentmanagementsystemsample.fragments;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONStringer;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
+import varun.com.studentmanagementsystemsample.MainActivity;
 import varun.com.studentmanagementsystemsample.R;
+import varun.com.studentmanagementsystemsample.adapter.LibraryAdapter;
 import varun.com.studentmanagementsystemsample.adapter.TodoAdapter;
+import varun.com.studentmanagementsystemsample.bean.LibraryBean;
 import varun.com.studentmanagementsystemsample.bean.TodoBean;
+import varun.com.studentmanagementsystemsample.constants.Api;
+import varun.com.studentmanagementsystemsample.constants.Constants;
 import varun.com.studentmanagementsystemsample.database.TodoListSQLHelper;
 import varun.com.studentmanagementsystemsample.utils.DividerItemDecoration;
+import varun.com.studentmanagementsystemsample.utils.SessionManager;
 
 /**
  * Created by Varun on 4/2/2016.
@@ -34,29 +56,27 @@ public class ToDoListFragment extends Fragment {
     FloatingActionButton todo_fab;
     private TodoListSQLHelper todoListSQLHelper;
 
+    SessionManager sessionManager;
+
+    InputStream inputStream;
+    StringBuilder stringBuilder;
+    String todoListResponse;
+
+    ProgressDialog progressDialog;
+
+    String titleStr, descriptionStr;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_to_do_list, container, false);
 
+        sessionManager = new SessionManager(ToDoListFragment.this.getActivity());
+
         rvTodoList = (RecyclerView) rootView.findViewById(R.id.rvTodoList);
         todo_fab = (FloatingActionButton) rootView.findViewById(R.id.todo_fab);
 
-        list = new ArrayList<>();
-        list.add(new TodoBean("1", "Todo List", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."));
-        list.add(new TodoBean("1", "Todo List", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."));
-        list.add(new TodoBean("1", "Todo List", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."));
-        list.add(new TodoBean("1", "Todo List", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."));
-        list.add(new TodoBean("1", "Todo List", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."));
-        list.add(new TodoBean("1", "Todo List", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."));
-
-        adapter = new TodoAdapter(ToDoListFragment.this.getActivity(), list);
-
-        rvTodoList.setAdapter(adapter);
-        rvTodoList.setLayoutManager(new LinearLayoutManager(ToDoListFragment.this.getActivity()));
-        RecyclerView.ItemDecoration itemDecoration = new
-                DividerItemDecoration(ToDoListFragment.this.getActivity(), DividerItemDecoration.VERTICAL_LIST);
-        rvTodoList.addItemDecoration(itemDecoration);
+        new ForTodoList().execute();
 
         todo_fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,84 +88,234 @@ public class ToDoListFragment extends Fragment {
         return rootView;
     }
 
+    class ForTodoList extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            list = new ArrayList<>();
+            progressDialog = new ProgressDialog(ToDoListFragment.this.getActivity());
+            progressDialog.setMessage("Loading...");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            JSONStringer eventJsonStringer = new JSONStringer();
+
+            try {
+                eventJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_SCHOOL_ID).value(MainActivity.schoolId).endObject();
+
+                URL url = new URL(Api.TODO_LIST_URL);
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("charset", "utf-8");
+                conn.setRequestProperty("Content-type",
+                        "application/json");
+                conn.setRequestProperty("Accept",
+                        "application/json");
+
+                OutputStream os = conn.getOutputStream();
+
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                        os, "UTF-8"));
+                writer.write(eventJsonStringer.toString());
+
+                writer.flush();
+                writer.close();
+                os.close();
+
+                inputStream = conn.getErrorStream();
+                if (inputStream == null) {
+                    inputStream = conn.getInputStream();
+                }
+
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(inputStream), 1000);
+                stringBuilder = new StringBuilder();
+                stringBuilder.append(reader.readLine() + "\n");
+
+                String line = "0";
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line + "\n");
+                }
+
+                inputStream.close();
+                todoListResponse = stringBuilder.toString();
+
+            } catch (Exception e) {
+                Log.e("EVENT ERROR: ", "EVENT ERROR: " + e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            String todoListID = null, userID = null, userTypeID = null, studentRegID = null, schoolID = null, title = null, description = null;
+
+            try {
+                JSONObject rootObject = new JSONObject(todoListResponse);
+
+                int statusCode = rootObject.getInt(Constants.KEY_STATUS_CODE);
+
+                if (statusCode == Constants.STATUS_CODE_SUCCESS) {
+                    JSONArray todoListResponseArray = rootObject.getJSONArray(Constants.KEY_TODO_LIST_RESULT);
+
+                    for (int i = 0; i < todoListResponseArray.length(); i++) {
+                        JSONObject todoListResponseObject = (JSONObject) todoListResponseArray.get(i);
+
+                        userID = todoListResponseObject.getString(Constants.KEY_USER_ID);
+                        userTypeID = todoListResponseObject.getString(Constants.KEY_USER_TYPE);
+                        studentRegID = todoListResponseObject.getString(Constants.KEY_STUDENT_ID);
+                        schoolID = todoListResponseObject.getString(Constants.KEY_SCHOOL_ID);
+                        todoListID = todoListResponseObject.getString(Constants.KEY_TODO_LIST_ID);
+                        title = todoListResponseObject.getString(Constants.KEY_TODO_LIST_TITLE);
+                        description = todoListResponseObject.getString(Constants.KEY_TODO_LIST_DESCRIPTION);
+
+                        list.add(new TodoBean(todoListID, userID, userTypeID, studentRegID, schoolID, title, description));
+                    }
+
+                    adapter = new TodoAdapter(ToDoListFragment.this.getActivity(), list);
+
+                    rvTodoList.setAdapter(adapter);
+                    rvTodoList.setLayoutManager(new LinearLayoutManager(ToDoListFragment.this.getActivity()));
+                    RecyclerView.ItemDecoration itemDecoration = new
+                            DividerItemDecoration(ToDoListFragment.this.getActivity(), DividerItemDecoration.VERTICAL_LIST);
+                    rvTodoList.addItemDecoration(itemDecoration);
+                }
+
+                progressDialog.dismiss();
+            } catch (Exception e) {
+                Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);
+            }
+        }
+    }
+
+    class ForAddingTodo extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            list = new ArrayList<>();
+            progressDialog = new ProgressDialog(ToDoListFragment.this.getActivity());
+            progressDialog.setMessage("Loading...");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            JSONStringer addTodoJsonStringer = new JSONStringer();
+
+            try {
+                addTodoJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_USER_TYPE).value(sessionManager.getUserDetails().getUserType()).key(Constants.KEY_STUDENT_ID).value(MainActivity.studentId).key(Constants.KEY_SCHOOL_ID).value(MainActivity.schoolId).key(Constants.KEY_TODO_LIST_TITLE).value(titleStr).key(Constants.KEY_TODO_LIST_DESCRIPTION).value(descriptionStr).endObject();
+
+                URL url = new URL(Api.ADD_TODO_URL);
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("charset", "utf-8");
+                conn.setRequestProperty("Content-type", "application/json");
+                conn.setRequestProperty("Accept", "application/json");
+
+                OutputStream os = conn.getOutputStream();
+
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                        os, "UTF-8"));
+                writer.write(addTodoJsonStringer.toString());
+
+                writer.flush();
+                writer.close();
+                os.close();
+
+                inputStream = conn.getErrorStream();
+                if (inputStream == null) {
+                    inputStream = conn.getInputStream();
+                }
+
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(inputStream), 1000);
+                stringBuilder = new StringBuilder();
+                stringBuilder.append(reader.readLine() + "\n");
+
+                String line = "0";
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line + "\n");
+                }
+
+                inputStream.close();
+                todoListResponse = stringBuilder.toString();
+
+            } catch (Exception e) {
+                Log.e("EVENT ERROR: ", "EVENT ERROR: " + e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            try {
+                JSONObject rootObject = new JSONObject(todoListResponse);
+
+                int statusCode = rootObject.getInt(Constants.KEY_STATUS_CODE);
+                String statusMsg = rootObject.getString(Constants.KEY_MESSAGE);
+
+                if (statusCode == Constants.STATUS_CODE_SUCCESS) {
+                    Toast.makeText(ToDoListFragment.this.getActivity(), "" + statusMsg, Toast.LENGTH_SHORT).show();
+                }
+                progressDialog.dismiss();
+            } catch (Exception e) {
+                Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);
+            }
+        }
+    }
+
     public void displayAlertDialog() {
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View alertLayout = inflater.inflate(R.layout.layout_custom_dialog, null);
-        final EditText etUsername = (EditText) alertLayout.findViewById(R.id.et_Username);
-        final EditText etPassword = (EditText) alertLayout.findViewById(R.id.et_Password);
+        final EditText etTitle = (EditText) alertLayout.findViewById(R.id.et_Title);
+        final EditText etDescription = (EditText) alertLayout.findViewById(R.id.et_Description);
 
         AlertDialog.Builder alert = new AlertDialog.Builder(ToDoListFragment.this.getActivity());
-        alert.setTitle("ADD TASK");
+        alert.setTitle("Add Task");
         alert.setView(alertLayout);
         alert.setCancelable(true);
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(ToDoListFragment.this.getActivity(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+
             }
         });
 
-        alert.setPositiveButton("ADD", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // code for matching password
-//                String user = etUsername.getText().toString();
-//                String pass = etPassword.getText().toString();
-////                Toast.makeText(ToDoListFragment.this.getActivity(), "Username: " + user + " Password: " + pass, Toast.LENGTH_SHORT).show();
-//
-//                // String todoTaskInput = todoET.getText().toString();
-//                todoListSQLHelper = new TodoListSQLHelper(ToDoListFragment.this.getActivity());
-//                SQLiteDatabase sqLiteDatabase = todoListSQLHelper.getWritableDatabase();
-//                ContentValues values = new ContentValues();
-//                values.clear();
-//
-//                //write the Todo task input into database table
-//                values.put(TodoListSQLHelper.TODO_TITLE, user);
-//                values.put(TodoListSQLHelper.TODO_DESC, pass);
-//                sqLiteDatabase.insertWithOnConflict(TodoListSQLHelper.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
-//
-//                //update the Todo task list UI
-//                updateTodoList();
+                titleStr = etTitle.getText().toString();
+                descriptionStr = etDescription.getText().toString();
 
-
+                if (!titleStr.isEmpty() || !descriptionStr.isEmpty()) {
+                    new ForAddingTodo().execute();
+                }
             }
         });
         AlertDialog dialog = alert.create();
         dialog.show();
     }
 
-    private void updateTodoList() {
-        todoListSQLHelper = new TodoListSQLHelper(ToDoListFragment.this.getActivity());
-//        SQLiteDatabase sqLiteDatabase = todoListSQLHelper.getReadableDatabase();
-//        //cursor to read todo task list from database
-//        Cursor cursor = sqLiteDatabase.query(TodoListSQLHelper.TABLE_NAME,
-//                new String[]{TodoListSQLHelper._ID, TodoListSQLHelper.TODO_TITLE},
-//                null, null, null, null, null);
 
-//        TodoListSQLHelper db = new TodoListSQLHelper(getActivity());
-
-        try {
-            Cursor c = todoListSQLHelper.getTodoList();
-            c.moveToFirst();
-            if (c.getCount() != 0) {
-                do {
-                    String id = c.getString(0);
-                    String title = c.getString(1);
-                    String desc = c.getString(2);
-
-                    list.add(new TodoBean(id, title, desc));
-
-                } while (c.moveToNext());
-                c.close();
-                todoListSQLHelper.close();
-            }
-        } catch (SQLException e) {
-            System.out.println("data not found");
-
-        }
-
-        adapter.notifyDataSetChanged();
-    }
 }

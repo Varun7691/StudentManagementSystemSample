@@ -4,45 +4,45 @@ package varun.com.studentmanagementsystemsample.bean;
  * Created by Varun on 4/2/2016.
  */
 public class FeePaymentBean {
-    private String component, amount, date, feesDue;
+    private String componentName, feesPaid, amountDue, dueDate;
 
-    public FeePaymentBean(String component, String amount, String date, String feesDue) {
-        this.component = component;
-        this.amount = amount;
-        this.date = date;
-        this.feesDue = feesDue;
+    public FeePaymentBean(String componentName, String feesPaid, String amountDue, String dueDate) {
+        this.componentName = componentName;
+        this.feesPaid = feesPaid;
+        this.amountDue = amountDue;
+        this.dueDate = dueDate;
     }
 
-    public String getComponent() {
-        return component;
+    public String getComponentName() {
+        return componentName;
     }
 
-    public String getFeesDue() {
-        return feesDue;
+    public void setComponentName(String componentName) {
+        this.componentName = componentName;
     }
 
-    public void setFeesDue(String feesDue) {
-        this.feesDue = feesDue;
+    public String getFeesPaid() {
+        return feesPaid;
     }
 
-    public void setComponent(String component) {
-        this.component = component;
+    public void setFeesPaid(String feesPaid) {
+        this.feesPaid = feesPaid;
     }
 
-    public String getAmount() {
-        return amount;
+    public String getAmountDue() {
+        return amountDue;
     }
 
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setAmountDue(String amountDue) {
+        this.amountDue = amountDue;
     }
 
-    public String getDate() {
-        return date;
+    public String getDueDate() {
+        return dueDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 }
 

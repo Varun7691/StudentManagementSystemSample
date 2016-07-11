@@ -30,7 +30,8 @@
         <activity android:name=".ScholasticActivity" />
         <activity android:name=".HealthStatusActivity" />
         <activity android:name=".SelfAwarenessActivity" />
-        <activity android:name=".CoScholasticActivity"></activity>
+        <activity android:name=".CoScholasticActivity" />
+        <activity android:name=".CoScholasticActivityNew"></activity>
     </application>
 
 </manifest>

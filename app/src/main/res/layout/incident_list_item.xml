@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:text="Incident Against: Varun Barve"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/incident_for"
@@ -20,7 +21,8 @@
         android:layout_height="wrap_content"
         android:text="Incident By: Varun Barve"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/incident_nature"

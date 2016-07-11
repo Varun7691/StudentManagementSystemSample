@@ -15,6 +15,7 @@ import varun.com.studentmanagementsystemsample.IncidentDetailsActivity;
 import varun.com.studentmanagementsystemsample.R;
 import varun.com.studentmanagementsystemsample.bean.FeePaymentBean;
 import varun.com.studentmanagementsystemsample.bean.IncidentBean;
+import varun.com.studentmanagementsystemsample.bean.IncidentOverviewBean;
 
 /**
  * Created by Varun on 4/17/2016.
@@ -22,11 +23,11 @@ import varun.com.studentmanagementsystemsample.bean.IncidentBean;
 public class IncidentAdapter extends
         RecyclerView.Adapter<IncidentAdapter.ViewHolder> {
 
-    ArrayList<IncidentBean> list;
+    ArrayList<IncidentOverviewBean> list;
     Context context;
     LayoutInflater inflater;
 
-    public IncidentAdapter(Context context, ArrayList<IncidentBean> list) {
+    public IncidentAdapter(Context context, ArrayList<IncidentOverviewBean> list) {
         this.list = list;
         this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -44,10 +45,10 @@ public class IncidentAdapter extends
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.against.setText("Raised against: " + list.get(position).getIncidentAgainst());
-        holder.incidentFor.setText("Raised by: " + list.get(position).getIncidentFor());
-        holder.date.setText(list.get(position).getIncidentDate());
-        holder.nature.setText(list.get(position).getIncidentNature());
+//        holder.against.setText("Raised against: " + list.get(position).getIncidentAgainst());
+//        holder.incidentFor.setText("Raised by: " + list.get(position).getIncidentFor());
+        holder.date.setText(list.get(position).getIncidentClassificationName());
+        holder.nature.setText(list.get(position).getIncidentName());
         holder.incidentListItemContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

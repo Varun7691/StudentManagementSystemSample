@@ -25,6 +25,7 @@
             android:padding="15dp">
 
             <TextView
+                android:id="@+id/total_fee_payment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total Fees: 45000"
@@ -32,9 +33,10 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/total_due_payment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fees Paid: 15000"
+                android:text="Fees Due: 15000"
                 android:textColor="#ffffff"
                 android:textSize="20sp" />
 

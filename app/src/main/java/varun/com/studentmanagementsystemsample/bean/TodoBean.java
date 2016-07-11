@@ -5,20 +5,56 @@ package varun.com.studentmanagementsystemsample.bean;
  */
 public class TodoBean {
 
-    private String id, title, desc;
+    private String todoListID, userID, userTypeID, studentRegID, schoolID, title, description;
 
-    public TodoBean(String id, String title, String desc) {
-        this.id = id;
+    public TodoBean(String todoListID, String userID, String userTypeID, String studentRegID, String schoolID, String title, String description) {
+        this.todoListID = todoListID;
+        this.userID = userID;
+        this.userTypeID = userTypeID;
+        this.studentRegID = studentRegID;
+        this.schoolID = schoolID;
         this.title = title;
-        this.desc = desc;
+        this.description = description;
     }
 
-    public String getId() {
-        return id;
+    public String getTodoListID() {
+        return todoListID;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTodoListID(String todoListID) {
+        this.todoListID = todoListID;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getUserTypeID() {
+        return userTypeID;
+    }
+
+    public void setUserTypeID(String userTypeID) {
+        this.userTypeID = userTypeID;
+    }
+
+    public String getStudentRegID() {
+        return studentRegID;
+    }
+
+    public void setStudentRegID(String studentRegID) {
+        this.studentRegID = studentRegID;
+    }
+
+    public String getSchoolID() {
+        return schoolID;
+    }
+
+    public void setSchoolID(String schoolID) {
+        this.schoolID = schoolID;
     }
 
     public String getTitle() {
@@ -29,11 +65,11 @@ public class TodoBean {
         this.title = title;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

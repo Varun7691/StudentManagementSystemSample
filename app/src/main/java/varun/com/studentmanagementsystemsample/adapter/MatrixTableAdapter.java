@@ -17,7 +17,7 @@ import varun.com.studentmanagementsystemsample.R;
  */
 public class MatrixTableAdapter<T> extends BaseTableAdapter {
 
-    private final static int WIDTH_DIP = 150;
+    private final static int WIDTH_DIP = 100;
     private final static int HEIGHT_DIP = 40;
     private final int width;
     private final int height;
