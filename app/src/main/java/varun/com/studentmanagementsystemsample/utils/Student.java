@@ -1,21 +1,13 @@
 package varun.com.studentmanagementsystemsample.utils;
 
 /**
- * Created by VarunBarve on 12/05/2016.
+ * Created by Administrator on 7/14/2016.
  */
-public class User {
-
+public class Student {
     int userID, userSpecificID, roleId, userTypeID, studentRegID, schoolID, classID, sectionID;
     String userName;
 
-    public User(int userID, int roleId, int userTypeID, String userName) {
-        this.userID = userID;
-        this.roleId = roleId;
-        this.userTypeID = userTypeID;
-        this.userName = userName;
-    }
-
-    public User(int userID, int userSpecificID, int roleId, int userTypeID, int studentRegID, int schoolID, int classID, int sectionID, String userName) {
+    public Student(int userID, int userSpecificID, int roleId, int userTypeID, int studentRegID, int schoolID, int classID, int sectionID, String userName) {
         this.userID = userID;
         this.userSpecificID = userSpecificID;
         this.roleId = roleId;

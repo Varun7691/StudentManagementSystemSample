@@ -86,7 +86,38 @@ public class TimeTableFragment extends Fragment {
             JSONStringer timeTableJsonStringer = new JSONStringer();
 
             try {
-                timeTableJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_SCHOOL_ID).value(MainActivity.schoolId).endObject();
+
+                String schoolId = null, userId = null, classId = null, academicYearID = null, termID = null, sectionID = null;
+
+                if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
+                    academicYearID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
+                    termID = "1";
+                    sectionID = "42";
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
+                    classId = "" + sessionManager.getStudentDetails().getClassID();
+                    academicYearID = "1";
+                    termID = "1";
+                    sectionID = "42";
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
+                    academicYearID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
+                    termID = "1";
+                    sectionID = "42";
+                }
+
+                timeTableJsonStringer.object().key(Constants.KEY_USER_ID).value(userId).key(Constants.KEY_SCHOOL_ID).value(schoolId).key(Constants.KEY_CLASS_ID).value(classId).key(Constants.KEY_ACADEMIC_YEAR_ID).value(academicYearID).key(Constants.KEY_TIME_TABLE_TERM_ID).value(termID).key(Constants.KEY_SECTION_ID).value(sectionID).endObject();
 
                 URL url = new URL(Api.TIME_TABLE_URL);
 

@@ -37,7 +37,7 @@ import varun.com.studentmanagementsystemsample.MainActivity;
 import varun.com.studentmanagementsystemsample.R;
 import varun.com.studentmanagementsystemsample.adapter.IncidentAdapter;
 import varun.com.studentmanagementsystemsample.adapter.IncidentClassificationSpinnerAdapter;
-import varun.com.studentmanagementsystemsample.bean.IncidentClassificationBean;
+import varun.com.studentmanagementsystemsample.bean.IncidentClassificationbean;
 import varun.com.studentmanagementsystemsample.bean.IncidentOverviewBean;
 import varun.com.studentmanagementsystemsample.constants.Api;
 import varun.com.studentmanagementsystemsample.constants.Constants;
@@ -62,7 +62,7 @@ public class IncidentsFragment extends Fragment {
 
     ProgressDialog progressDialog;
 
-    ArrayList<IncidentClassificationBean> incidentClassificationBeanArrayList;
+    ArrayList<IncidentClassificationbean> incidentClassificationBeanArrayList;
     IncidentClassificationSpinnerAdapter incidentClassificationSpinnerAdapter;
 
     String incidentClassificationId, incidentName;
@@ -106,13 +106,13 @@ public class IncidentsFragment extends Fragment {
         mIncidentClassification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                IncidentClassificationBean bean = (IncidentClassificationBean) parent.getItemAtPosition(position);
+                IncidentClassificationbean bean = (IncidentClassificationbean) parent.getItemAtPosition(position);
                 incidentClassificationId = bean.getIncidentClassificationId();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                IncidentClassificationBean bean = (IncidentClassificationBean) parent.getItemAtPosition(0);
+                IncidentClassificationbean bean = (IncidentClassificationbean) parent.getItemAtPosition(0);
                 incidentClassificationId = bean.getIncidentClassificationId();
 
             }
@@ -176,7 +176,29 @@ public class IncidentsFragment extends Fragment {
             JSONStringer incidentJsonStringer = new JSONStringer();
 
             try {
-                incidentJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_USER_TYPE).value(sessionManager.getUserDetails().getUserType()).key(Constants.KEY_SCHOOL_ID).value(MainActivity.schoolId).key(Constants.KEY_INCIDENT_NAME).value(incidentName).key(Constants.KEY_INCIDENT_CLASSIFICATION_ID).value(incidentClassificationId).endObject();
+
+                String userId = null, userType = null, schoolId = null;
+
+                if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+                    userType = "" + sessionManager.getUserDetails().getUserTypeID();
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
+
+                    userId = "" + sessionManager.getStudentDetails().getUserID();
+                    userType = "" + sessionManager.getStudentDetails().getUserTypeID();
+                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+                    userType = "" + sessionManager.getUserDetails().getUserTypeID();
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                }
+
+                incidentJsonStringer.object().key(Constants.KEY_USER_ID).value(userId).key(Constants.KEY_USER_TYPE).value(userType).key(Constants.KEY_SCHOOL_ID).value(schoolId).key(Constants.KEY_INCIDENT_NAME).value(incidentName).key(Constants.KEY_INCIDENT_CLASSIFICATION_ID).value(incidentClassificationId).endObject();
 
                 URL url = new URL(Api.CREATE_INCIDENT_URL);
 
@@ -261,7 +283,23 @@ public class IncidentsFragment extends Fragment {
             JSONStringer incidentJsonStringer = new JSONStringer();
 
             try {
-                incidentJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_USER_TYPE).value(sessionManager.getUserDetails().getUserType()).key(Constants.KEY_SCHOOL_ID).value(MainActivity.schoolId).endObject();
+
+                String schoolId = null;
+
+                if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
+
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
+
+                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
+
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                }
+
+                incidentJsonStringer.object().key(Constants.KEY_SCHOOL_ID).value(schoolId).endObject();
 
                 URL url = new URL(Api.INCIDENT_CLASSIFICATION_URL);
 
@@ -326,10 +364,10 @@ public class IncidentsFragment extends Fragment {
                     for (int i = 0; i < incidentResponseArray.length(); i++) {
                         JSONObject incidentResponseObject = (JSONObject) incidentResponseArray.get(i);
 
-                        incidentClassificationId = incidentResponseObject.getString(Constants.KEY_INCIDENT_CLASSIFICATION_ID);
-                        incidentClassificationName = incidentResponseObject.getString(Constants.KEY_INCIDENT_CLASSIFICATION_NAME);
+                        incidentClassificationId = incidentResponseObject.getString(Constants.KEY_ID);
+                        incidentClassificationName = incidentResponseObject.getString(Constants.KEY_VALUE);
 
-                        incidentClassificationBeanArrayList.add(new IncidentClassificationBean(incidentClassificationId, incidentClassificationName));
+                        incidentClassificationBeanArrayList.add(new IncidentClassificationbean(incidentClassificationId, incidentClassificationName));
                     }
                 }
             } catch (Exception e) {
@@ -357,7 +395,27 @@ public class IncidentsFragment extends Fragment {
             JSONStringer incidentJsonStringer = new JSONStringer();
 
             try {
-                incidentJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_USER_TYPE).value(sessionManager.getUserDetails().getUserType()).key(Constants.KEY_SCHOOL_ID).value(MainActivity.schoolId).endObject();
+//                incidentJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_USER_TYPE).value(sessionManager.getUserDetails().getUserType()).key(Constants.KEY_SCHOOL_ID).value(MainActivity.schoolId).endObject();
+
+                String schoolId = null, studentId = null;
+
+                if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
+
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
+
+                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
+                    studentId = "" + sessionManager.getStudentDetails().getStudentRegID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
+
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
+                }
+
+                incidentJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(studentId).key(Constants.KEY_SCHOOL_ID).value(schoolId).endObject();
 
                 URL url = new URL(Api.INCIDENT_OVERVIEW_URL);
 
@@ -415,6 +473,7 @@ public class IncidentsFragment extends Fragment {
                 JSONObject rootObject = new JSONObject(incidentResponse);
 
                 int statusCode = rootObject.getInt(Constants.KEY_STATUS_CODE);
+                String message = rootObject.getString(Constants.KEY_MESSAGE);
 
                 if (statusCode == Constants.STATUS_CODE_SUCCESS) {
                     JSONArray incidentResponseArray = rootObject.getJSONArray(Constants.KEY_INCIDENT_RESULT);
@@ -441,6 +500,8 @@ public class IncidentsFragment extends Fragment {
                     RecyclerView.ItemDecoration itemDecoration = new
                             DividerItemDecoration(IncidentsFragment.this.getActivity(), DividerItemDecoration.VERTICAL_LIST);
                     incidentRecyclerView.addItemDecoration(itemDecoration);
+                } else {
+                    Toast.makeText(IncidentsFragment.this.getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                 }
 
                 progressDialog.dismiss();

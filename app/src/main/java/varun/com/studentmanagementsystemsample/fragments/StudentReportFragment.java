@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -145,7 +146,38 @@ public class StudentReportFragment extends Fragment {
             JSONStringer feePaymentJsonStringer = new JSONStringer();
 
             try {
-                feePaymentJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_SCHOOL_ID).value(MainActivity.schoolId).key(Constants.KEY_STUDENT_ID).value(MainActivity.studentId).endObject();
+
+                String schoolId = null, studentId = null, academicYearID = null, classId = null, sectionID = null, termId = null;
+
+                if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
+
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
+                    academicYearID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
+                    classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
+                    sectionID = "41";
+                    termId = "1";
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
+
+                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
+                    studentId = "" + sessionManager.getStudentDetails().getStudentRegID();
+                    academicYearID = "1";
+                    classId = "" + sessionManager.getStudentDetails().getClassID();
+                    sectionID = "41";
+                    termId = "1";
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
+
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
+                    academicYearID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
+                    classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
+                    sectionID = "41";
+                    termId = "1";
+                }
+
+                feePaymentJsonStringer.object().key(Constants.KEY_SCHOOL_ID).value(schoolId).key(Constants.KEY_STUDENT_ID).value(studentId).key(Constants.KEY_ACADEMIC_YEAR_ID).value(academicYearID).key(Constants.KEY_CLASS_ID).value(classId).key(Constants.KEY_SECTION_ID).value(sectionID).key(Constants.KEY_TIME_TABLE_TERM_ID).value(termId).endObject();
 
                 URL url = new URL(Api.STUDENT_REPORT_URL);
 
@@ -201,6 +233,7 @@ public class StudentReportFragment extends Fragment {
                 JSONObject rootObject = new JSONObject(studentReportResponse);
 
                 int statusCode = rootObject.getInt(Constants.KEY_STATUS_CODE);
+                String message = rootObject.getString(Constants.KEY_MESSAGE);
 
                 if (statusCode == Constants.STATUS_CODE_SUCCESS) {
                     JSONArray scholasticResultResponseArray = rootObject.getJSONArray(Constants.KEY_SCHOLASTIC_RESULT);
@@ -277,6 +310,8 @@ public class StudentReportFragment extends Fragment {
                         selfAwarnessReportBean.setInterestHobbies(interestHobbies);
                         selfAwarnessReportBean.setResponsibilityDischarged_exceptionalAchievements(responsibilityDischarged_exceptionalAchievements);
                     }
+                } else {
+                    Toast.makeText(StudentReportFragment.this.getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);

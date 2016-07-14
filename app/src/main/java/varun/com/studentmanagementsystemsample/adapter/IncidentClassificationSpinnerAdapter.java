@@ -10,18 +10,18 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import varun.com.studentmanagementsystemsample.R;
-import varun.com.studentmanagementsystemsample.bean.IncidentClassificationBean;
+import varun.com.studentmanagementsystemsample.bean.IncidentClassificationbean;
 
 /**
  * Created by Varun Barve on 6/30/2016.
  */
-public class IncidentClassificationSpinnerAdapter extends ArrayAdapter<IncidentClassificationBean> {
+public class IncidentClassificationSpinnerAdapter extends ArrayAdapter<IncidentClassificationbean> {
 
     Context context;
     LayoutInflater inflater;
-    ArrayList<IncidentClassificationBean> list;
+    ArrayList<IncidentClassificationbean> list;
 
-    public IncidentClassificationSpinnerAdapter(Context context, ArrayList<IncidentClassificationBean> list) {
+    public IncidentClassificationSpinnerAdapter(Context context, ArrayList<IncidentClassificationbean> list) {
         super(context, R.layout.incident_classification_spinner_layout, list);
         this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

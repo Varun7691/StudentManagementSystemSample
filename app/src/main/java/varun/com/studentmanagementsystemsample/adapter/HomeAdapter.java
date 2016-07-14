@@ -56,8 +56,9 @@ public class HomeAdapter extends
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra("StudentId", "" + list.get(position).getStudentID());
                 intent.putExtra("SchoolId", "" + list.get(position).getSchoolID());
+                intent.putExtra("GLOBAL POSITION", position);
                 context.startActivity(intent);
-                activity.finish();
+//                activity.finish();
             }
         });
     }

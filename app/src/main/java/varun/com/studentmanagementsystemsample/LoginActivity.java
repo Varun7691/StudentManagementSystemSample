@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             String userName = null;
-            int userId = -1, roleId = -1, userType = -1;
+            int userId = -1, roleId = -1, userType = -1, userSpecificID = -1, studentRegID = -1, schoolID = -1, classID = -1, sectionID = -1;
 
             try {
                 JSONObject rootObject = new JSONObject(loginResponse);
@@ -166,9 +166,51 @@ public class LoginActivity extends AppCompatActivity {
                     roleId = loginResponseObject.getInt(Constants.KEY_ROLE_ID);
                     userType = loginResponseObject.getInt(Constants.KEY_USER_TYPE);
 
-                    sessionManager.createLoginSession(true, userId, userName, roleId, userType);
+                    if (loginResponseObject.has(Constants.KEY_USER_SPECIFIC_ID)) {
+                        userSpecificID = loginResponseObject.getInt(Constants.KEY_USER_SPECIFIC_ID);
+                    } else {
+                        userSpecificID = -1;
+                    }
+
+                    if (loginResponseObject.has(Constants.KEY_STUDENT_ID)) {
+                        studentRegID = loginResponseObject.getInt(Constants.KEY_STUDENT_ID);
+                    } else {
+                        studentRegID = -1;
+                    }
+
+                    if (loginResponseObject.has(Constants.KEY_SCHOOL_ID)) {
+                        schoolID = loginResponseObject.getInt(Constants.KEY_SCHOOL_ID);
+                    } else {
+                        schoolID = -1;
+                    }
+
+                    if (loginResponseObject.has(Constants.KEY_CLASS_ID)) {
+                        classID = loginResponseObject.getInt(Constants.KEY_CLASS_ID);
+                    } else {
+                        classID = -1;
+                    }
+
+                    if (loginResponseObject.has(Constants.KEY_SECTION_ID)) {
+                        sectionID = loginResponseObject.getInt(Constants.KEY_SECTION_ID);
+                    } else {
+                        sectionID = -1;
+                    }
 
                     if (userType == Constants.USER_TYPE_PARENT) {
+
+                        sessionManager.createLoginSession(true, userId, userName, roleId, userType);
+
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (userType == Constants.USER_TYPE_STUDENT) {
+
+                        sessionManager.createStudentLoginSession(true, userId, userName, roleId, userType, userSpecificID, studentRegID, schoolID, classID, sectionID);
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (userType == Constants.USER_TYPE_TEACHER) {
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();

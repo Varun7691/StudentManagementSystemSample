@@ -162,7 +162,23 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
             JSONStringer addTodoJsonStringer = new JSONStringer();
 
             try {
-                addTodoJsonStringer.object().key(Constants.KEY_TODO_LIST_ID).value(todoId).key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_USER_TYPE).value(sessionManager.getUserDetails().getUserType()).key(Constants.KEY_STUDENT_ID).value(MainActivity.studentId).key(Constants.KEY_SCHOOL_ID).value(MainActivity.schoolId).key(Constants.KEY_TODO_LIST_TITLE).value(titleStr).key(Constants.KEY_TODO_LIST_DESCRIPTION).value(descriptionStr).endObject();
+
+                String userId = null;
+
+                if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+                }
+
+                addTodoJsonStringer.object().key(userId).value(todoId).key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserID()).key(Constants.KEY_TODO_LIST_TITLE).value(titleStr).key(Constants.KEY_TODO_LIST_DESCRIPTION).value(descriptionStr).key(Constants.KEY_STATUS).value("1").endObject();
 
                 URL url = new URL(Api.UPDATE_TODO_URL);
 
@@ -219,7 +235,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
                 if (statusCode == Constants.STATUS_CODE_SUCCESS) {
                     Toast.makeText(context, "" + statusMsg, Toast.LENGTH_SHORT).show();
-                } else if (statusCode == Constants.STATUS_CODE_FAILURE) {
+                } else {
                     Toast.makeText(context, "" + statusMsg, Toast.LENGTH_SHORT).show();
                 }
                 progressDialog.dismiss();

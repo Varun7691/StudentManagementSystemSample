@@ -90,7 +90,7 @@ public class HomeActivity extends AppCompatActivity {
 
             try {
 
-                childJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_USER_NAME).value(sessionManager.getUserDetails().getUserName()).endObject();
+                childJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserID()).key(Constants.KEY_SCHOOL_ID).value("1").endObject();
 
                 URL url = new URL(Api.GET_CHILDREN_URL);
 
@@ -145,7 +145,7 @@ public class HomeActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             String studentFirstName = null;
-            int studentID = -1, schoolID = -1, avrageAttendance = -1, avragePerformance = -1;
+            int studentID = -1, schoolID = -1, avrageAttendance = -1, avragePerformance = -1, classID = -1, academicYearID = -1;
 
             try {
                 JSONObject rootObject = new JSONObject(childResponse);
@@ -163,13 +163,18 @@ public class HomeActivity extends AppCompatActivity {
                         avrageAttendance = childResponseObject.getInt(Constants.KEY_AVG_ATTENDANCE);
                         avragePerformance = childResponseObject.getInt(Constants.KEY_AVG_PERFORMANCE);
                         studentFirstName = childResponseObject.getString(Constants.KEY_STUDENT_FIRST_NAME);
+                        academicYearID = childResponseObject.getInt(Constants.KEY_ACADEMIC_YEAR_ID);
+                        classID = childResponseObject.getInt(Constants.KEY_CLASS_ID);
 
-                        list.add(new HomeBean(studentID, schoolID, avrageAttendance, avragePerformance, studentFirstName));
+                        list.add(new HomeBean(studentID, schoolID, avrageAttendance, avragePerformance, studentFirstName, academicYearID, classID));
                     }
 
                     adapter = new HomeAdapter(HomeActivity.this, list);
                     rvHome.setAdapter(adapter);
                     rvHome.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
+
+                    sessionManager.setStudentList(list);
+
                 }
             } catch (Exception e) {
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);

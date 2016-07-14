@@ -3,11 +3,11 @@ package varun.com.studentmanagementsystemsample.bean;
 /**
  * Created by Varun Barve on 6/30/2016.
  */
-public class IncidentClassificationBean {
+public class IncidentClassificationbean {
 
     String incidentClassificationId, incidentClassificationName;
 
-    public IncidentClassificationBean(String incidentClassificationId, String incidentClassificationName) {
+    public IncidentClassificationbean(String incidentClassificationId, String incidentClassificationName) {
         this.incidentClassificationId = incidentClassificationId;
         this.incidentClassificationName = incidentClassificationName;
     }

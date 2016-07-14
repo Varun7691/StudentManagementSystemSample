@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -101,7 +102,30 @@ public class FeePaymentFragment extends Fragment {
             JSONStringer feePaymentJsonStringer = new JSONStringer();
 
             try {
-                feePaymentJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(MainActivity.studentId).key(Constants.KEY_SCHOOL_ID).value(MainActivity.schoolId).key(Constants.KEY_ACADEMIC_YEAR_ID).value("1").endObject();
+
+                String studentId = null, schoolId = null, academicYearID = null;
+
+                if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
+
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
+                    academicYearID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
+
+                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
+                    studentId = "" + sessionManager.getStudentDetails().getStudentRegID();
+                    academicYearID = "1";
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
+
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
+                    academicYearID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
+
+                }
+
+                feePaymentJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(studentId).key(Constants.KEY_SCHOOL_ID).value(schoolId).key(Constants.KEY_ACADEMIC_YEAR_ID).value(academicYearID).endObject();
 
                 URL url = new URL(Api.FEE_PAYMENT_URL);
 
@@ -157,6 +181,7 @@ public class FeePaymentFragment extends Fragment {
                 JSONObject rootObject = new JSONObject(feePaymentResponse);
 
                 int statusCode = rootObject.getInt(Constants.KEY_STATUS_CODE);
+                String message = rootObject.getString(Constants.KEY_MESSAGE);
 
                 if (statusCode == Constants.STATUS_CODE_SUCCESS) {
                     JSONArray feePaymentResponseArray = rootObject.getJSONArray(Constants.KEY_FEE_PAYMENT_RESULT);
@@ -197,6 +222,8 @@ public class FeePaymentFragment extends Fragment {
                     adapter = new FeePaymentAdapter(FeePaymentFragment.this.getActivity(), list);
                     feePaymentRV.setAdapter(adapter);
                     feePaymentRV.setLayoutManager(new LinearLayoutManager(getActivity()));
+                } else {
+                    Toast.makeText(FeePaymentFragment.this.getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);

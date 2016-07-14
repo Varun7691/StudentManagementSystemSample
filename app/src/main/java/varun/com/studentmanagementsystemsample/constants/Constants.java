@@ -111,14 +111,40 @@ public class Constants {
     public static final String KEY_STRENGTH = "strength";
     public static final String KEY_INTEREST_HOBBIES = "interestHobbies";
     public static final String KEY_RESPONSIBILITY_DISCHARGED_EXCEPTIONAL_ACHIEVEMENTS = "responsibilityDischarged_exceptionalAchievements";
-    public static final String KEY_INCIDENT_CLASSIFICATION_RESULT = "IncidentClassificationResult";
+    public static final String KEY_INCIDENT_CLASSIFICATION_RESULT = "IncidentClassificationMasterResult";
+    public static final String KEY_USER_SPECIFIC_ID = "userSpecificID";
+    public static final String KEY_SECTION_ID = "sectionID";
+    public static final String KEY_STATUS = "status";
+    public static final String KEY_IMAGE_GALLERY_RESULT = "ImageGalleryResult";
+    public static final String KEY_ALBUM_ID = "albumID";
+    public static final String KEY_ALBUM_TITLE = "albumTitle";
+    public static final String KEY_ALBUM_DESCRIPTION = "albumDescription";
+    public static final String KEY_ALBUM_CREATION_DATE = "albumCreationDate";
+    public static final String KEY_IMAGES = "images";
+    public static final String KEY_IMAGE_ID = "imageID";
+    public static final String KEY_IMAGE_TITLE = "imageTitle";
+    public static final String KEY_IMAGE_DESCRIPTION = "imageDescription";
+    public static final String KEY_IMAGE_TAKEN_DATE = "imageTakenDate";
+    public static final String KEY_IMAGE_PATH = "imagePath";
+    public static final String KEY_ID = "id";
+    public static final String KEY_VALUE = "value";
+    public static final String KEY_DT_CREATED= "dtCreated";
+
 
     //STATUS CODE DESC
-    public static final int STATUS_CODE_SUCCESS = 1;
-    public static final int STATUS_CODE_FAILURE = 0;
+    public static final int STATUS_CODE_SUCCESS = 0;
+    public static final int STATUS_CODE_RECORD_INSERTED_SCCESSFULLY = 1;
+    public static final int STATUS_CODE_ALREADY_EXISTS = 2;
+    public static final int STATUS_CODE_DELETED_SUCCESSFULLY = 3;
+    public static final int STATUS_CODE_UPDATED_SUCCESSFULLY = 4;
+    public static final int STATUS_CODE_NO_RECORD_FOUND = 5;
+    public static final int STATUS_CODE_NO_USER_INFO = 6;
+    public static final int STATUS_CODE_SEARCH_TEXT = 7;
+    public static final int STATUS_CODE_INTERNAL_ERROR = -1;
 
     //USER TYPE DESC
     public static final int USER_TYPE_PARENT = 1;
-    public static final int USER_TYPE_STUDENT = 2;
-    public static final int USER_TYPE_TEACHER = 3;
+    public static final int USER_TYPE_TEACHER = 2;
+    public static final int USER_TYPE_STUDENT = 3;
+
 }

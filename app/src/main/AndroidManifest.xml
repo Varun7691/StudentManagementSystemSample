@@ -13,6 +13,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
@@ -21,17 +22,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".GalleryDetailActivity" />
-        <activity android:name=".RaisingIncidentsActivity" />
-        <activity android:name=".IncidentDetailsActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".EventDetailActivity" />
-        <activity android:name=".ScholasticActivity" />
-        <activity android:name=".HealthStatusActivity" />
-        <activity android:name=".SelfAwarenessActivity" />
-        <activity android:name=".CoScholasticActivity" />
-        <activity android:name=".CoScholasticActivityNew"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GalleryDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RaisingIncidentsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".IncidentDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EventDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ScholasticActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HealthStatusActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SelfAwarenessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CoScholasticActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CoScholasticActivityNew"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ImagesActivity"></activity>
     </application>
 
 </manifest>

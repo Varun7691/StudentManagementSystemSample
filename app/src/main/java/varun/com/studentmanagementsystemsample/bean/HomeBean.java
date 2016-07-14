@@ -12,13 +12,33 @@ public class HomeBean implements Serializable {
     private int avrageAttendance;
     private int avragePerformance;
     private String studentFirstName;
+    private int academicYearID;
+    private int classID;
 
-    public HomeBean(int studentID, int schoolID, int avrageAttendance, int avragePerformance, String studentFirstName) {
+    public HomeBean(int studentID, int schoolID, int avrageAttendance, int avragePerformance, String studentFirstName, int academicYearID, int classID) {
         this.studentID = studentID;
         this.schoolID = schoolID;
         this.avrageAttendance = avrageAttendance;
         this.avragePerformance = avragePerformance;
         this.studentFirstName = studentFirstName;
+        this.academicYearID = academicYearID;
+        this.classID = classID;
+    }
+
+    public int getAcademicYearID() {
+        return academicYearID;
+    }
+
+    public void setAcademicYearID(int academicYearID) {
+        this.academicYearID = academicYearID;
+    }
+
+    public int getClassID() {
+        return classID;
+    }
+
+    public void setClassID(int classID) {
+        this.classID = classID;
     }
 
     public int getStudentID() {

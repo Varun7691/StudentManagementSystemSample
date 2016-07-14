@@ -105,7 +105,34 @@ public class AttendanceFragment extends Fragment {
 
             try {
 
-                childJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(MainActivity.studentId).endObject();
+//                childJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(MainActivity.studentId).endObject();
+
+                String userID = null, studentId = null, schoolId = null, classId = null;
+
+                if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
+
+                    userID = "" + sessionManager.getUserDetails().getUserID();
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
+                    classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
+
+                    userID = "" + sessionManager.getStudentDetails().getUserID();
+                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
+                    studentId = "" + sessionManager.getStudentDetails().getStudentRegID();
+                    classId = "" + sessionManager.getStudentDetails().getClassID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
+
+                    userID = "" + sessionManager.getUserDetails().getUserID();
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
+                    classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
+                }
+
+
+                childJsonStringer.object().key(Constants.KEY_USER_ID).value(userID).key(Constants.KEY_STUDENT_ID).value(studentId).key(Constants.KEY_SCHOOL_ID).value(schoolId).key(Constants.KEY_CLASS_ID).value(classId).endObject();
 
                 URL url = new URL(Api.ATTENDANCE_URL);
 
@@ -168,6 +195,7 @@ public class AttendanceFragment extends Fragment {
                 JSONObject rootObject = new JSONObject(attendanceResponse);
 
                 int statusCode = rootObject.getInt(Constants.KEY_STATUS_CODE);
+                String message = rootObject.getString(Constants.KEY_MESSAGE);
 
                 if (statusCode == Constants.STATUS_CODE_SUCCESS) {
                     JSONArray attendanceResponseArray = rootObject.getJSONArray(Constants.KEY_ATTENDANCE_RESULT);
@@ -242,6 +270,8 @@ public class AttendanceFragment extends Fragment {
                     total_present.setText("" + totalPresentCount);
                     total_absent.setText("" + totalAbsentCount);
                     total_holidays.setText("" + totalHolidayCount);
+                } else {
+                    Toast.makeText(AttendanceFragment.this.getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                 }
 
                 progressDialog.dismiss();

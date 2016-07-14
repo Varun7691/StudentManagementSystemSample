@@ -14,29 +14,28 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import varun.com.studentmanagementsystemsample.GalleryDetailActivity;
-import varun.com.studentmanagementsystemsample.ImagesActivity;
 import varun.com.studentmanagementsystemsample.R;
 import varun.com.studentmanagementsystemsample.bean.AlbumBean;
-import varun.com.studentmanagementsystemsample.bean.GalleryBean;
+import varun.com.studentmanagementsystemsample.bean.ImagesBean;
 
 /**
- * Created by Varun on 4/3/2016.
+ * Created by Administrator on 7/14/2016.
  */
-public class GalleryAdapter extends
-        RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
+public class ImageAdapter extends
+        RecyclerView.Adapter<ImageAdapter.ViewHolder> {
 
-    ArrayList<AlbumBean> list;
+    ArrayList<ImagesBean> list;
     Context context;
     LayoutInflater inflater;
 
-    public GalleryAdapter(Context context, ArrayList<AlbumBean> list) {
+    public ImageAdapter(Context context, ArrayList<ImagesBean> list) {
         this.context = context;
         this.list = list;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
-    public GalleryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ImageAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View convertView = inflater.inflate(R.layout.gallery_list_item, parent, false);
 
         ViewHolder holder = new ViewHolder(convertView);
@@ -45,16 +44,16 @@ public class GalleryAdapter extends
     }
 
     @Override
-    public void onBindViewHolder(GalleryAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(ImageAdapter.ViewHolder holder, final int position) {
 
-        holder.caption.setText(list.get(position).getAlbumTitle());
-        Picasso.with(context).load("http://103.7.130.46:8092" + list.get(position).getImageList().get(0).getImagePath()).into(holder.image);
+        holder.caption.setText(list.get(position).getImageTitle());
+        Picasso.with(context).load("http://103.7.130.46:8092" + list.get(position).getImagePath()).into(holder.image);
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ImagesActivity.class);
-                intent.putExtra("IMAGE LIST", list.get(position).getImageList());
-                context.startActivity(intent);
+//                Intent intent = new Intent(context, GalleryDetailActivity.class);
+//                intent.putExtra("IMAGE", list.get(position).getImage());
+//                context.startActivity(intent);
             }
         });
     }

@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static String studentId, schoolId;
+    public static int globalPosition;
     Fragment fragment;
 
     @Override
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity
 
         studentId = getIntent().getStringExtra("StudentId");
         schoolId = getIntent().getStringExtra("SchoolId");
+        globalPosition = getIntent().getIntExtra("GLOBAL POSITION", 0);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,10 +72,10 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-//            super.onBackPressed();
-            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+            super.onBackPressed();
+//            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+//            startActivity(intent);
+//            finish();
         }
     }
 

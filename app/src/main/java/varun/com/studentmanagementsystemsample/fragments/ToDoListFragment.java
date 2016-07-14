@@ -107,7 +107,23 @@ public class ToDoListFragment extends Fragment {
             JSONStringer eventJsonStringer = new JSONStringer();
 
             try {
-                eventJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_SCHOOL_ID).value(MainActivity.schoolId).endObject();
+
+                String userId = null;
+
+                if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+                }
+
+                eventJsonStringer.object().key(Constants.KEY_USER_ID).value(userId).endObject();
 
                 URL url = new URL(Api.TODO_LIST_URL);
 
@@ -159,7 +175,7 @@ public class ToDoListFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            String todoListID = null, userID = null, userTypeID = null, studentRegID = null, schoolID = null, title = null, description = null;
+            String todoListID = null, userID = null, userTypeID = null, studentRegID = null, schoolID = null, title = null, description = null, status = null, isActive = null, dtCreated = null;
 
             try {
                 JSONObject rootObject = new JSONObject(todoListResponse);
@@ -172,15 +188,16 @@ public class ToDoListFragment extends Fragment {
                     for (int i = 0; i < todoListResponseArray.length(); i++) {
                         JSONObject todoListResponseObject = (JSONObject) todoListResponseArray.get(i);
 
-                        userID = todoListResponseObject.getString(Constants.KEY_USER_ID);
-                        userTypeID = todoListResponseObject.getString(Constants.KEY_USER_TYPE);
-                        studentRegID = todoListResponseObject.getString(Constants.KEY_STUDENT_ID);
-                        schoolID = todoListResponseObject.getString(Constants.KEY_SCHOOL_ID);
                         todoListID = todoListResponseObject.getString(Constants.KEY_TODO_LIST_ID);
+                        userID = todoListResponseObject.getString(Constants.KEY_USER_ID);
+                        studentRegID = todoListResponseObject.getString(Constants.KEY_STUDENT_ID);
+                        status = todoListResponseObject.getString(Constants.KEY_STATUS);
+                        isActive = todoListResponseObject.getString(Constants.KEY_INCIDENT_IS_ACITVE);
+                        dtCreated = todoListResponseObject.getString(Constants.KEY_DT_CREATED);
                         title = todoListResponseObject.getString(Constants.KEY_TODO_LIST_TITLE);
                         description = todoListResponseObject.getString(Constants.KEY_TODO_LIST_DESCRIPTION);
 
-                        list.add(new TodoBean(todoListID, userID, userTypeID, studentRegID, schoolID, title, description));
+                        list.add(new TodoBean(todoListID, userID, studentRegID, status, isActive, title, description, dtCreated));
                     }
 
                     adapter = new TodoAdapter(ToDoListFragment.this.getActivity(), list);
@@ -191,11 +208,11 @@ public class ToDoListFragment extends Fragment {
                             DividerItemDecoration(ToDoListFragment.this.getActivity(), DividerItemDecoration.VERTICAL_LIST);
                     rvTodoList.addItemDecoration(itemDecoration);
                 }
-
-                progressDialog.dismiss();
             } catch (Exception e) {
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);
             }
+
+            progressDialog.dismiss();
         }
     }
 
@@ -218,7 +235,24 @@ public class ToDoListFragment extends Fragment {
             JSONStringer addTodoJsonStringer = new JSONStringer();
 
             try {
-                addTodoJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_USER_TYPE).value(sessionManager.getUserDetails().getUserType()).key(Constants.KEY_STUDENT_ID).value(MainActivity.studentId).key(Constants.KEY_SCHOOL_ID).value(MainActivity.schoolId).key(Constants.KEY_TODO_LIST_TITLE).value(titleStr).key(Constants.KEY_TODO_LIST_DESCRIPTION).value(descriptionStr).endObject();
+
+                String userId = null;
+
+                if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+                }
+
+
+                addTodoJsonStringer.object().key(Constants.KEY_USER_ID).value(userId).key(Constants.KEY_TODO_LIST_TITLE).value(titleStr).key(Constants.KEY_TODO_LIST_DESCRIPTION).value(descriptionStr).key(Constants.KEY_STATUS).value("1").endObject();
 
                 URL url = new URL(Api.ADD_TODO_URL);
 
@@ -274,6 +308,9 @@ public class ToDoListFragment extends Fragment {
                 String statusMsg = rootObject.getString(Constants.KEY_MESSAGE);
 
                 if (statusCode == Constants.STATUS_CODE_SUCCESS) {
+
+                    new ForTodoList().execute();
+
                     Toast.makeText(ToDoListFragment.this.getActivity(), "" + statusMsg, Toast.LENGTH_SHORT).show();
                 }
                 progressDialog.dismiss();

@@ -1,5 +1,6 @@
 package varun.com.studentmanagementsystemsample.fragments;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -44,6 +46,7 @@ import varun.com.studentmanagementsystemsample.bean.AcademicBean;
 import varun.com.studentmanagementsystemsample.bean.PerformanceBean;
 import varun.com.studentmanagementsystemsample.constants.Api;
 import varun.com.studentmanagementsystemsample.constants.Constants;
+import varun.com.studentmanagementsystemsample.utils.SessionManager;
 
 /**
  * Created by Varun on 4/2/2016.
@@ -63,8 +66,14 @@ public class PerformanceFragment extends Fragment {
 
     BarChart mPerformanceChart;
 
+    SessionManager sessionManager;
+
+    ProgressDialog progressDialog;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        sessionManager = new SessionManager(PerformanceFragment.this.getActivity());
 
         View rootView = inflater.inflate(R.layout.fragment_performance, container, false);
 
@@ -149,6 +158,11 @@ public class PerformanceFragment extends Fragment {
             super.onPreExecute();
             list = new ArrayList<>();
             academicsList = new ArrayList<>();
+            progressDialog = new ProgressDialog(PerformanceFragment.this.getActivity());
+            progressDialog.setMessage("Getting Performance...");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
         }
 
         @Override
@@ -158,7 +172,39 @@ public class PerformanceFragment extends Fragment {
 
             try {
 
-                performanceJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(MainActivity.studentId).endObject();
+//                performanceJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(MainActivity.studentId).endObject();
+
+                String studentId = null, schoolId = null, academicYearId = null, classId = null, sectionId = null, termId = null;
+
+                if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
+
+                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    academicYearId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
+                    classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
+                    sectionId = "41";
+                    termId = "1";
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
+
+                    studentId = "" + sessionManager.getStudentDetails().getStudentRegID();
+                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
+                    academicYearId = "1";
+                    classId = "" + sessionManager.getStudentDetails().getClassID();
+                    sectionId = "" + sessionManager.getStudentDetails().getSectionID();
+                    termId = "1";
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
+
+                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    academicYearId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
+                    classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
+                    sectionId = "41";
+                    termId = "1";
+                }
+
+                performanceJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(studentId).key(Constants.KEY_SCHOOL_ID).value(schoolId).key(Constants.KEY_ACADEMIC_YEAR_ID).value(academicYearId).key(Constants.KEY_CLASS_ID).value(classId).key(Constants.KEY_SECTION_ID).value(sectionId).key(Constants.KEY_TIME_TABLE_TERM_ID).value(termId).endObject();
 
                 URL url = new URL(Api.PERFORMANCE_URL);
 
@@ -219,6 +265,7 @@ public class PerformanceFragment extends Fragment {
                 JSONObject rootObject = new JSONObject(performanceResponse);
 
                 int statusCode = rootObject.getInt(Constants.KEY_STATUS_CODE);
+                String message = rootObject.getString(Constants.KEY_MESSAGE);
 
                 if (statusCode == Constants.STATUS_CODE_SUCCESS) {
                     JSONArray performanceResponseArray = rootObject.getJSONArray(Constants.KEY_PERFORMANCE_ACADEMIC);
@@ -247,10 +294,17 @@ public class PerformanceFragment extends Fragment {
                     performanceRV.setFocusable(false);
 
                     setGraph();
+
+                    progressDialog.dismiss();
+                } else {
+                    Toast.makeText(PerformanceFragment.this.getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
             } catch (Exception e) {
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);
+                progressDialog.dismiss();
             }
         }
     }
 }
+

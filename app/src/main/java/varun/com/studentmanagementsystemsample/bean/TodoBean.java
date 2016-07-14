@@ -5,16 +5,17 @@ package varun.com.studentmanagementsystemsample.bean;
  */
 public class TodoBean {
 
-    private String todoListID, userID, userTypeID, studentRegID, schoolID, title, description;
+    private String todoListID, userID, studentRegID, status, isActive, title, description, dtCreated;
 
-    public TodoBean(String todoListID, String userID, String userTypeID, String studentRegID, String schoolID, String title, String description) {
+    public TodoBean(String todoListID, String userID, String studentRegID, String status, String isActive, String title, String description, String dtCreated) {
         this.todoListID = todoListID;
         this.userID = userID;
-        this.userTypeID = userTypeID;
         this.studentRegID = studentRegID;
-        this.schoolID = schoolID;
+        this.status = status;
+        this.isActive = isActive;
         this.title = title;
         this.description = description;
+        this.dtCreated = dtCreated;
     }
 
     public String getTodoListID() {
@@ -33,14 +34,6 @@ public class TodoBean {
         this.userID = userID;
     }
 
-    public String getUserTypeID() {
-        return userTypeID;
-    }
-
-    public void setUserTypeID(String userTypeID) {
-        this.userTypeID = userTypeID;
-    }
-
     public String getStudentRegID() {
         return studentRegID;
     }
@@ -49,12 +42,20 @@ public class TodoBean {
         this.studentRegID = studentRegID;
     }
 
-    public String getSchoolID() {
-        return schoolID;
+    public String getStatus() {
+        return status;
     }
 
-    public void setSchoolID(String schoolID) {
-        this.schoolID = schoolID;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(String isActive) {
+        this.isActive = isActive;
     }
 
     public String getTitle() {
@@ -71,5 +72,13 @@ public class TodoBean {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDtCreated() {
+        return dtCreated;
+    }
+
+    public void setDtCreated(String dtCreated) {
+        this.dtCreated = dtCreated;
     }
 }

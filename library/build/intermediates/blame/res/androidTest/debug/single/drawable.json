@@ -4,12 +4,24 @@
         "source": "E:\\Project Docs\\Melstar\\Source Code\\StudentManagementSystemSample\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_top.xml"
     },
     {
+        "merged": "D:\\AndroidStudioProjects\\StudentManagementSystemSample\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_right.xml",
+        "source": "D:\\AndroidStudioProjects\\StudentManagementSystemSample\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_right.xml"
+    },
+    {
         "merged": "D:\\Project Docs\\Melstar\\Source Code\\StudentManagementSystemSample\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_right.xml",
         "source": "D:\\Project Docs\\Melstar\\Source Code\\StudentManagementSystemSample\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_right.xml"
     },
     {
         "merged": "E:\\Project Docs\\Melstar\\Source Code\\StudentManagementSystemSample\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_right.xml",
         "source": "E:\\Project Docs\\Melstar\\Source Code\\StudentManagementSystemSample\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_right.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\StudentManagementSystemSample\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_bottom.xml",
+        "source": "D:\\AndroidStudioProjects\\StudentManagementSystemSample\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_bottom.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\StudentManagementSystemSample\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_top.xml",
+        "source": "D:\\AndroidStudioProjects\\StudentManagementSystemSample\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_top.xml"
     },
     {
         "merged": "D:\\Project Docs\\Melstar\\Source Code\\StudentManagementSystemSample\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_bottom.xml",
@@ -26,6 +38,10 @@
     {
         "merged": "D:\\Project Docs\\Melstar\\Source Code\\StudentManagementSystemSample\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_left.xml",
         "source": "D:\\Project Docs\\Melstar\\Source Code\\StudentManagementSystemSample\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_left.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\StudentManagementSystemSample\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_left.xml",
+        "source": "D:\\AndroidStudioProjects\\StudentManagementSystemSample\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\shadow_left.xml"
     },
     {
         "merged": "D:\\Project Docs\\Melstar\\Source Code\\StudentManagementSystemSample\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shadow_top.xml",

@@ -21,6 +21,12 @@ public class SessionManager {
     public static final String KEY_USER_NAME = Constants.KEY_USER_NAME;
     public static final String KEY_ROLE_ID = Constants.KEY_ROLE_ID;
     public static final String KEY_USER_TYPE = Constants.KEY_USER_TYPE;
+    public static final String KEY_USER_SPECIFIC_ID = Constants.KEY_USER_SPECIFIC_ID;
+    public static final String KEY_USER_STUDENT_ID = Constants.KEY_STUDENT_ID;
+    public static final String KEY_USER_SCHOOL_ID = Constants.KEY_SCHOOL_ID;
+    public static final String KEY_USER_CLASS_ID = Constants.KEY_CLASS_ID;
+    public static final String KEY_USER_SECTION_ID = Constants.KEY_SECTION_ID;
+
     public static final String KEY_STUDENT_LIST = "StudentList";
 
     // Sharedpref file name
@@ -49,6 +55,23 @@ public class SessionManager {
         editor.putInt(KEY_USER_TYPE, userType);
         editor.commit();
     }
+
+    public void createStudentLoginSession(boolean isLogin, int userId, String userName, int roleId, int userType, int userSpecificID, int studentRegID, int schoolID, int classID, int sectionID) {
+
+        // Storing login value as TRUE
+        editor.putBoolean(IS_LOGIN, true);
+        editor.putInt(KEY_USER_ID, userId);
+        editor.putString(KEY_USER_NAME, userName);
+        editor.putInt(KEY_ROLE_ID, roleId);
+        editor.putInt(KEY_USER_TYPE, userType);
+        editor.putInt(KEY_USER_SPECIFIC_ID, userSpecificID);
+        editor.putInt(KEY_USER_STUDENT_ID, studentRegID);
+        editor.putInt(KEY_USER_SCHOOL_ID, schoolID);
+        editor.putInt(KEY_USER_CLASS_ID, classID);
+        editor.putInt(KEY_USER_SECTION_ID, sectionID);
+        editor.commit();
+    }
+
 
     public ArrayList<HomeBean> getStudentList() {
 
@@ -83,6 +106,23 @@ public class SessionManager {
         return user;
     }
 
+    public User getStudentDetails() {
+
+        int userId = pref.getInt(KEY_USER_ID, -1);
+        String userName = pref.getString(KEY_USER_NAME, "");
+        int userType = pref.getInt(KEY_USER_TYPE, -1);
+        int roleId = pref.getInt(KEY_ROLE_ID, -1);
+        int userSpecificID = pref.getInt(KEY_USER_SPECIFIC_ID, -1);
+        int studentRegID = pref.getInt(KEY_USER_STUDENT_ID, -1);
+        int schoolID = pref.getInt(KEY_USER_SCHOOL_ID, -1);
+        int classID = pref.getInt(KEY_USER_CLASS_ID, -1);
+        int sectionID = pref.getInt(KEY_USER_SECTION_ID, -1);
+
+        User user = new User(userId, userSpecificID, roleId, userType, studentRegID, schoolID, classID, sectionID, userName);
+
+        return user;
+    }
+
     public boolean isLoggedIn() {
         Log.d(TAG, "" + pref.getBoolean(IS_LOGIN, false));
         return pref.getBoolean(IS_LOGIN, false);
@@ -94,3 +134,4 @@ public class SessionManager {
         editor.commit();
     }
 }
+

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -86,7 +87,27 @@ public class LibraryFragment extends Fragment {
             JSONStringer eventJsonStringer = new JSONStringer();
 
             try {
-                eventJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserId()).key(Constants.KEY_SCHOOL_ID).value(MainActivity.schoolId).endObject();
+
+                String schoolId = null, userId = null;
+
+                if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
+
+                    userId = "" + sessionManager.getStudentDetails().getUserID();
+                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
+
+                } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
+
+                    userId = "" + sessionManager.getUserDetails().getUserID();
+                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                }
+
+
+                eventJsonStringer.object().key(Constants.KEY_USER_ID).value(userId).key(Constants.KEY_SCHOOL_ID).value(schoolId).endObject();
 
                 URL url = new URL(Api.LIBRARY_URL);
 
@@ -144,6 +165,7 @@ public class LibraryFragment extends Fragment {
                 JSONObject rootObject = new JSONObject(libraryResponse);
 
                 int statusCode = rootObject.getInt(Constants.KEY_STATUS_CODE);
+                String message = rootObject.getString(Constants.KEY_MESSAGE);
 
                 if (statusCode == Constants.STATUS_CODE_SUCCESS) {
                     JSONArray LibraryResponseArray = rootObject.getJSONArray(Constants.KEY_LIBRARY_RESULT);
@@ -177,6 +199,8 @@ public class LibraryFragment extends Fragment {
                     RecyclerView.ItemDecoration itemDecoration = new
                             DividerItemDecoration(LibraryFragment.this.getActivity(), DividerItemDecoration.VERTICAL_LIST);
                     rvLibrary.addItemDecoration(itemDecoration);
+                } else {
+                    Toast.makeText(LibraryFragment.this.getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                 }
 
                 progressDialog.dismiss();

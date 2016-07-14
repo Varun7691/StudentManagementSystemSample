@@ -25,15 +25,15 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
 
                 if (sessionManager.isLoggedIn()) {
-                    if (sessionManager.getUserDetails().getUserType() == Constants.USER_TYPE_PARENT) {
+                    if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
                         Intent intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
-                    } else if (sessionManager.getUserDetails().getUserType() == Constants.USER_TYPE_STUDENT) {
+                    } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
                         Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
-                    } else if (sessionManager.getUserDetails().getUserType() == Constants.USER_TYPE_TEACHER) {
+                    } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
                         Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
