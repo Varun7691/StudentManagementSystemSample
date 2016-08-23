@@ -5,7 +5,16 @@ package varun.com.studentmanagementsystemsample.utils;
  */
 public class User {
 
-    int userID, userSpecificID, roleId, userTypeID, studentRegID, schoolID, classID, sectionID;
+    int userID;
+    int userSpecificID;
+    int roleId;
+    int userTypeID;
+    int studentRegID;
+    int schoolID;
+    int classID;
+    int sectionID;
+    int termID;
+    int academicYearID;
     String userName;
 
     public User(int userID, int roleId, int userTypeID, String userName) {
@@ -15,7 +24,7 @@ public class User {
         this.userName = userName;
     }
 
-    public User(int userID, int userSpecificID, int roleId, int userTypeID, int studentRegID, int schoolID, int classID, int sectionID, String userName) {
+    public User(int userID, int userSpecificID, int roleId, int userTypeID, int studentRegID, int schoolID, int classID, int sectionID, String userName, int termID, int academicYearID) {
         this.userID = userID;
         this.userSpecificID = userSpecificID;
         this.roleId = roleId;
@@ -25,6 +34,16 @@ public class User {
         this.classID = classID;
         this.sectionID = sectionID;
         this.userName = userName;
+        this.termID = termID;
+        this.academicYearID = academicYearID;
+    }
+
+    public int getAcademicYearID() {
+        return academicYearID;
+    }
+
+    public void setAcademicYearID(int academicYearID) {
+        this.academicYearID = academicYearID;
     }
 
     public int getUserID() {
@@ -98,4 +117,13 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public int getTermID() {
+        return termID;
+    }
+
+    public void setTermID(int termID) {
+        this.termID = termID;
+    }
+
 }

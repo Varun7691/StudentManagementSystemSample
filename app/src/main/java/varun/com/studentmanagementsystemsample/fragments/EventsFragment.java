@@ -83,8 +83,6 @@ public class EventsFragment extends Fragment {
             JSONStringer eventJsonStringer = new JSONStringer();
 
             try {
-//                eventJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(MainActivity.studentId).key(Constants.KEY_CLASS_ID).value("3").endObject();
-
                 String userID = null, studentId = null, userSpecificId = null, userType = null, classId = null, sectionId = null, schoolId = null;
 
                 if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
@@ -95,17 +93,17 @@ public class EventsFragment extends Fragment {
                     schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
                     studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
                     classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
-                    sectionId = "41";
+                    sectionId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSectionID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
 
-                    userID = "" + sessionManager.getStudentDetails().getUserID();
-                    userSpecificId = "" + sessionManager.getStudentDetails().getUserSpecificID();
+                    userID = "" + sessionManager.getUserDetails().getUserID();
+                    userSpecificId = "" + sessionManager.getUserDetails().getUserSpecificID();
                     userType = "" + sessionManager.getUserDetails().getUserTypeID();
-                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
-                    studentId = "" + sessionManager.getStudentDetails().getStudentRegID();
-                    classId = "" + sessionManager.getStudentDetails().getClassID();
-                    sectionId = "" + sessionManager.getStudentDetails().getSectionID();
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    studentId = "" + sessionManager.getUserDetails().getStudentRegID();
+                    classId = "" + sessionManager.getUserDetails().getClassID();
+                    sectionId = "" + sessionManager.getUserDetails().getSectionID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
 
@@ -115,7 +113,7 @@ public class EventsFragment extends Fragment {
                     schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
                     studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
                     classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
-                    sectionId = "41";
+                    sectionId = "" + sessionManager.getUserDetails().getSectionID();
                 }
 
                 eventJsonStringer.object().key(Constants.KEY_USER_ID).value(userID).key(Constants.KEY_STUDENT_ID).value(studentId).key(Constants.KEY_USER_SPECIFIC_ID).value(userSpecificId).key(Constants.KEY_USER_TYPE).value(userType).key(Constants.KEY_CLASS_ID).value(classId).key(Constants.KEY_SCHOOL_ID).value(schoolId).key(Constants.KEY_SECTION_ID).value(sectionId).endObject();
@@ -171,7 +169,6 @@ public class EventsFragment extends Fragment {
             super.onPostExecute(aVoid);
 
             String startDate = null, endDate = null, title = null, description = null;
-
             try {
                 JSONObject rootObject = new JSONObject(eventResponse);
 
@@ -199,7 +196,6 @@ public class EventsFragment extends Fragment {
                 } else {
                     Toast.makeText(EventsFragment.this.getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                 }
-
                 progressDialog.dismiss();
             } catch (Exception e) {
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);

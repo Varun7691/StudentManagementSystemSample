@@ -105,34 +105,35 @@ public class AttendanceFragment extends Fragment {
 
             try {
 
-//                childJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(MainActivity.studentId).endObject();
-
                 String userID = null, studentId = null, schoolId = null, classId = null;
 
                 if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
 
-                    userID = "" + sessionManager.getUserDetails().getUserID();
+//                    userID = "" + sessionManager.getUserDetails().getUserID();
                     schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
                     studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
                     classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
 
-                    userID = "" + sessionManager.getStudentDetails().getUserID();
-                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
-                    studentId = "" + sessionManager.getStudentDetails().getStudentRegID();
-                    classId = "" + sessionManager.getStudentDetails().getClassID();
+//                    userID = "" + sessionManager.getUserDetails().getUserID();
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    studentId = "" + sessionManager.getUserDetails().getStudentRegID();
+                    classId = "" + sessionManager.getUserDetails().getClassID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
 
-                    userID = "" + sessionManager.getUserDetails().getUserID();
-                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
-                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
-                    classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
+//                    userID = "" + sessionManager.getUserDetails().getUserID();
+//                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+//                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
+//                    classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
+
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    studentId = "" + sessionManager.getUserDetails().getStudentRegID();
+                    classId = "" + sessionManager.getUserDetails().getClassID();
                 }
 
-
-                childJsonStringer.object().key(Constants.KEY_USER_ID).value(userID).key(Constants.KEY_STUDENT_ID).value(studentId).key(Constants.KEY_SCHOOL_ID).value(schoolId).key(Constants.KEY_CLASS_ID).value(classId).endObject();
+                childJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(studentId).key(Constants.KEY_SCHOOL_ID).value(schoolId).key(Constants.KEY_CLASS_ID).value(classId).endObject();
 
                 URL url = new URL(Api.ATTENDANCE_URL);
 
@@ -273,7 +274,6 @@ public class AttendanceFragment extends Fragment {
                 } else {
                     Toast.makeText(AttendanceFragment.this.getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                 }
-
                 progressDialog.dismiss();
             } catch (Exception e) {
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);

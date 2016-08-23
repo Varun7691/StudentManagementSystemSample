@@ -26,6 +26,8 @@ public class SessionManager {
     public static final String KEY_USER_SCHOOL_ID = Constants.KEY_SCHOOL_ID;
     public static final String KEY_USER_CLASS_ID = Constants.KEY_CLASS_ID;
     public static final String KEY_USER_SECTION_ID = Constants.KEY_SECTION_ID;
+    public static final String KEY_USER_TERM_ID = "termID";
+    public static final String KEY_USER_ACADEMIC_YEAR_ID = "academicYearID";
 
     public static final String KEY_STUDENT_LIST = "StudentList";
 
@@ -45,18 +47,7 @@ public class SessionManager {
         editor = pref.edit();
     }
 
-    public void createLoginSession(boolean isLogin, int userId, String userName, int roleId, int userType) {
-
-        // Storing login value as TRUE
-        editor.putBoolean(IS_LOGIN, true);
-        editor.putInt(KEY_USER_ID, userId);
-        editor.putString(KEY_USER_NAME, userName);
-        editor.putInt(KEY_ROLE_ID, roleId);
-        editor.putInt(KEY_USER_TYPE, userType);
-        editor.commit();
-    }
-
-    public void createStudentLoginSession(boolean isLogin, int userId, String userName, int roleId, int userType, int userSpecificID, int studentRegID, int schoolID, int classID, int sectionID) {
+    public void createLoginSession(boolean isLogin, int userId, String userName, int roleId, int userType, int userSpecificID, int studentRegID, int schoolID, int classID, int sectionID, int termID, int academicYearID) {
 
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
@@ -69,6 +60,26 @@ public class SessionManager {
         editor.putInt(KEY_USER_SCHOOL_ID, schoolID);
         editor.putInt(KEY_USER_CLASS_ID, classID);
         editor.putInt(KEY_USER_SECTION_ID, sectionID);
+        editor.putInt(KEY_USER_TERM_ID, termID);
+        editor.putInt(KEY_USER_ACADEMIC_YEAR_ID, academicYearID);
+        editor.commit();
+    }
+
+    public void createStudentLoginSession(boolean isLogin, int userId, String userName, int roleId, int userType, int userSpecificID, int studentRegID, int schoolID, int classID, int sectionID, int termID, int academicYearID) {
+
+        // Storing login value as TRUE
+        editor.putBoolean(IS_LOGIN, true);
+        editor.putInt(KEY_USER_ID, userId);
+        editor.putString(KEY_USER_NAME, userName);
+        editor.putInt(KEY_ROLE_ID, roleId);
+        editor.putInt(KEY_USER_TYPE, userType);
+        editor.putInt(KEY_USER_SPECIFIC_ID, userSpecificID);
+        editor.putInt(KEY_USER_STUDENT_ID, studentRegID);
+        editor.putInt(KEY_USER_SCHOOL_ID, schoolID);
+        editor.putInt(KEY_USER_CLASS_ID, classID);
+        editor.putInt(KEY_USER_SECTION_ID, sectionID);
+        editor.putInt(KEY_USER_TERM_ID, termID);
+        editor.putInt(KEY_USER_ACADEMIC_YEAR_ID, academicYearID);
         editor.commit();
     }
 
@@ -100,8 +111,15 @@ public class SessionManager {
         String userName = pref.getString(KEY_USER_NAME, "");
         int userType = pref.getInt(KEY_USER_TYPE, -1);
         int roleId = pref.getInt(KEY_ROLE_ID, -1);
+        int userSpecificID = pref.getInt(KEY_USER_SPECIFIC_ID, -1);
+        int studentRegID = pref.getInt(KEY_USER_STUDENT_ID, -1);
+        int schoolID = pref.getInt(KEY_USER_SCHOOL_ID, -1);
+        int classID = pref.getInt(KEY_USER_CLASS_ID, -1);
+        int sectionID = pref.getInt(KEY_USER_SECTION_ID, -1);
+        int termID = pref.getInt(KEY_USER_TERM_ID, -1);
+        int academicYearID = pref.getInt(KEY_USER_ACADEMIC_YEAR_ID, -1);
 
-        User user = new User(userId, roleId, userType, userName);
+        User user = new User(userId, userSpecificID, roleId, userType, studentRegID, schoolID, classID, sectionID, userName, termID, academicYearID);
 
         return user;
     }
@@ -117,8 +135,10 @@ public class SessionManager {
         int schoolID = pref.getInt(KEY_USER_SCHOOL_ID, -1);
         int classID = pref.getInt(KEY_USER_CLASS_ID, -1);
         int sectionID = pref.getInt(KEY_USER_SECTION_ID, -1);
+        int termID = pref.getInt(KEY_USER_TERM_ID, -1);
+        int academicYearID = pref.getInt(KEY_USER_ACADEMIC_YEAR_ID, -1);
 
-        User user = new User(userId, userSpecificID, roleId, userType, studentRegID, schoolID, classID, sectionID, userName);
+        User user = new User(userId, userSpecificID, roleId, userType, studentRegID, schoolID, classID, sectionID, userName, termID, academicYearID);
 
         return user;
     }

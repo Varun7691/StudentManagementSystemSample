@@ -1,7 +1,6 @@
 package varun.com.studentmanagementsystemsample.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import varun.com.studentmanagementsystemsample.GalleryDetailActivity;
 import varun.com.studentmanagementsystemsample.R;
-import varun.com.studentmanagementsystemsample.bean.AlbumBean;
 import varun.com.studentmanagementsystemsample.bean.ImagesBean;
 
 /**
@@ -47,7 +44,7 @@ public class ImageAdapter extends
     public void onBindViewHolder(ImageAdapter.ViewHolder holder, final int position) {
 
         holder.caption.setText(list.get(position).getImageTitle());
-        Picasso.with(context).load("http://103.7.130.46:8092" + list.get(position).getImagePath()).into(holder.image);
+        Picasso.with(context).load("http://103.7.130.46:8082" + list.get(position).getImagePath()).into(holder.image);
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

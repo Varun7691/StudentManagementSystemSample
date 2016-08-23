@@ -25,6 +25,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/incident_details_nature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -56,6 +57,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/incident_details_reporting_against"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -87,6 +89,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/incident_details_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -117,6 +120,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/incident_details_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -147,6 +151,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/incident_details_reporting_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -176,6 +181,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/incident_details_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -209,6 +215,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/incident_details_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -239,6 +246,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/incident_details_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -271,6 +279,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/incident_details_remarks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -303,6 +312,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/incident_details_reported_by"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"

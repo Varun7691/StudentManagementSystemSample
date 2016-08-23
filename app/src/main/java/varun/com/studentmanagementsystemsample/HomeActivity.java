@@ -27,7 +27,6 @@ import varun.com.studentmanagementsystemsample.adapter.HomeAdapter;
 import varun.com.studentmanagementsystemsample.bean.HomeBean;
 import varun.com.studentmanagementsystemsample.constants.Api;
 import varun.com.studentmanagementsystemsample.constants.Constants;
-import varun.com.studentmanagementsystemsample.fragments.ToDoListFragment;
 import varun.com.studentmanagementsystemsample.utils.SessionManager;
 
 public class HomeActivity extends AppCompatActivity {
@@ -90,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
 
             try {
 
-                childJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserID()).key(Constants.KEY_SCHOOL_ID).value("1").endObject();
+                childJsonStringer.object().key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserID()).key(Constants.KEY_SCHOOL_ID).value(sessionManager.getUserDetails().getSchoolID()).endObject();
 
                 URL url = new URL(Api.GET_CHILDREN_URL);
 
@@ -144,8 +143,8 @@ public class HomeActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            String studentFirstName = null;
-            int studentID = -1, schoolID = -1, avrageAttendance = -1, avragePerformance = -1, classID = -1, academicYearID = -1;
+            String studentFirstName = null, avragePerformance = null;
+            int studentID = -1, schoolID = -1, avrageAttendance = -1, classID = -1, academicYearID = -1, userId = -1, termID = -1, sectionID = -1;
 
             try {
                 JSONObject rootObject = new JSONObject(childResponse);
@@ -161,12 +160,16 @@ public class HomeActivity extends AppCompatActivity {
                         studentID = childResponseObject.getInt(Constants.KEY_STUDENT_ID);
                         schoolID = childResponseObject.getInt(Constants.KEY_SCHOOL_ID);
                         avrageAttendance = childResponseObject.getInt(Constants.KEY_AVG_ATTENDANCE);
-                        avragePerformance = childResponseObject.getInt(Constants.KEY_AVG_PERFORMANCE);
+//                        avragePerformance = childResponseObject.getInt(Constants.KEY_AVG_PERFORMANCE);
+                        avragePerformance = childResponseObject.getString(Constants.KEY_AVG_PERFORMANCE);
                         studentFirstName = childResponseObject.getString(Constants.KEY_STUDENT_FIRST_NAME);
                         academicYearID = childResponseObject.getInt(Constants.KEY_ACADEMIC_YEAR_ID);
                         classID = childResponseObject.getInt(Constants.KEY_CLASS_ID);
+                        userId = childResponseObject.getInt("userId");
+                        termID = childResponseObject.getInt("termID");
+                        sectionID = childResponseObject.getInt("sectionID");
 
-                        list.add(new HomeBean(studentID, schoolID, avrageAttendance, avragePerformance, studentFirstName, academicYearID, classID));
+                        list.add(new HomeBean(studentID, schoolID, avrageAttendance, avragePerformance, studentFirstName, academicYearID, classID, userId, termID, sectionID));
                     }
 
                     adapter = new HomeAdapter(HomeActivity.this, list);

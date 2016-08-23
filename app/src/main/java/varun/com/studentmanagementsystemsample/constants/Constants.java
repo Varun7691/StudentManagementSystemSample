@@ -143,8 +143,8 @@ public class Constants {
     public static final int STATUS_CODE_INTERNAL_ERROR = -1;
 
     //USER TYPE DESC
-    public static final int USER_TYPE_PARENT = 1;
-    public static final int USER_TYPE_TEACHER = 2;
-    public static final int USER_TYPE_STUDENT = 3;
+    public static final int USER_TYPE_PARENT = 3;
+    public static final int USER_TYPE_TEACHER = 1;
+    public static final int USER_TYPE_STUDENT = 2;
 
 }

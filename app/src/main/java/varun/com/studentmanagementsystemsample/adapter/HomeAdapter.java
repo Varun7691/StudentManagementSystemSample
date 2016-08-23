@@ -49,7 +49,7 @@ public class HomeAdapter extends
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.name.setText(list.get(position).getStudentFirstName());
         holder.avgAttendance.setText("Average Attendance: " + list.get(position).getAvrageAttendance() + "%");
-        holder.avgperformance.setText("Average Performance: " + list.get(position).getAvragePerformance() + "%");
+        holder.avgperformance.setText("Average Performance: " + list.get(position).getAvragePerformance());
         holder.studentDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

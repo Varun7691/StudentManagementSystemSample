@@ -37,22 +37,21 @@ public class GalleryFragment extends Fragment {
             "            \"albumTitle\": \"Picnic\",\n" +
             "            \"albumDescription\": \"Picnic\",\n" +
             "            \"albumCreationDate\": \"2016-06-23\",\n" +
+            "            \"schoolID\": 1,\n" +
             "            \"images\": [\n" +
             "                {\n" +
             "                    \"imageID\": 2,\n" +
-            "                    \"schoolID\": 1,\n" +
             "                    \"imageTitle\": \"pic1\",\n" +
             "                    \"imageDescription\": \"pic1\",\n" +
             "                    \"imageTakenDate\": \"1894-06-24\",\n" +
-            "                    \"imagePath\": \"/ImageGallery/School_1/picnic/pic1.jpg\"\n" +
+            "                    \"imagePath\": \"/ImageGallery/school_1/picnic/pic1.jpg\"\n" +
             "                },\n" +
             "                {\n" +
             "                    \"imageID\": 3,\n" +
-            "                    \"schoolID\": 1,\n" +
             "                    \"imageTitle\": \"pic2\",\n" +
             "                    \"imageDescription\": \"pic2\",\n" +
             "                    \"imageTakenDate\": \"1894-06-24\",\n" +
-            "                    \"imagePath\": \"/ImageGallery/School_1/picnic/pic2.jpg\"\n" +
+            "                    \"imagePath\": \"/ImageGallery/school_1/picnic/pic2.jpg\"\n" +
             "                }\n" +
             "            ]\n" +
             "        },\n" +
@@ -61,38 +60,35 @@ public class GalleryFragment extends Fragment {
             "            \"albumTitle\": \"Annual Day\",\n" +
             "            \"albumDescription\": \"Annual Day\",\n" +
             "            \"albumCreationDate\": \"2016-07-06\",\n" +
+            "            \"schoolID\": 1,\n" +
             "            \"images\": [\n" +
             "                {\n" +
             "                    \"imageID\": 4,\n" +
-            "                    \"schoolID\": 1,\n" +
             "                    \"imageTitle\": \"pic3\",\n" +
             "                    \"imageDescription\": \"pic3\",\n" +
             "                    \"imageTakenDate\": \"1894-06-24\",\n" +
-            "                    \"imagePath\": \"ImageGallery/School_1/annualday/annual1.jpg\"\n" +
+            "                    \"imagePath\": \"ImageGallery/school_1/annualday/annual1.jpg\"\n" +
             "                },\n" +
             "                {\n" +
             "                    \"imageID\": 5,\n" +
-            "                    \"schoolID\": 1,\n" +
             "                    \"imageTitle\": \"pic4\",\n" +
             "                    \"imageDescription\": \"pic4\",\n" +
             "                    \"imageTakenDate\": \"2016-07-06\",\n" +
-            "                    \"imagePath\": \"/ImageGallery/School_1/annualday/annual2.jpg\"\n" +
+            "                    \"imagePath\": \"/ImageGallery/school_1/annualday/annual2.jpg\"\n" +
             "                },\n" +
             "                {\n" +
             "                    \"imageID\": 6,\n" +
-            "                    \"schoolID\": 1,\n" +
             "                    \"imageTitle\": \"pic5\",\n" +
             "                    \"imageDescription\": \"pic5\",\n" +
             "                    \"imageTakenDate\": \"2016-07-06\",\n" +
-            "                    \"imagePath\": \"/ImageGallery/School_1/annualday/annual3.jpg\"\n" +
+            "                    \"imagePath\": \"/ImageGallery/school_1/annualday/annual3.jpg\"\n" +
             "                },\n" +
             "                {\n" +
             "                    \"imageID\": 7,\n" +
-            "                    \"schoolID\": 1,\n" +
             "                    \"imageTitle\": \"pic6\",\n" +
             "                    \"imageDescription\": \"pic6\",\n" +
             "                    \"imageTakenDate\": \"2016-07-06\",\n" +
-            "                    \"imagePath\": \"/ImageGallery/School_1/annualday/annual4.jpg\"\n" +
+            "                    \"imagePath\": \"/ImageGallery/school_1/annualday/annual4.jpg\"\n" +
             "                }\n" +
             "            ]\n" +
             "        }\n" +
@@ -129,22 +125,22 @@ public class GalleryFragment extends Fragment {
                 albumTitle = albumObject.getString(Constants.KEY_ALBUM_TITLE);
                 albumDescription = albumObject.getString(Constants.KEY_ALBUM_DESCRIPTION);
                 albumCreationDate = albumObject.getString(Constants.KEY_ALBUM_CREATION_DATE);
+                schoolID = albumObject.getString(Constants.KEY_SCHOOL_ID);
 
                 JSONArray imageArray = albumObject.getJSONArray(Constants.KEY_IMAGES);
                 for (int j = 0; j < imageArray.length(); j++) {
                     JSONObject imageObject = imageArray.getJSONObject(j);
 
                     imageID = imageObject.getString(Constants.KEY_IMAGE_ID);
-                    schoolID = imageObject.getString(Constants.KEY_SCHOOL_ID);
                     imageTitle = imageObject.getString(Constants.KEY_IMAGE_TITLE);
                     imageDescription = imageObject.getString(Constants.KEY_IMAGE_DESCRIPTION);
                     imageTakenDate = imageObject.getString(Constants.KEY_IMAGE_TAKEN_DATE);
                     imagePath = imageObject.getString(Constants.KEY_IMAGE_PATH);
 
-                    imageList.add(new ImagesBean(imageID, schoolID, imageTitle, imageDescription, imageTakenDate, imagePath));
+                    imageList.add(new ImagesBean(imageID, imageTitle, imageDescription, imageTakenDate, imagePath));
                 }
 
-                albumList.add(new AlbumBean(albumID, albumTitle, albumDescription, albumCreationDate, imageList));
+                albumList.add(new AlbumBean(albumID, albumTitle, albumDescription, albumCreationDate, imageList, schoolID));
             }
 
         } catch (JSONException e) {

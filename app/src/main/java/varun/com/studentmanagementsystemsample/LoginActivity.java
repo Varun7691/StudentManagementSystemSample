@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             String userName = null;
-            int userId = -1, roleId = -1, userType = -1, userSpecificID = -1, studentRegID = -1, schoolID = -1, classID = -1, sectionID = -1;
+            int userId = -1, roleId = -1, userType = -1, userSpecificID = -1, studentRegID = -1, schoolID = -1, classID = -1, sectionID = -1, termID = -1, academicYearID = -1;
 
             try {
                 JSONObject rootObject = new JSONObject(loginResponse);
@@ -196,16 +196,30 @@ public class LoginActivity extends AppCompatActivity {
                         sectionID = -1;
                     }
 
+                    if (loginResponseObject.has("termID")) {
+                        termID = loginResponseObject.getInt("termID");
+                    } else {
+                        termID = -1;
+                    }
+
+                    if (loginResponseObject.has("academicYearID")) {
+                        academicYearID = loginResponseObject.getInt("academicYearID");
+                    } else {
+                        academicYearID = -1;
+                    }
+
                     if (userType == Constants.USER_TYPE_PARENT) {
 
-                        sessionManager.createLoginSession(true, userId, userName, roleId, userType);
+//                        sessionManager.createLoginSession(true, userId, userName, roleId, userType);
+
+                        sessionManager.createStudentLoginSession(true, userId, userName, roleId, userType, userSpecificID, studentRegID, schoolID, classID, sectionID, termID, academicYearID);
 
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
                     } else if (userType == Constants.USER_TYPE_STUDENT) {
 
-                        sessionManager.createStudentLoginSession(true, userId, userName, roleId, userType, userSpecificID, studentRegID, schoolID, classID, sectionID);
+                        sessionManager.createLoginSession(true, userId, userName, roleId, userType, userSpecificID, studentRegID, schoolID, classID, sectionID, termID, academicYearID);
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);

@@ -48,7 +48,7 @@ public class GalleryAdapter extends
     public void onBindViewHolder(GalleryAdapter.ViewHolder holder, final int position) {
 
         holder.caption.setText(list.get(position).getAlbumTitle());
-        Picasso.with(context).load("http://103.7.130.46:8092" + list.get(position).getImageList().get(0).getImagePath()).into(holder.image);
+        Picasso.with(context).load("http://103.7.130.46:8082" + list.get(position).getImageList().get(0).getImagePath()).into(holder.image);
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

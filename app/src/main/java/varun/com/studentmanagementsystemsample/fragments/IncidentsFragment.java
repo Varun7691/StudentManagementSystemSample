@@ -89,7 +89,7 @@ public class IncidentsFragment extends Fragment {
         });
 
         new ForIncidents().execute();
-        new ForIncidentsClassification().execute();
+//        new ForIncidentsClassification().execute();
 
         return rootView;
     }
@@ -406,13 +406,16 @@ public class IncidentsFragment extends Fragment {
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
 
-                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
-                    studentId = "" + sessionManager.getStudentDetails().getStudentRegID();
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    studentId = "" + sessionManager.getUserDetails().getStudentRegID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
 
-                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
-                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    studentId = "" + sessionManager.getUserDetails().getStudentRegID();
+
+//                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+//                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
                 }
 
                 incidentJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(studentId).key(Constants.KEY_SCHOOL_ID).value(schoolId).endObject();
@@ -467,7 +470,6 @@ public class IncidentsFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            String userTypeID = null, userID = null, incidentId = null, incidentName = null, incidentClassificationName = null, incidentClassificationId = null, isActive = null, schoolId = null;
 
             try {
                 JSONObject rootObject = new JSONObject(incidentResponse);
@@ -481,16 +483,29 @@ public class IncidentsFragment extends Fragment {
                     for (int i = 0; i < incidentResponseArray.length(); i++) {
                         JSONObject incidentResponseObject = (JSONObject) incidentResponseArray.get(i);
 
-                        userTypeID = incidentResponseObject.getString(Constants.KEY_USER_TYPE);
-                        userID = incidentResponseObject.getString(Constants.KEY_USER_ID);
-                        incidentId = incidentResponseObject.getString(Constants.KEY_INCIDENT_ID);
-                        incidentName = incidentResponseObject.getString(Constants.KEY_INCIDENT_NAME);
-                        incidentClassificationName = incidentResponseObject.getString(Constants.KEY_INCIDENT_CLASSIFICATION_NAME);
-                        incidentClassificationId = incidentResponseObject.getString(Constants.KEY_INCIDENT_CLASSIFICATION_ID);
-                        isActive = incidentResponseObject.getString(Constants.KEY_INCIDENT_IS_ACITVE);
-                        schoolId = incidentResponseObject.getString(Constants.KEY_INCIDENT_SCHOOL_ID);
+                        String userTypeID = incidentResponseObject.getString("userTypeID");
+                        String userID = incidentResponseObject.getString("userID");
+                        String incidentID = incidentResponseObject.getString("incidentID");
+                        String incidentName = incidentResponseObject.getString("incidentName");
+                        String incidentDescription = incidentResponseObject.getString("incidentDescription");
+                        String incidentRemarks = incidentResponseObject.getString("incidentRemarks");
+                        String studentRegID = incidentResponseObject.getString("studentRegID");
+                        String incidentClassificationName = incidentResponseObject.getString("incidentClassificationName");
+                        String incidentClassificationId = incidentResponseObject.getString("incidentClassificationId");
+                        String isActive = incidentResponseObject.getString("isActive");
+                        String schoolID = incidentResponseObject.getString("schoolID");
+                        String incidentDate = incidentResponseObject.getString("incidentDate");
+                        String incidentReportedDate = incidentResponseObject.getString("incidentReportedDate");
+                        String incidentStatusID = incidentResponseObject.getString("incidentStatusID");
+                        String reportedAgainstStaffID = incidentResponseObject.getString("reportedAgainstStaffID");
+                        String reportedAgainstStaffName = incidentResponseObject.getString("reportedAgainstStaffName");
+                        String reportedAgainstStudentID = incidentResponseObject.getString("reportedAgainstStudentID");
+                        String reportedAgainstStudentName = incidentResponseObject.getString("reportedAgainstStudentName");
+                        String reportedByStudentID = incidentResponseObject.getString("reportedByStudentID");
+                        String reportedByStudentName = incidentResponseObject.getString("reportedByStudentName");
+                        String againstName = incidentResponseObject.getString("againstName");
 
-                        list.add(new IncidentOverviewBean(userTypeID, userID, incidentId, incidentName, incidentClassificationName, incidentClassificationId, isActive, schoolId));
+                        list.add(new IncidentOverviewBean(userTypeID, userID, incidentID, incidentName, incidentDescription, incidentRemarks, studentRegID, incidentClassificationName, incidentClassificationId, isActive, schoolID, incidentDate, incidentReportedDate, incidentStatusID, reportedAgainstStaffID, reportedAgainstStaffName, reportedAgainstStudentID, reportedAgainstStudentName, reportedByStudentID, reportedByStudentName, againstName));
                     }
 
                     adapter = new IncidentAdapter(IncidentsFragment.this.getActivity(), list);

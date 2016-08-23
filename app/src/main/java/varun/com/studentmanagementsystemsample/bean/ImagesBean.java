@@ -7,11 +7,10 @@ import java.io.Serializable;
  */
 public class ImagesBean implements Serializable {
 
-    String imageID, schoolID, imageTitle, imageDescription, imageTakenDate, imagePath;
+    String imageID, imageTitle, imageDescription, imageTakenDate, imagePath;
 
-    public ImagesBean(String imageID, String schoolID, String imageTitle, String imageDescription, String imageTakenDate, String imagePath) {
+    public ImagesBean(String imageID, String imageTitle, String imageDescription, String imageTakenDate, String imagePath) {
         this.imageID = imageID;
-        this.schoolID = schoolID;
         this.imageTitle = imageTitle;
         this.imageDescription = imageDescription;
         this.imageTakenDate = imageTakenDate;
@@ -24,14 +23,6 @@ public class ImagesBean implements Serializable {
 
     public void setImageID(String imageID) {
         this.imageID = imageID;
-    }
-
-    public String getSchoolID() {
-        return schoolID;
-    }
-
-    public void setSchoolID(String schoolID) {
-        this.schoolID = schoolID;
     }
 
     public String getImageTitle() {

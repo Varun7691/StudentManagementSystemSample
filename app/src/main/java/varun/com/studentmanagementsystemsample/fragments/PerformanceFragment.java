@@ -182,17 +182,17 @@ public class PerformanceFragment extends Fragment {
                     schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
                     academicYearId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
                     classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
-                    sectionId = "41";
-                    termId = "1";
+                    sectionId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSectionID();
+                    termId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getTermID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
 
-                    studentId = "" + sessionManager.getStudentDetails().getStudentRegID();
-                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
-                    academicYearId = "1";
-                    classId = "" + sessionManager.getStudentDetails().getClassID();
-                    sectionId = "" + sessionManager.getStudentDetails().getSectionID();
-                    termId = "1";
+                    studentId = "" + sessionManager.getUserDetails().getStudentRegID();
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    academicYearId = "" + sessionManager.getUserDetails().getAcademicYearID();
+                    classId = "" + sessionManager.getUserDetails().getClassID();
+                    sectionId = "" + sessionManager.getUserDetails().getSectionID();
+                    termId = "" + sessionManager.getUserDetails().getTermID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
 
@@ -258,8 +258,8 @@ public class PerformanceFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            String studentFirstName = null, subject = null, academicYear = null, term = null, board = null, FA1 = null, FA2 = null, totalFA = null, SA1 = null, totalFASA1 = null;
-            int studentID = -1, rank = -1;
+            String fullName = null, subjectId = null, academicYear = null, term = null, board = null, FA1 = null, FA2 = null, totalFA = null, SA1 = null, totalFASA1 = null, fathersName = null, mothersName = null, addressResidence = null, attendancePercent = null, subjectName = null;
+            int studentID = -1, rank = -1, studentClass = -1;
 
             try {
                 JSONObject rootObject = new JSONObject(performanceResponse);
@@ -268,24 +268,45 @@ public class PerformanceFragment extends Fragment {
                 String message = rootObject.getString(Constants.KEY_MESSAGE);
 
                 if (statusCode == Constants.STATUS_CODE_SUCCESS) {
+                    JSONArray profileArray = rootObject.getJSONArray("Profile");
+                    for (int i = 0; i < profileArray.length(); i++) {
+                        JSONObject profileObject = (JSONObject) profileArray.get(i);
+
+                        studentID = profileObject.getInt("studentRegID");
+                        studentClass = profileObject.getInt("studentClass");
+                        fullName = profileObject.getString("fullName");
+                        academicYear = profileObject.getString("academicYear");
+                        fathersName = profileObject.getString("fathersName");
+                        mothersName = profileObject.getString("mothersName");
+                        addressResidence = profileObject.getString("addressResidence");
+                        attendancePercent = profileObject.getString("attendancePercent");
+                    }
+
                     JSONArray performanceResponseArray = rootObject.getJSONArray(Constants.KEY_PERFORMANCE_ACADEMIC);
 
                     for (int i = 0; i < performanceResponseArray.length(); i++) {
                         JSONObject performanceResponseObject = (JSONObject) performanceResponseArray.get(i);
 
-                        studentID = performanceResponseObject.getInt(Constants.KEY_PERFORMANCE_STUDENT_ID);
-                        subject = performanceResponseObject.getString(Constants.KEY_PERFORMANCE_SUBJECT);
-                        academicYear = performanceResponseObject.getString(Constants.KEY_PERFORMANCE_ACADEMIC_YEAR);
-                        term = performanceResponseObject.getString(Constants.KEY_PERFORMANCE_TERM);
-                        board = performanceResponseObject.getString(Constants.KEY_PERFORMANCE_BOARD);
-                        FA1 = performanceResponseObject.getString(Constants.KEY_PERFORMANCE_FA1);
-                        FA2 = performanceResponseObject.getString(Constants.KEY_PERFORMANCE_FA2);
-                        totalFA = performanceResponseObject.getString(Constants.KEY_PERFORMANCE_TOTAL_FA);
-                        SA1 = performanceResponseObject.getString(Constants.KEY_PERFORMANCE_SA1);
-                        totalFASA1 = performanceResponseObject.getString(Constants.KEY_PERFORMANCE_TOTAL_FA_SA1);
-                        rank = performanceResponseObject.getInt(Constants.KEY_PERFORMANCE_RANK);
+                        subjectId = performanceResponseObject.getString("Subject_Id");
+                        subjectName = performanceResponseObject.getString("SubjectName");
 
-                        academicsList.add(new AcademicBean("" + studentID, subject, academicYear, term, board, FA1, FA2, totalFA, SA1, totalFASA1, "" + rank));
+                        if (performanceResponseObject.has("FA1")) {
+                            FA1 = performanceResponseObject.getString("FA1");
+                        }
+
+                        if (performanceResponseObject.has("FA2")) {
+                            FA2 = performanceResponseObject.getString("FA2");
+                        }
+
+                        if (performanceResponseObject.has("SA1")) {
+                            SA1 = performanceResponseObject.getString("SA1");
+                        }
+
+                        totalFA = performanceResponseObject.getString("Total_FA");
+                        totalFASA1 = performanceResponseObject.getString("Total_FASA");
+                        rank = performanceResponseObject.getInt("GradeRank");
+
+                        academicsList.add(new AcademicBean("" + studentID, subjectName, academicYear, term, board, FA1, FA2, totalFA, SA1, totalFASA1, "" + rank));
                     }
 
                     adapter = new PerformanceAdapter(PerformanceFragment.this.getActivity(), academicsList);

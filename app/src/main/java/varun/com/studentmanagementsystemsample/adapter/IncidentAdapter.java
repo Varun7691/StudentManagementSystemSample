@@ -13,8 +13,6 @@ import java.util.ArrayList;
 
 import varun.com.studentmanagementsystemsample.IncidentDetailsActivity;
 import varun.com.studentmanagementsystemsample.R;
-import varun.com.studentmanagementsystemsample.bean.FeePaymentBean;
-import varun.com.studentmanagementsystemsample.bean.IncidentBean;
 import varun.com.studentmanagementsystemsample.bean.IncidentOverviewBean;
 
 /**
@@ -44,7 +42,7 @@ public class IncidentAdapter extends
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 //        holder.against.setText("Raised against: " + list.get(position).getIncidentAgainst());
 //        holder.incidentFor.setText("Raised by: " + list.get(position).getIncidentFor());
         holder.date.setText(list.get(position).getIncidentClassificationName());
@@ -53,6 +51,7 @@ public class IncidentAdapter extends
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, IncidentDetailsActivity.class);
+                intent.putExtra("INCIDENT", list.get(position));
                 context.startActivity(intent);
             }
         });

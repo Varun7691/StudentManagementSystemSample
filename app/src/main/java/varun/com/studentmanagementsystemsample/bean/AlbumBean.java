@@ -7,15 +7,24 @@ import java.util.ArrayList;
  */
 public class AlbumBean {
 
-    String albumID, albumTitle, albumDescription, albumCreationDate;
+    String albumID, albumTitle, albumDescription, albumCreationDate, schoolId;
     ArrayList<ImagesBean> imageList;
 
-    public AlbumBean(String albumID, String albumTitle, String albumDescription, String albumCreationDate, ArrayList<ImagesBean> imageList) {
+    public AlbumBean(String albumID, String albumTitle, String albumDescription, String albumCreationDate, ArrayList<ImagesBean> imageList, String schoolId) {
         this.albumID = albumID;
         this.albumTitle = albumTitle;
         this.albumDescription = albumDescription;
         this.albumCreationDate = albumCreationDate;
         this.imageList = imageList;
+        this.schoolId = schoolId;
+    }
+
+    public String getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(String schoolId) {
+        this.schoolId = schoolId;
     }
 
     public String getAlbumID() {
