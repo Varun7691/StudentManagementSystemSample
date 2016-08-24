@@ -155,26 +155,26 @@ public class StudentReportFragment extends Fragment {
                     studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
                     academicYearID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
                     classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
-                    sectionID = "41";
-                    termId = "1";
+                    sectionID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSectionID();
+                    termId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getTermID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
 
-                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
-                    studentId = "" + sessionManager.getStudentDetails().getStudentRegID();
-                    academicYearID = "1";
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    studentId = "" + sessionManager.getUserDetails().getStudentRegID();
+                    academicYearID = "" + sessionManager.getUserDetails().getAcademicYearID();
                     classId = "" + sessionManager.getStudentDetails().getClassID();
-                    sectionID = "41";
-                    termId = "1";
+                    sectionID = "" + sessionManager.getUserDetails().getSectionID();
+                    termId = "" + sessionManager.getUserDetails().getTermID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
 
-                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
-                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
-                    academicYearID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
-                    classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
-                    sectionID = "41";
-                    termId = "1";
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    studentId = "" + sessionManager.getUserDetails().getStudentRegID();
+                    academicYearID = "" + sessionManager.getUserDetails().getAcademicYearID();
+                    classId = "" + sessionManager.getStudentDetails().getClassID();
+                    sectionID = "" + sessionManager.getUserDetails().getSectionID();
+                    termId = "" + sessionManager.getUserDetails().getTermID();
                 }
 
                 feePaymentJsonStringer.object().key(Constants.KEY_SCHOOL_ID).value(schoolId).key(Constants.KEY_STUDENT_ID).value(studentId).key(Constants.KEY_ACADEMIC_YEAR_ID).value(academicYearID).key(Constants.KEY_CLASS_ID).value(classId).key(Constants.KEY_SECTION_ID).value(sectionID).key(Constants.KEY_TIME_TABLE_TERM_ID).value(termId).endObject();
@@ -227,7 +227,8 @@ public class StudentReportFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            String studentRegID = null, subject = null, academicYear = null, term = null, board = null, FA1 = null, FA2 = null, totalFA = null, SA1 = null, totalFASA1 = null, rank = null, typeDesc = null, description = null, remark = null, grade = null, hieght = null, weight = null, bloodGroup = null, dental = null, visionLeft = null, visionRight = null, goal = null, strength = null, interestHobbies = null, responsibilityDischarged_exceptionalAchievements = null;
+            String studentRegID = null, subject = null, academicYear = null, term = null, board = null, FA1 = null, FA2 = null, totalFA = null, SA1 = null, totalFASA1 = null, typeDesc = null, description = null, remark = null, grade = null, hieght = null, weight = null, bloodGroup = null, dental = null, visionLeft = null, visionRight = null, goal = null, strength = null, interestHobbies = null, responsibilityDischarged_exceptionalAchievements = null, subjectId = null, subjectName = null;
+            int rank = -1;
 
             try {
                 JSONObject rootObject = new JSONObject(studentReportResponse);
@@ -241,75 +242,70 @@ public class StudentReportFragment extends Fragment {
                     for (int i = 0; i < scholasticResultResponseArray.length(); i++) {
                         JSONObject scholasticResultResponseObject = (JSONObject) scholasticResultResponseArray.get(i);
 
-                        studentRegID = scholasticResultResponseObject.getString(Constants.KEY_STUDENT_ID);
-                        subject = scholasticResultResponseObject.getString(Constants.KEY_PERFORMANCE_SUBJECT);
-                        academicYear = scholasticResultResponseObject.getString(Constants.KEY_PERFORMANCE_ACADEMIC_YEAR);
-                        term = scholasticResultResponseObject.getString(Constants.KEY_PERFORMANCE_TERM);
-                        board = scholasticResultResponseObject.getString(Constants.KEY_PERFORMANCE_BOARD);
-                        FA1 = scholasticResultResponseObject.getString(Constants.KEY_PERFORMANCE_FA1);
-                        FA2 = scholasticResultResponseObject.getString(Constants.KEY_PERFORMANCE_FA2);
-                        totalFA = scholasticResultResponseObject.getString(Constants.KEY_PERFORMANCE_TOTAL_FA);
-                        SA1 = scholasticResultResponseObject.getString(Constants.KEY_PERFORMANCE_SA1);
-                        totalFASA1 = scholasticResultResponseObject.getString(Constants.KEY_PERFORMANCE_TOTAL_FA_SA1);
-                        rank = scholasticResultResponseObject.getString(Constants.KEY_PERFORMANCE_RANK);
+                        subjectId = scholasticResultResponseObject.getString("Subject_Id");
+                        subjectName = scholasticResultResponseObject.getString("SubjectName");
 
-                        scholasticBean.add(new ScholasticBean(studentRegID, subject, academicYear, term, board, FA1, FA2, totalFA, SA1, totalFASA1, rank));
+                        if (scholasticResultResponseObject.has("FA1")) {
+                            FA1 = scholasticResultResponseObject.getString("FA1");
+                        }
+
+                        if (scholasticResultResponseObject.has("FA2")) {
+                            FA2 = scholasticResultResponseObject.getString("FA2");
+                        }
+
+                        if (scholasticResultResponseObject.has("SA1")) {
+                            SA1 = scholasticResultResponseObject.getString("SA1");
+                        }
+
+                        totalFA = scholasticResultResponseObject.getString("Total_FA");
+                        totalFASA1 = scholasticResultResponseObject.getString("Total_FASA");
+                        rank = scholasticResultResponseObject.getInt("GradeRank");
+
+                        scholasticBean.add(new ScholasticBean(studentRegID, subjectName, academicYear, term, board, FA1, FA2, totalFA, SA1, totalFASA1, "" + rank));
                     }
 
                     JSONArray coscholasticResultResponseArray = rootObject.getJSONArray(Constants.KEY_COSCHOLASTIC_RESULT);
-                    for (int i = 0; i < coscholasticResultResponseArray.length(); i++) {
-                        JSONObject coscholasticResultResponseObject = (JSONObject) coscholasticResultResponseArray.get(i);
 
-                        JSONArray childCoscholasticResultResponseArray = coscholasticResultResponseObject.getJSONArray(Constants.KEY_COSCHOLASTIC_LIST_RESULT);
+                    for (int j = 0; j < coscholasticResultResponseArray.length(); j++) {
+                        JSONObject coscholasticResultResponseObject = (JSONObject) coscholasticResultResponseArray.get(j);
+
                         typeDesc = coscholasticResultResponseObject.getString(Constants.KEY_TYPE_DESC);
+                        description = coscholasticResultResponseObject.getString(Constants.KEY_DESCRIPTION);
+                        remark = coscholasticResultResponseObject.getString(Constants.KEY_REMARK);
+                        grade = coscholasticResultResponseObject.getString(Constants.KEY_GRADE);
 
-                        for (int j = 0; j < childCoscholasticResultResponseArray.length(); j++) {
-                            JSONObject lifeSkillcoscholasticResultResponseObject = (JSONObject) childCoscholasticResultResponseArray.get(j);
-
-                            description = lifeSkillcoscholasticResultResponseObject.getString(Constants.KEY_DESCRIPTION);
-                            remark = lifeSkillcoscholasticResultResponseObject.getString(Constants.KEY_REMARK);
-                            grade = lifeSkillcoscholasticResultResponseObject.getString(Constants.KEY_GRADE);
-
-//                            coScholasticChildItemBean.add(new CoScholasticChildItemBean(description, remark, grade));
-                        }
-
-                        coScholasticBean.add(new CoScholasticBean(typeDesc, coScholasticChildItemBean));
+                        coScholasticChildItemBean.add(new CoScholasticChildItemBean(description, remark, grade, typeDesc));
                     }
 
-                    JSONArray healthResultResultResponseArray = rootObject.getJSONArray(Constants.KEY_HEALTH_RESULT);
-                    for (int i = 0; i < healthResultResultResponseArray.length(); i++) {
-                        JSONObject healthResultResultResponseObject = (JSONObject) healthResultResultResponseArray.get(i);
+                    JSONObject healthResultResultResponseObject = rootObject.getJSONObject(Constants.KEY_HEALTH_RESULT);
 
-                        hieght = healthResultResultResponseObject.getString(Constants.KEY_HIEGHT);
-                        weight = healthResultResultResponseObject.getString(Constants.KEY_WEIGHT);
-                        bloodGroup = healthResultResultResponseObject.getString(Constants.KEY_BLOODGROUP);
-                        dental = healthResultResultResponseObject.getString(Constants.KEY_DENTAL);
-                        visionLeft = healthResultResultResponseObject.getString(Constants.KEY_VISION_LEFT);
-                        visionRight = healthResultResultResponseObject.getString(Constants.KEY_VISION_RIGHT);
+                    hieght = healthResultResultResponseObject.getString(Constants.KEY_HIEGHT);
+                    weight = healthResultResultResponseObject.getString(Constants.KEY_WEIGHT);
+                    bloodGroup = healthResultResultResponseObject.getString(Constants.KEY_BLOODGROUP);
+                    dental = healthResultResultResponseObject.getString(Constants.KEY_DENTAL);
+                    visionLeft = healthResultResultResponseObject.getString(Constants.KEY_VISION_LEFT);
+                    visionRight = healthResultResultResponseObject.getString(Constants.KEY_VISION_RIGHT);
 
-                        healthReportBean.setHieght(hieght);
-                        healthReportBean.setWeight(weight);
-                        healthReportBean.setBloodGroup(bloodGroup);
-                        healthReportBean.setDental(dental);
-                        healthReportBean.setVisionLeft(visionLeft);
-                        healthReportBean.setVisionRight(visionRight);
-                    }
+                    healthReportBean.setHieght(hieght);
+                    healthReportBean.setWeight(weight);
+                    healthReportBean.setBloodGroup(bloodGroup);
+                    healthReportBean.setDental(dental);
+                    healthReportBean.setVisionLeft(visionLeft);
+                    healthReportBean.setVisionRight(visionRight);
 
 
-                    JSONArray selfAwarenessResultResponseArray = rootObject.getJSONArray(Constants.KEY_SELF_AWARENESS_RESULT);
-                    for (int i = 0; i < selfAwarenessResultResponseArray.length(); i++) {
-                        JSONObject selfAwarenessResultResponseObject = (JSONObject) selfAwarenessResultResponseArray.get(i);
+                    JSONObject selfAwarenessResultResponseObject = rootObject.getJSONObject(Constants.KEY_SELF_AWARENESS_RESULT);
 
-                        goal = selfAwarenessResultResponseObject.getString(Constants.KEY_GOAL);
-                        strength = selfAwarenessResultResponseObject.getString(Constants.KEY_STRENGTH);
-                        interestHobbies = selfAwarenessResultResponseObject.getString(Constants.KEY_INTEREST_HOBBIES);
-                        responsibilityDischarged_exceptionalAchievements = selfAwarenessResultResponseObject.getString(Constants.KEY_RESPONSIBILITY_DISCHARGED_EXCEPTIONAL_ACHIEVEMENTS);
+                    goal = selfAwarenessResultResponseObject.getString(Constants.KEY_GOAL);
+                    strength = selfAwarenessResultResponseObject.getString(Constants.KEY_STRENGTH);
+                    interestHobbies = selfAwarenessResultResponseObject.getString(Constants.KEY_INTEREST_HOBBIES);
+                    responsibilityDischarged_exceptionalAchievements = selfAwarenessResultResponseObject.getString(Constants.KEY_RESPONSIBILITY_DISCHARGED_EXCEPTIONAL_ACHIEVEMENTS);
 
-                        selfAwarnessReportBean.setGoal(goal);
-                        selfAwarnessReportBean.setStrength(strength);
-                        selfAwarnessReportBean.setInterestHobbies(interestHobbies);
-                        selfAwarnessReportBean.setResponsibilityDischarged_exceptionalAchievements(responsibilityDischarged_exceptionalAchievements);
-                    }
+                    selfAwarnessReportBean.setGoal(goal);
+                    selfAwarnessReportBean.setStrength(strength);
+                    selfAwarnessReportBean.setInterestHobbies(interestHobbies);
+                    selfAwarnessReportBean.setResponsibilityDischarged_exceptionalAchievements(responsibilityDischarged_exceptionalAchievements);
+
                 } else {
                     Toast.makeText(StudentReportFragment.this.getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                 }

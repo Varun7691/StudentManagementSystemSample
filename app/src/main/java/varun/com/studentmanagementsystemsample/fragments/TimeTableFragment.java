@@ -95,26 +95,26 @@ public class TimeTableFragment extends Fragment {
                     schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
                     classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
                     academicYearID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
-                    termID = "1";
-                    sectionID = "42";
+                    termID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getTermID();
+                    sectionID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSectionID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
 
                     userId = "" + sessionManager.getUserDetails().getUserID();
-                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
-                    classId = "" + sessionManager.getStudentDetails().getClassID();
-                    academicYearID = "1";
-                    termID = "1";
-                    sectionID = "42";
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    classId = "" + sessionManager.getUserDetails().getClassID();
+                    academicYearID = "" + sessionManager.getUserDetails().getAcademicYearID();
+                    termID = "" + sessionManager.getUserDetails().getTermID();
+                    sectionID = "" + sessionManager.getUserDetails().getSectionID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
 
                     userId = "" + sessionManager.getUserDetails().getUserID();
-                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
-                    classId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getClassID();
-                    academicYearID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
-                    termID = "1";
-                    sectionID = "42";
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    classId = "" + sessionManager.getUserDetails().getClassID();
+                    academicYearID = "" + sessionManager.getUserDetails().getAcademicYearID();
+                    termID = "" + sessionManager.getUserDetails().getTermID();
+                    sectionID = "" + sessionManager.getUserDetails().getSectionID();
                 }
 
                 timeTableJsonStringer.object().key(Constants.KEY_USER_ID).value(userId).key(Constants.KEY_SCHOOL_ID).value(schoolId).key(Constants.KEY_CLASS_ID).value(classId).key(Constants.KEY_ACADEMIC_YEAR_ID).value(academicYearID).key(Constants.KEY_TIME_TABLE_TERM_ID).value(termID).key(Constants.KEY_SECTION_ID).value(sectionID).endObject();

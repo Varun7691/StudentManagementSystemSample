@@ -1,6 +1,7 @@
 package varun.com.studentmanagementsystemsample.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import varun.com.studentmanagementsystemsample.GalleryDetailActivity;
 import varun.com.studentmanagementsystemsample.R;
 import varun.com.studentmanagementsystemsample.bean.ImagesBean;
 
@@ -48,9 +50,9 @@ public class ImageAdapter extends
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(context, GalleryDetailActivity.class);
-//                intent.putExtra("IMAGE", list.get(position).getImage());
-//                context.startActivity(intent);
+                Intent intent = new Intent(context, GalleryDetailActivity.class);
+                intent.putExtra("IMAGE", list.get(position));
+                context.startActivity(intent);
             }
         });
     }

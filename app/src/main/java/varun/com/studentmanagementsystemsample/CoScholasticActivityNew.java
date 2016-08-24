@@ -6,10 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 import varun.com.studentmanagementsystemsample.adapter.CoScholasticAdapter;
@@ -24,10 +20,6 @@ public class CoScholasticActivityNew extends AppCompatActivity {
 
     ArrayList<CoScholasticChildItemBean> list;
 
-    String coScholasticSample = "{\"CoScholasticResult\":[{\"description\":\"Self Awareness\",\"remark\":\"Test\",\"grade\":\"C\",\"typeDesc\":\"Life Skills\"},{\"description\":\"Problem Solving\",\"remark\":\"Test\",\"grade\":\"C\",\"typeDesc\":\"Life Skills\"},{\"description\":\"Decision Making\",\"remark\":\"Test\",\"grade\":\"B\",\"typeDesc\":\"Life Skills\"},{\"description\":\"Critical Thinking\",\"remark\":\"Test\",\"grade\":\"A\",\"typeDesc\":\"Life Skills\"},{\"description\":\"Creative Thinking\",\"remark\":\"Test\",\"grade\":\"A\",\"typeDesc\":\"Life Skills\"},{\"description\":\"Interpersonal Relationships\",\"remark\":\"Test\",\"grade\":\"B\",\"typeDesc\":\"Life Skills\"},{\"description\":\"Effective Communication\",\"remark\":\"Test\",\"grade\":\"B\",\"typeDesc\":\"Life Skills\"},{\"description\":\"Empathy\",\"remark\":\"Test\",\"grade\":\"D\",\"typeDesc\":\"Life Skills\"},{\"description\":\"Managing Emotions\",\"remark\":\"Test\",\"grade\":\"B\",\"typeDesc\":\"Life Skills\"},{\"description\":\"Dealing With Stress\",\"remark\":\"Test\",\"grade\":\"C\",\"typeDesc\":\"Life Skills\"},{\"description\":\"Work Education\",\"remark\":\"Test\",\"grade\":\"C\",\"typeDesc\":\"Work Education\"},{\"description\":\"Visual and Performing Arts\",\"remark\":\"Good\",\"grade\":\"A\",\"typeDesc\":\"Visual and Performing Arts\"},{\"description\":\"Towards Teachers\",\"remark\":\"Good\",\"grade\":\"B\",\"typeDesc\":\"Attitudes\"},{\"description\":\"Towards School - Mates\",\"remark\":\"Good\",\"grade\":\"A\",\"typeDesc\":\"Attitudes\"},{\"description\":\"Towards School Programmes And Environment\",\"remark\":\"Good\",\"grade\":\"A\",\"typeDesc\":\"Attitudes\"},{\"description\":\"To abide by the constitution and respect its ideals and institutions,the National Flag and the National Anthem\",\"remark\":\"Good\",\"grade\":\"B\",\"typeDesc\":\"Value\"},{\"description\":\"To cherish and follow the noble ideals which inspired freedom struggle\",\"remark\":\"Good\",\"grade\":\"A\",\"typeDesc\":\"Value\"},{\"description\":\"To uphold and protect the sovereignty, unity and integrity of India\",\"remark\":\"Good\",\"grade\":\"A\",\"typeDesc\":\"Value\"},{\"description\":\"To defend the country and render national service when called upon to do so\",\"remark\":\"Good\",\"grade\":\"A\",\"typeDesc\":\"Value\"},{\"description\":\"To promote harmony and spirit of unity and brotherhood amongst all the people of India transcending religious,linguistic and regional or sectional diversities; to remove the practices derogatory to the dignity of women\",\"remark\":\"Good\",\"grade\":\"A\",\"typeDesc\":\"Value\"},{\"description\":\"To value and preserve the rich heritage of our culture\",\"remark\":\"Good\",\"grade\":\"A\",\"typeDesc\":\"Value\"},{\"description\":\"To protect and improve natural environment\",\"remark\":\"Good\",\"grade\":\"A\",\"typeDesc\":\"Value\"},{\"description\":\"To develop scientific temper and the spirit of enquiry\",\"remark\":\"Good\",\"grade\":\"A\",\"typeDesc\":\"Value\"},{\"description\":\"To safeguard public property and to abjure violence\",\"remark\":\"Good\",\"grade\":\"A\",\"typeDesc\":\"Value\"},{\"description\":\"To strive towards excellence in all spheres of individual and collective activity which leads to higher level of performance\",\"remark\":\"Good\",\"grade\":\"A\",\"typeDesc\":\"Value\"}]}";
-
-    ArrayList<CoScholasticChildItemBean> coScholasticChildItemBean;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,37 +30,15 @@ public class CoScholasticActivityNew extends AppCompatActivity {
 
         coScholasticRecyclerView = (RecyclerView) findViewById(R.id.co_scholastic_rv);
 
-        try {
-            coScholasticChildItemBean = new ArrayList<>();
-
-            JSONObject rootObject = new JSONObject(coScholasticSample);
-
-            JSONArray coScholasticArray = rootObject.getJSONArray("CoScholasticResult");
-            for (int i = 0; i < coScholasticArray.length(); i++) {
-                JSONObject coScholasticObject = coScholasticArray.getJSONObject(i);
-
-                String description = coScholasticObject.getString("description");
-                String remark = coScholasticObject.getString("remark");
-                String grade = coScholasticObject.getString("grade");
-                String typeDesc = coScholasticObject.getString("typeDesc");
-
-                coScholasticChildItemBean.add(new CoScholasticChildItemBean(description, remark, grade, typeDesc));
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        adapter = new CoScholasticAdapter(CoScholasticActivityNew.this, coScholasticChildItemBean);
+        adapter = new CoScholasticAdapter(CoScholasticActivityNew.this, list);
 
         ArrayList<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
 
         String temp1, temp2 = null;
         int pos;
 
-        for (int i = 0; i < coScholasticChildItemBean.size(); i++) {
-            temp1 = coScholasticChildItemBean.get(i).getTypeDesc();
+        for (int i = 0; i < list.size(); i++) {
+            temp1 = list.get(i).getTypeDesc();
             if (!temp1.equals(temp2)) {
                 temp2 = temp1;
                 pos = i;

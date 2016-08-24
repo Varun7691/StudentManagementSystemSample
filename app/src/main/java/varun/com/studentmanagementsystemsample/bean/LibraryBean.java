@@ -4,6 +4,7 @@ package varun.com.studentmanagementsystemsample.bean;
  * Created by VarunBarve on 20/04/2016.
  */
 public class LibraryBean {
+
     private String userID, userTypeID, studentRegID, schoolID, allocatedDate, DueDate, allocatedTo, lateCharges, authorName, extendedDay, bookName, lateReturnChergePerDay, defaulAllocatedDay, maximumNoOfExtn, allotedExtension;
 
     public LibraryBean(String userID, String userTypeID, String studentRegID, String schoolID, String allocatedDate, String dueDate, String allocatedTo, String lateCharges, String authorName, String extendedDay, String bookName, String lateReturnChergePerDay, String defaulAllocatedDay, String maximumNoOfExtn, String allotedExtension) {

@@ -89,7 +89,7 @@ public class IncidentsFragment extends Fragment {
         });
 
         new ForIncidents().execute();
-//        new ForIncidentsClassification().execute();
+        new ForIncidentsClassification().execute();
 
         return rootView;
     }
@@ -100,8 +100,10 @@ public class IncidentsFragment extends Fragment {
         final EditText mIncidentName = (EditText) alertLayout.findViewById(R.id.dialog_incident_name);
         final Spinner mIncidentClassification = (Spinner) alertLayout.findViewById(R.id.dialog_incident_classification);
 
-        incidentClassificationSpinnerAdapter = new IncidentClassificationSpinnerAdapter(IncidentsFragment.this.getActivity(), incidentClassificationBeanArrayList);
-        mIncidentClassification.setAdapter(incidentClassificationSpinnerAdapter);
+        if (incidentClassificationBeanArrayList != null) {
+            incidentClassificationSpinnerAdapter = new IncidentClassificationSpinnerAdapter(IncidentsFragment.this.getActivity(), incidentClassificationBeanArrayList);
+            mIncidentClassification.setAdapter(incidentClassificationSpinnerAdapter);
+        }
 
         mIncidentClassification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -292,11 +294,12 @@ public class IncidentsFragment extends Fragment {
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
 
-                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
 
-                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+//                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
                 }
 
                 incidentJsonStringer.object().key(Constants.KEY_SCHOOL_ID).value(schoolId).endObject();

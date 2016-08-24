@@ -28,9 +28,7 @@ import java.util.ArrayList;
 
 import varun.com.studentmanagementsystemsample.MainActivity;
 import varun.com.studentmanagementsystemsample.R;
-import varun.com.studentmanagementsystemsample.adapter.EventRecyclerAdapter;
 import varun.com.studentmanagementsystemsample.adapter.LibraryAdapter;
-import varun.com.studentmanagementsystemsample.bean.EventBean;
 import varun.com.studentmanagementsystemsample.bean.LibraryBean;
 import varun.com.studentmanagementsystemsample.constants.Api;
 import varun.com.studentmanagementsystemsample.constants.Constants;
@@ -88,26 +86,27 @@ public class LibraryFragment extends Fragment {
 
             try {
 
-                String schoolId = null, userId = null;
+                String schoolId = null, userId = null, studentRegID = null;
 
                 if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_PARENT) {
 
-                    userId = "" + sessionManager.getUserDetails().getUserID();
                     schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    studentRegID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
 
-                    userId = "" + sessionManager.getStudentDetails().getUserID();
-                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    studentRegID = "" + sessionManager.getUserDetails().getStudentRegID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
 
-                    userId = "" + sessionManager.getUserDetails().getUserID();
-                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    studentRegID = "" + sessionManager.getUserDetails().getStudentRegID();
+
                 }
 
 
-                eventJsonStringer.object().key(Constants.KEY_USER_ID).value(userId).key(Constants.KEY_SCHOOL_ID).value(schoolId).endObject();
+                eventJsonStringer.object().key(Constants.KEY_STUDENT_ID).value(studentRegID).key(Constants.KEY_SCHOOL_ID).value(schoolId).endObject();
 
                 URL url = new URL(Api.LIBRARY_URL);
 
@@ -184,12 +183,12 @@ public class LibraryFragment extends Fragment {
                         authorName = libraryResponseObject.getString(Constants.KEY_AUTHOR_NAME);
                         extendedDay = libraryResponseObject.getString(Constants.KEY_EXTENDED_DAY);
                         bookName = libraryResponseObject.getString(Constants.KEY_BOOK_NAME);
-//                        lateReturnChergePerDay = libraryResponseObject.getString(Constants.KEY_LATE_RETURN_CHERGE_PER_DAY);
-//                        defaulAllocatedDay = libraryResponseObject.getString(Constants.KEY_DEFAUL_ALLOCATED_DAY);
-//                        maximumNoOfExtn = libraryResponseObject.getString(Constants.KEY_MAXIMUM_NO_OF_EXTN);
-//                        allotedExtension = libraryResponseObject.getString(Constants.KEY_ALLOTED_EXTENSION);
+                        lateReturnChergePerDay = libraryResponseObject.getString(Constants.KEY_LATE_RETURN_CHERGE_PER_DAY);
+                        defaulAllocatedDay = libraryResponseObject.getString(Constants.KEY_DEFAUL_ALLOCATED_DAY);
+                        maximumNoOfExtn = libraryResponseObject.getString(Constants.KEY_MAXIMUM_NO_OF_EXTN);
+                        allotedExtension = libraryResponseObject.getString(Constants.KEY_ALLOTED_EXTENSION);
 
-                        list.add(new LibraryBean(userID, userTypeID, studentRegID, schoolID, allocatedDate, DueDate, allocatedTo, lateCharges, authorName, extendedDay, bookName, "", "", "", ""));
+                        list.add(new LibraryBean(userID, userTypeID, studentRegID, schoolID, allocatedDate, DueDate, allocatedTo, lateCharges, authorName, extendedDay, bookName, lateReturnChergePerDay, defaulAllocatedDay, maximumNoOfExtn, allotedExtension));
                     }
 
                     adapter = new LibraryAdapter(LibraryFragment.this.getActivity(), list);

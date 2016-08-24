@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
-import android.database.SQLException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -33,11 +31,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import varun.com.studentmanagementsystemsample.MainActivity;
 import varun.com.studentmanagementsystemsample.R;
-import varun.com.studentmanagementsystemsample.adapter.LibraryAdapter;
 import varun.com.studentmanagementsystemsample.adapter.TodoAdapter;
-import varun.com.studentmanagementsystemsample.bean.LibraryBean;
 import varun.com.studentmanagementsystemsample.bean.TodoBean;
 import varun.com.studentmanagementsystemsample.constants.Api;
 import varun.com.studentmanagementsystemsample.constants.Constants;
@@ -51,7 +46,7 @@ import varun.com.studentmanagementsystemsample.utils.SessionManager;
 public class ToDoListFragment extends Fragment {
 
     RecyclerView rvTodoList;
-    ArrayList<TodoBean> list;
+    public static ArrayList<TodoBean> list;
     TodoAdapter adapter;
     FloatingActionButton todo_fab;
     private TodoListSQLHelper todoListSQLHelper;
@@ -66,6 +61,7 @@ public class ToDoListFragment extends Fragment {
 
     String titleStr, descriptionStr;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -76,8 +72,6 @@ public class ToDoListFragment extends Fragment {
         rvTodoList = (RecyclerView) rootView.findViewById(R.id.rvTodoList);
         todo_fab = (FloatingActionButton) rootView.findViewById(R.id.todo_fab);
 
-        new ForTodoList().execute();
-
         todo_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +80,12 @@ public class ToDoListFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        new ForTodoList().execute();
     }
 
     class ForTodoList extends AsyncTask<Void, Void, Void> {
@@ -204,8 +204,7 @@ public class ToDoListFragment extends Fragment {
 
                     rvTodoList.setAdapter(adapter);
                     rvTodoList.setLayoutManager(new LinearLayoutManager(ToDoListFragment.this.getActivity()));
-                    RecyclerView.ItemDecoration itemDecoration = new
-                            DividerItemDecoration(ToDoListFragment.this.getActivity(), DividerItemDecoration.VERTICAL_LIST);
+                    RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(ToDoListFragment.this.getActivity(), DividerItemDecoration.VERTICAL_LIST);
                     rvTodoList.addItemDecoration(itemDecoration);
                 }
             } catch (Exception e) {
@@ -307,13 +306,12 @@ public class ToDoListFragment extends Fragment {
                 int statusCode = rootObject.getInt(Constants.KEY_STATUS_CODE);
                 String statusMsg = rootObject.getString(Constants.KEY_MESSAGE);
 
-                if (statusCode == Constants.STATUS_CODE_SUCCESS) {
-
+                if (statusCode == Constants.STATUS_CODE_RECORD_INSERTED_SCCESSFULLY) {
+                    progressDialog.dismiss();
                     new ForTodoList().execute();
 
                     Toast.makeText(ToDoListFragment.this.getActivity(), "" + statusMsg, Toast.LENGTH_SHORT).show();
                 }
-                progressDialog.dismiss();
             } catch (Exception e) {
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);
             }
@@ -353,6 +351,5 @@ public class ToDoListFragment extends Fragment {
         AlertDialog dialog = alert.create();
         dialog.show();
     }
-
 
 }

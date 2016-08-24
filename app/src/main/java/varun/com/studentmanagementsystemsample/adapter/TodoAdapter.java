@@ -28,7 +28,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import varun.com.studentmanagementsystemsample.MainActivity;
 import varun.com.studentmanagementsystemsample.R;
 import varun.com.studentmanagementsystemsample.bean.TodoBean;
 import varun.com.studentmanagementsystemsample.constants.Api;
@@ -55,6 +54,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
     String descriptionStr, titleStr, todoId;
 
+    int editPosition;
+
     public TodoAdapter(Context context, ArrayList<TodoBean> list) {
         this.list = list;
         this.context = context;
@@ -79,6 +80,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
         holder.todoContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                editPosition = position;
                 displayAlertDialog(position, list.get(position).getTitle(), list.get(position).getDescription());
             }
         });
@@ -178,7 +180,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
                     userId = "" + sessionManager.getUserDetails().getUserID();
                 }
 
-                addTodoJsonStringer.object().key(userId).value(todoId).key(Constants.KEY_USER_ID).value(sessionManager.getUserDetails().getUserID()).key(Constants.KEY_TODO_LIST_TITLE).value(titleStr).key(Constants.KEY_TODO_LIST_DESCRIPTION).value(descriptionStr).key(Constants.KEY_STATUS).value("1").endObject();
+                addTodoJsonStringer.object().key(Constants.KEY_TODO_LIST_ID).value(todoId).key(Constants.KEY_USER_ID).value(userId).key(Constants.KEY_TODO_LIST_TITLE).value(titleStr).key(Constants.KEY_TODO_LIST_DESCRIPTION).value(descriptionStr).key(Constants.KEY_STATUS).value("1").endObject();
 
                 URL url = new URL(Api.UPDATE_TODO_URL);
 
@@ -233,14 +235,18 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
                 int statusCode = rootObject.getInt(Constants.KEY_STATUS_CODE);
                 String statusMsg = rootObject.getString(Constants.KEY_MESSAGE);
 
-                if (statusCode == Constants.STATUS_CODE_SUCCESS) {
+                if (statusCode == Constants.STATUS_CODE_UPDATED_SUCCESSFULLY) {
+
+                    ToDoListFragment.list.get(editPosition).setTitle(titleStr);
+                    ToDoListFragment.list.get(editPosition).setDescription(descriptionStr);
+//                    notifyDataSetChanged();
                     Toast.makeText(context, "" + statusMsg, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "" + statusMsg, Toast.LENGTH_SHORT).show();
                 }
                 progressDialog.dismiss();
-                notifyDataSetChanged();
             } catch (Exception e) {
+                progressDialog.dismiss();
                 Log.e(Constants.TAG, "JSON PARSE ERROR: " + e);
             }
         }

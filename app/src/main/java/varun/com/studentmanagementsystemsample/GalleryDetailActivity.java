@@ -1,17 +1,21 @@
 package varun.com.studentmanagementsystemsample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.squareup.picasso.Picasso;
+
+import varun.com.studentmanagementsystemsample.bean.ImagesBean;
 
 public class GalleryDetailActivity extends AppCompatActivity {
 
-    SubsamplingScaleImageView galleryImageView;
+    ImageView galleryImageView;
+    ImagesBean imagesBean;
+
+    TextView imageCaption, imageDescription, imageDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +23,18 @@ public class GalleryDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gallery_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        int image = getIntent().getIntExtra("IMAGE", 0);
+        imagesBean = (ImagesBean) getIntent().getSerializableExtra("IMAGE");
 
-        galleryImageView = (SubsamplingScaleImageView) findViewById(R.id.galleryImageView);
+        galleryImageView = (ImageView) findViewById(R.id.galleryImageView);
+        imageCaption = (TextView) findViewById(R.id.image_caption);
+        imageDescription = (TextView) findViewById(R.id.image_description);
+        imageDate = (TextView) findViewById(R.id.image_date);
 
-        galleryImageView.setImage(ImageSource.resource(image));
+        Picasso.with(GalleryDetailActivity.this).load("http://103.7.130.46:8082" + imagesBean.getImagePath()).into(galleryImageView);
+
+        imageCaption.setText(imagesBean.getImageTitle());
+        imageDescription.setText(imagesBean.getImageDescription());
+        imageDate.setText(imagesBean.getImageTakenDate());
     }
 
     @Override

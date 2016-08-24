@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -34,9 +33,7 @@ import java.util.ArrayList;
 
 import varun.com.studentmanagementsystemsample.MainActivity;
 import varun.com.studentmanagementsystemsample.R;
-import varun.com.studentmanagementsystemsample.adapter.EventRecyclerAdapter;
 import varun.com.studentmanagementsystemsample.adapter.FeePaymentAdapter;
-import varun.com.studentmanagementsystemsample.bean.EventBean;
 import varun.com.studentmanagementsystemsample.bean.FeePaymentBean;
 import varun.com.studentmanagementsystemsample.constants.Api;
 import varun.com.studentmanagementsystemsample.constants.Constants;
@@ -113,15 +110,15 @@ public class FeePaymentFragment extends Fragment {
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_STUDENT) {
 
-                    schoolId = "" + sessionManager.getStudentDetails().getSchoolID();
-                    studentId = "" + sessionManager.getStudentDetails().getStudentRegID();
-                    academicYearID = "1";
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    studentId = "" + sessionManager.getUserDetails().getStudentRegID();
+                    academicYearID = "" + sessionManager.getUserDetails().getAcademicYearID();
 
                 } else if (sessionManager.getUserDetails().getUserTypeID() == Constants.USER_TYPE_TEACHER) {
 
-                    schoolId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getSchoolID();
-                    studentId = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getStudentID();
-                    academicYearID = "" + sessionManager.getStudentList().get(MainActivity.globalPosition).getAcademicYearID();
+                    schoolId = "" + sessionManager.getUserDetails().getSchoolID();
+                    studentId = "" + sessionManager.getUserDetails().getStudentRegID();
+                    academicYearID = "" + sessionManager.getUserDetails().getAcademicYearID();
 
                 }
 
@@ -231,5 +228,4 @@ public class FeePaymentFragment extends Fragment {
             progressDialog.dismiss();
         }
     }
-
 }
