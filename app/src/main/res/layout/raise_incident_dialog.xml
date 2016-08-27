@@ -26,7 +26,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Incident name" />
+        android:text="Incident nature" />
 
     <EditText
         android:id="@+id/dialog_incident_name"

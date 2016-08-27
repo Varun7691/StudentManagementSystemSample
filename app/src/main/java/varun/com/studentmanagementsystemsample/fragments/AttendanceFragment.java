@@ -235,7 +235,7 @@ public class AttendanceFragment extends Fragment {
                         if (attendanceList.get(i).getAttendanceStatus().equals("P")) {
                             totalPresentCount++;
                             attendanceBackgroundColorMap.put(attendanceList.get(i).getAttendanceDate(), getResources().getDrawable(R.drawable.white));
-                            attendanceTextColorMap.put(attendanceList.get(i).getAttendanceDate(), R.color.caldroid_black);
+                            attendanceTextColorMap.put(attendanceList.get(i).getAttendanceDate(), R.color.colorGreen);
                         } else if (attendanceList.get(i).getAttendanceStatus().equals("A")) {
                             totalAbsentCount++;
                             attendanceBackgroundColorMap.put(attendanceList.get(i).getAttendanceDate(), getResources().getDrawable(R.drawable.red));

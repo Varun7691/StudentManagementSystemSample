@@ -145,7 +145,6 @@ public class GalleryFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             albumList = new ArrayList<>();
-            imageList = new ArrayList<>();
             progressDialog = new ProgressDialog(GalleryFragment.this.getActivity());
             progressDialog.setMessage("Loading...");
             progressDialog.setCancelable(false);
@@ -245,6 +244,7 @@ public class GalleryFragment extends Fragment {
                     schoolID = albumObject.getString(Constants.KEY_SCHOOL_ID);
 
                     JSONArray imageArray = albumObject.getJSONArray(Constants.KEY_IMAGES);
+                    imageList = new ArrayList<>();
                     for (int j = 0; j < imageArray.length(); j++) {
                         JSONObject imageObject = imageArray.getJSONObject(j);
 

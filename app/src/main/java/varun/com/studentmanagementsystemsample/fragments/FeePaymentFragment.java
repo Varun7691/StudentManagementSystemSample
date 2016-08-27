@@ -206,12 +206,14 @@ public class FeePaymentFragment extends Fragment {
                         totalFeesPaid = feePaymentResponseObject.getString(Constants.KEY_FEE_PAYMENT_TOTAL_FEES_PAID);
                     }
 
-                    int dueFee = Integer.parseInt(totalFees) - Integer.parseInt(totalFeesPaid);
+                    float dueFee = Float.parseFloat(totalFees) - Float.parseFloat(totalFeesPaid);
 
                     mTotalFeePayment.setText("Total Fees: " + totalFees);
                     mDueFeePayment.setText("Fees Dues: " + dueFee);
 
-                    ObjectAnimator progressAnimator = ObjectAnimator.ofInt(feeProgressBar, "progress", 0, 75);
+                    int progressPercentage = (int) ((Float.parseFloat(totalFeesPaid) / Float.parseFloat(totalFees)) * 100);
+
+                    ObjectAnimator progressAnimator = ObjectAnimator.ofInt(feeProgressBar, "progress", 0, progressPercentage);
                     progressAnimator.setDuration(3000);
                     progressAnimator.setInterpolator(new LinearInterpolator());
                     progressAnimator.start();
