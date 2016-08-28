@@ -112,6 +112,7 @@ public class Constants {
     public static final String KEY_INTEREST_HOBBIES = "interestHobbies";
     public static final String KEY_RESPONSIBILITY_DISCHARGED_EXCEPTIONAL_ACHIEVEMENTS = "responsibilityDischarged_exceptionalAchievements";
     public static final String KEY_INCIDENT_CLASSIFICATION_RESULT = "IncidentClassificationMasterResult";
+    public static final String KEY_INCIDENT_AGAIST_NAME_RESULT= "IncidentAgaistNameResult";
     public static final String KEY_USER_SPECIFIC_ID = "userSpecificID";
     public static final String KEY_SECTION_ID = "sectionID";
     public static final String KEY_STATUS = "status";

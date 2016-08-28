@@ -23,5 +23,7 @@ public class Api {
     public static final String INCIDENT_CLASSIFICATION_URL = BASE_URL + "api/Incident/getIncidentClassification";
     public static final String CREATE_INCIDENT_URL = BASE_URL + "api/Incident/createIncident";
     public static final String IMAGE_GALLERY_URL = BASE_URL + "api/Gallery/getImageGallery";
+    public static final String USER_AUTOCOMPLETE_URL = BASE_URL + "api/Incident/getIncidentAgainstName";
+
 
 }

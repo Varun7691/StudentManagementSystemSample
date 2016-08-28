@@ -3,6 +3,7 @@ package varun.com.studentmanagementsystemsample.fragments;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 
 import varun.com.studentmanagementsystemsample.MainActivity;
 import varun.com.studentmanagementsystemsample.R;
+import varun.com.studentmanagementsystemsample.RaisingIncidentsActivity;
 import varun.com.studentmanagementsystemsample.adapter.IncidentAdapter;
 import varun.com.studentmanagementsystemsample.adapter.IncidentClassificationSpinnerAdapter;
 import varun.com.studentmanagementsystemsample.bean.IncidentClassificationbean;
@@ -81,10 +83,10 @@ public class IncidentsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                showRaiseIncidentDialog();
+//                showRaiseIncidentDialog();
 
-//                Intent intent = new Intent(IncidentsFragment.this.getActivity(), RaisingIncidentsActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(IncidentsFragment.this.getActivity(), RaisingIncidentsActivity.class);
+                startActivity(intent);
             }
         });
 

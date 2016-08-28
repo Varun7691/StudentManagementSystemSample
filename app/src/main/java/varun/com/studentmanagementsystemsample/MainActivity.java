@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import varun.com.studentmanagementsystemsample.constants.Constants;
 import varun.com.studentmanagementsystemsample.fragments.AttendanceFragment;
 import varun.com.studentmanagementsystemsample.fragments.EventsFragment;
 import varun.com.studentmanagementsystemsample.fragments.FeePaymentFragment;
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity
     public static String studentId, schoolId;
     public static int globalPosition;
     Fragment fragment;
+    SessionManager sessionManager;
+
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        sessionManager = new SessionManager(MainActivity.this);
 
         studentId = getIntent().getStringExtra("StudentId");
         schoolId = getIntent().getStringExtra("SchoolId");
@@ -64,6 +70,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         SelectItem(1);
+        hideItem();
     }
 
     @Override
@@ -84,6 +91,19 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
 //        getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    private void hideItem() {
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+
+        int userType = sessionManager.getUserDetails().getUserTypeID();
+
+        if (userType == Constants.USER_TYPE_STUDENT) {
+            nav_Menu.findItem(R.id.nav_home).setVisible(false);
+        } else {
+            nav_Menu.findItem(R.id.nav_home).setVisible(true);
+        }
     }
 
     @Override
