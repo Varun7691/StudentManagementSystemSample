@@ -18,6 +18,7 @@ public class SelfAwarenessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_self_awareness);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Self Awareness");
 
         selfAwarnessReportBean = (SelfAwarnessReportBean) getIntent().getSerializableExtra("SELF AWARENESS BEAN");
 

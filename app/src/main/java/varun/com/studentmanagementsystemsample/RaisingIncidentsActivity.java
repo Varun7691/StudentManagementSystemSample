@@ -95,6 +95,7 @@ public class RaisingIncidentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_raising_incidents);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Create Incident");
 
         new ForIncidentsClassification().execute();
 

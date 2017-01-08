@@ -25,6 +25,7 @@ public class CoScholasticActivityNew extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_co_scholastic_activity_new);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Co-Scholastic");
 
         list = (ArrayList<CoScholasticChildItemBean>) getIntent().getSerializableExtra("COSCHOLASTIC LIST");
 

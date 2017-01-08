@@ -18,6 +18,7 @@ public class IncidentDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_incident_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Incident");
 
         incidentBean = (IncidentOverviewBean) getIntent().getSerializableExtra("INCIDENT");
 

@@ -26,6 +26,7 @@ public class ScholasticActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scholastic);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Scholastic");
 
         scholasticBean = (ArrayList<ScholasticBean>) getIntent().getSerializableExtra("SCHOLASTIC LIST");
 

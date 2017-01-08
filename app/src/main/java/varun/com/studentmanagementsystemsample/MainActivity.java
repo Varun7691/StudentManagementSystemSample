@@ -174,6 +174,8 @@ public class MainActivity extends AppCompatActivity
 
                 break;
             case 1:
+                getSupportActionBar().setTitle("Performance");
+
                 fragment = new PerformanceFragment();
 
                 android.support.v4.app.FragmentTransaction ftPerformance = getSupportFragmentManager()
@@ -182,6 +184,8 @@ public class MainActivity extends AppCompatActivity
                 ftPerformance.commit();
                 break;
             case 2:
+                getSupportActionBar().setTitle("Event");
+
                 fragment = new EventsFragment();
 
                 android.support.v4.app.FragmentTransaction ftEvents = getSupportFragmentManager()
@@ -190,6 +194,8 @@ public class MainActivity extends AppCompatActivity
                 ftEvents.commit();
                 break;
             case 3:
+                getSupportActionBar().setTitle("Attendance");
+
                 fragment = new AttendanceFragment();
 
                 android.support.v4.app.FragmentTransaction ftAttendance = getSupportFragmentManager()
@@ -198,6 +204,8 @@ public class MainActivity extends AppCompatActivity
                 ftAttendance.commit();
                 break;
             case 4:
+                getSupportActionBar().setTitle("Fee Payment");
+
                 fragment = new FeePaymentFragment();
 
                 android.support.v4.app.FragmentTransaction ftFeePayment = getSupportFragmentManager()
@@ -206,6 +214,8 @@ public class MainActivity extends AppCompatActivity
                 ftFeePayment.commit();
                 break;
             case 5:
+                getSupportActionBar().setTitle("Incidents");
+
                 fragment = new IncidentsFragment();
 
                 android.support.v4.app.FragmentTransaction ftIncidents = getSupportFragmentManager()
@@ -214,6 +224,8 @@ public class MainActivity extends AppCompatActivity
                 ftIncidents.commit();
                 break;
             case 6:
+                getSupportActionBar().setTitle("Time Table");
+
                 fragment = new TimeTableFragment();
 
                 android.support.v4.app.FragmentTransaction ftTimeTable = getSupportFragmentManager()
@@ -222,6 +234,8 @@ public class MainActivity extends AppCompatActivity
                 ftTimeTable.commit();
                 break;
             case 7:
+                getSupportActionBar().setTitle("Library");
+
                 fragment = new LibraryFragment();
 
                 android.support.v4.app.FragmentTransaction ftLibrary = getSupportFragmentManager()
@@ -230,6 +244,8 @@ public class MainActivity extends AppCompatActivity
                 ftLibrary.commit();
                 break;
             case 8:
+                getSupportActionBar().setTitle("Student Report");
+
                 fragment = new StudentReportFragment();
 
                 android.support.v4.app.FragmentTransaction ftStudentReport = getSupportFragmentManager()
@@ -238,6 +254,8 @@ public class MainActivity extends AppCompatActivity
                 ftStudentReport.commit();
                 break;
             case 9:
+                getSupportActionBar().setTitle("Todo List");
+
                 fragment = new ToDoListFragment();
 
                 android.support.v4.app.FragmentTransaction ftToDoList = getSupportFragmentManager()
@@ -246,6 +264,8 @@ public class MainActivity extends AppCompatActivity
                 ftToDoList.commit();
                 break;
             case 10:
+                getSupportActionBar().setTitle("Gallery");
+
                 fragment = new GalleryFragment();
 
                 android.support.v4.app.FragmentTransaction ftGallery = getSupportFragmentManager()

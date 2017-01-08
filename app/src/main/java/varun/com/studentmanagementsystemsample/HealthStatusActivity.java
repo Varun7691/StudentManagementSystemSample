@@ -19,6 +19,7 @@ public class HealthStatusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_status);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Health Status");
 
         healthReportBean = (HealthReportBean) getIntent().getSerializableExtra("HEALTH BEAN");
 

@@ -169,7 +169,7 @@ public class TimeTableFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            String timeTableID = null, userID = null, userTypeID = null, studentRegID = null, schoolID = null, termID = null, classID = null, date = null, day = null, periodOrder = null, subject = null;
+            String timeTableID = null, userID = null, userTypeID = null, studentRegID = null, schoolID = null, termID = null, classID = null, date = null, day = null, periodOrder = null, subject = null, periodsId = null, periodsStr = null, monday = null, tuesday = null, wednesday = null, thursday = null, friday = null, saturday = null;
             try {
                 JSONObject rootObject = new JSONObject(timeTableResponse);
 
@@ -181,19 +181,19 @@ public class TimeTableFragment extends Fragment {
                     for (int i = 0; i < timeTableResponseArray.length(); i++) {
                         JSONObject timeTableResponseObject = (JSONObject) timeTableResponseArray.get(i);
 
-                        userID = timeTableResponseObject.getString(Constants.KEY_USER_ID);
-                        userTypeID = timeTableResponseObject.getString(Constants.KEY_USER_TYPE);
-                        studentRegID = timeTableResponseObject.getString(Constants.KEY_STUDENT_ID);
-                        schoolID = timeTableResponseObject.getString(Constants.KEY_SCHOOL_ID);
-                        timeTableID = timeTableResponseObject.getString(Constants.KEY_TIME_TABLE_ID);
-                        termID = timeTableResponseObject.getString(Constants.KEY_TIME_TABLE_TERM_ID);
-                        classID = timeTableResponseObject.getString(Constants.KEY_TIME_TABLE_CLASS_ID);
-                        date = timeTableResponseObject.getString(Constants.KEY_TIME_TABLE_DATE);
-                        periodOrder = timeTableResponseObject.getString(Constants.KEY_TIME_TABLE_PERIOD_ORDER);
-                        subject = timeTableResponseObject.getString(Constants.KEY_TIME_TABLE_SUBJECT);
+                        periodsId = timeTableResponseObject.getString("Period_Id");
+                        periodsStr = timeTableResponseObject.getString("Periods");
+                        monday = timeTableResponseObject.getString("Monday");
+                        tuesday = timeTableResponseObject.getString("Tuesday");
+                        wednesday = timeTableResponseObject.getString("Wednesday");
+                        thursday = timeTableResponseObject.getString("Thursday");
+                        friday = timeTableResponseObject.getString("Friday");
+                        saturday = timeTableResponseObject.getString("Saturday");
+
+//                        subject = timeTableResponseObject.getString(Constants.KEY_TIME_TABLE_SUBJECT);
 
                         int pos = i + 1;
-                        periods.add(i, subject);
+                        periods.add(i, periodsStr);
                     }
                     addTableLayout2Rows(tableLayout2, periods);
                 }

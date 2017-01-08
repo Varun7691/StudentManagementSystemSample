@@ -22,6 +22,7 @@ public class GalleryDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Gallery");
 
         imagesBean = (ImagesBean) getIntent().getSerializableExtra("IMAGE");
 

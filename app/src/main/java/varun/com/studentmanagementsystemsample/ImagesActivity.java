@@ -1,14 +1,13 @@
 package varun.com.studentmanagementsystemsample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
 
-import varun.com.studentmanagementsystemsample.adapter.GalleryAdapter;
 import varun.com.studentmanagementsystemsample.adapter.ImageAdapter;
 import varun.com.studentmanagementsystemsample.bean.ImagesBean;
 
@@ -24,6 +23,7 @@ public class ImagesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_gallery);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Images");
 
         imageList = (ArrayList<ImagesBean>) getIntent().getSerializableExtra("IMAGE LIST");
 
